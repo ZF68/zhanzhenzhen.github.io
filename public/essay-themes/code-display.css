@@ -1,0 +1,23 @@
+html {
+    color: rgb(51,51,51);
+}
+pre {
+    /*border-top: 0.2em solid rgb(224,224,224);*/
+    border-left: 0.6em solid rgb(224,224,224);
+    padding: 0.25em 1em;
+    /*border-radius: 0.8em 0 0 0;*/
+    font-size: 0.9rem;
+}
+p code {
+    border: 0.2em solid rgb(224,224,224);
+    padding: 0.1em 0.2em;
+    color: rgb(51,111,160);
+    border-radius: 0.4em;
+    font-size: 0.9rem;
+}
+h1 {
+    border-bottom: 0.15rem solid rgb(224,224,224);
+}
+h2 {
+    border-bottom: 0.1rem solid rgb(224,224,224);
+}

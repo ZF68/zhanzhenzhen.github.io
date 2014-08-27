@@ -1,0 +1,16 @@
+html {
+    font-family: "Cambria Math", Times, "Times New Roman", "Songti SC", SimSun, serif;
+    line-height: 1.5;
+}
+h1, h2, h3, h4, h5, h6, b, strong {
+    /*
+    Lantinghei SC has 3 weights. Firefox treats them as 300, 600 and 900.
+    But other browsers all treat them as 400, 700 and 900.
+    Also, if the desired weight is 500, only Firefox uses the correct 300 while others use 700.
+    Here we must use 600 for all bold fonts to make all browsers have the same effect.
+    */
+    font-weight: 600;
+}
+p, pre, div.paragraph {
+    margin: 0.8rem 0 0 0;
+}

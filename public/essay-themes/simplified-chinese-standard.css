@@ -1,0 +1,11 @@
+html {
+    font-family: "Cambria Math", Times, "Times New Roman", SimSun, "Songti SC", serif;
+    line-height: 1.5;
+}
+h1, h2, h3, h4, h5, h6, b, strong {
+    font-family: Helvetica, Arial, "Hiragino Sans GB", SimHei, sans-serif;
+    font-weight: 600;
+}
+p, pre, div.paragraph {
+    margin: 0.8rem 0 0 0;
+}

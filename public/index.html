@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html style="font-size: 20px;">
+<head>
+    <meta charset="utf-8" />
+    <title>詹臻臻的主页 | zizi's home</title>
+    <link rel="stylesheet" href="highlight-custom.css" type="text/css" />
+    <link rel="stylesheet" href="manual.css" type="text/css" />
+    <style type="text/css">
+        pre {
+            font-size: 14px;
+        }
+        #map td {
+            vertical-align: top;
+        }
+    </style>
+    <script src="doc-html.js" type="text/javascript"></script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-19880790-4', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script src="3rd-party/highlight/highlight.pack.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            // equivalent to ES6 `Array.from`
+            var arrayFrom = function(arrayLike) {
+                var len = arrayLike.length;
+                var r = [];
+                for (var i = 0; i < len; i++) {
+                    r.push(arrayLike[i]);
+                }
+                return r;
+            };
+            var toc = document.getElementById("toc");
+            if (toc !== null) {
+                var headingSymbol = 0;
+                arrayFrom(document.getElementsByTagName("*")).forEach(function(element) {
+                    var tagName = element.tagName.toLowerCase();
+                    if (tagName === "h1" || tagName === "h2") {
+                        if (element.id === "") {
+                            element.id = "heading_" + headingSymbol;
+                            headingSymbol++;
+                        }
+                        var newA = document.createElement("a");
+                        newA.href = "#" + element.id;
+                        newA.textContent = element.textContent;
+                        toc.appendChild(newA);
+                        var newBR = document.createElement("br");
+                        toc.appendChild(newBR);
+                    }
+                });
+            }
+            hljs.initHighlighting();
+        });
+    </script>
+</head>
+<body>
+<table style="border-bottom: 0.15rem solid rgb(128,128,128);"><tr>
+    <td style="width: 100%;">
+        <span style="font-family: Quando; font-weight: 400; font-size: 3rem;">詹臻臻的主页</span>
+    </td>
+</tr></table>
+<p>我出生于1982年，小时候对一切自己会动的玩具感兴趣。1989年读小学1年级时，家里有了一台叫做“中华学习机”的电脑，从此接触并爱上编程（因为觉得会自动运行真的很好玩）。这幅照片显示了我小时候是怎样玩电脑的：</p>
+<img src="childhood-computer.jpg" style="width: 50%;" />
+<p>那时没有专门的显示器，这台黑白电视机勉强能够应付，里面可以看到似乎有文字，其实是一段BASIC程序。这电脑是兼容Apple-II的，还接了个5寸盘的驱动器（在左边）。</p>
+<p>而到了今天，人们面临着众多选择时，我的选择又是什么呢？下面详细地介绍一下。</p>
+<table id="map">
+    <tr>
+        <td style="width: 50%; padding-bottom: 0.5em;">目录</td>
+        <td style="width: 50%; padding-bottom: 0.5em;">其他文章</td>
+    </tr>
+    <tr>
+        <td id="toc">
+        </td>
+        <td>
+            <a href="writings/比特币科普及其未来三种结局.pdf">比特币科普及其未来三种结局</a>
+        </td>
+    </tr>
+</table>
+<h2>哪种语言？</h2>
+<p>2010年之前，我和许多人一样，选择跟随微软，觉得C#，特别是函数式的F#前景光明。但后来发觉，最有前途的语言其实是JavaScript，或者说是它的变异体CoffeeScript。</p>
+<p>首先是因为未来的电脑、手机，以及可穿戴智能设备中，非浏览器类应用终将逐渐凋零。为什么？因为App框架是一种“私有”的标准，每个大公司如微软、苹果都只希望自己的框架取胜。但唯有浏览器的语言，是统一的。私有的平台赢得暂时的胜利，但统一的平台将赢得最终的胜利，只要它不断地进步。</p>
+<p>其次是因为服务端JavaScript，即Node.js的出现，使程序员“只用一种语言”的理想得到了实现。</p>
+<p>最后是因为JavaScript本身是函数式的（虽然比较丑），这符合近些年流行的趋势，而CoffeeScript用更简洁的风格改良了JavaScript，使它的函数式特征一下子美丽地表现出来了。</p>
+<p>所以，如果你是一个完美主义者，那么请用CoffeeScript，它和JavaScript完全兼容。</p>
+<h2>用什么电脑开发？</h2>
+<p>选好了语言，那么剩下的问题就是选择什么电脑来编程了，这在国内似乎就不是个问题，反正不都是Windows呗？2013年前我用的也是Windows，但是近几年在接国外的项目时我注意到，美国的程序员用的基本都是Mac，就连一些发展中国家的程序员也是用Mac居多。网站上的文档，全是以类Unix系统为范本的，所以我觉得越来越别扭，终于有一天我彻底放弃了Windows。现在我的结论是：最好是使用Mac，不行就用Linux（可以装在虚拟机里），再不行就在Windows里装两样东西：Bash和能提供Unix风格换行符的文本编辑器。</p>
+<p>这是我现在的电脑：</p>
+<img src="now-computer.jpg" style="width: 50%;" />
+<ul>
+    <li>基于Unix。全世界各种新标准、规范的制定者（除微软自己外），从他们写的文档就可以看出用的不是Windows。由于未来的框架都是他们主宰的，使用他们所使用的操作系统，总不会有错。</li>
+    <li>换行符是LF，不会像Windows一样，搞个CR+LF，记事本打开来自GitHub的文件时则所有行都变成了一行。</li>
+    <li>互联网巨头的公司内部，用苹果电脑的比较多。我曾参观过Google在上海的办公室，几乎全是iMac。倒不是他们钱多才用苹果，而是因为Linux和 Mac OS X 的内核是兼容的，而Windows就不兼容了。</li>
+    <li>Mac OS X 可以虚拟Windows，但Windows就不能虚拟 Mac OS X。</li>
+</ul>
+<h2>Git的配置</h2>
+<p>Git在Linux/Mac中没什么要特别注意的地方，但在Windows中，安装时它会问你2个问题，要选择</p>
+<ul>
+    <li>Use Git Bash only</li>
+    <li>Checkout as-is, commit as-is</li>
+</ul>
+<p>使git命令仅能在Bash中运行，能起到最好的隔离作用。Windows里的Bash是啥？是一个模拟Linux的命令行环境，它会和Git一起被安装，在Bash里面你可以尽情使用大神们提到的Linux命令如<code>ls</code>、<code>grep</code>。千万不要选择让git在cmd中运行，这种“混合”会有各种各样的问题。</p>
+<p>要知道，Git和Linux的发明者是同一个人，所以Git天生就更适合在Bash里运行。</p>
+<p>至于选 Checkout as-is, commit as-is，也就是不自动修正换行符，许多人可能会反对。我说下我的理由：</p>
+<ul>
+    <li>“自动修正”是一个篡改。源代码是什么？是完全体现作者意志的一个手工输出。用自动化工具，等于是把作者的意志给钝化了。自动化工具之于源代码，只适于作提醒，绝不适于作更改。</li>
+    <li>只要你不用微软自家的记事本和 Visual Studio，有n多的编辑器本身就可以生成LF换行符的文本文件。</li>
+    <li>如Git将某个二进制文件误判为文本文件（几率不高，但有可能），则“自动修正”会破坏文件内容。</li>
+</ul>
+<h2>浏览器</h2>
+<p>下面岔开些话题，说说浏览器控件。</p>
+<p>众所周知在中国，网银都得装控件。但我不喜欢装各种控件。每多装一个控件，你的浏览器和系统就会多一份不稳定，所以浏览器越“纯”越好。再说，如果你是程序员，那你肯定知道怎样防木马，你中木马的概率极低，为什么还要被强制装上这些程序？</p>
+<p>但若不装任何控件，网银就成了大问题，Flash也成了大问题。好在都有解决方法。</p>
+<p>网银方面，你可以开一个浦发的账户。浦发银行是中资银行里面唯一支持非控件登录的，不过你要使用Chrome或Firefox来访问才行。如果你想在所有浏览器里面非控件登录，那只能选择外资银行。我选择的是渣打，因为它比较平民化，域名也很赞（sc.com）。不过要注意，当你网购时，外资银行的支持十分有限，好在这也有解决办法。例如你在京东购物，付款时虽然支持的银行里看不到“渣打银行”，但可以选择“平台付款”中的“银联”，然后在银联网站中进入渣打的网银。或者你也可以使用“快捷支付”，渣打也支持快捷支付。</p>
+<p>Flash方面，装个Chrome就可以了，Chrome集成了Flash。</p>
+<p>不过你也肯定有必须登录中资银行网银的时候，这时怎么办呢？用神器：虚拟机。Windows中可以装Windows，Mac中也可以装Windows。你就在这个虚拟机里面尽情地装各种控件，而它和你的host系统是隔离的。而且，这个Windows还不用付钱，因为你可以使用 Windows 8.1 Enterprise 评估版，这个版本是给你试用90天，90天以后每开机半小时左右会自动重启一次。反正我们用网银也用不到半小时，这是不是很爽呢？</p>
+<h2>编辑器</h2>
+<p>我用的是 Sublime Text。</p>
+<p>Sublime Text 是GitHub推荐的两款编辑器之一（另一款是TextMate）。在配置中，我首先做的就是把所有的自动化都禁止掉，什么输入左括号就补个右括号，输入一个引号就补一个引号，统统都禁用。这样就保证了我输入什么，就能得到什么，这在我看来，是基本的原则。</p>
+<p>很多浏览器的控制台，还会自动感知并提示对象名称以帮助输入，这很酷，但是要遵守一个原则：只能提示，即使输入的是非法的，也不能自动纠正。在这方面做得最好的是Firefox，而Chrome就不够好。大家可以比较一下，在控制台输入<code>document.getElement</code>，然后回车，看看分别发生了什么？</p>
+<p>如果你是“故意”输错，那么你会发现在Chrome中要通过很复杂的方法才能达到目的。</p>
+<p>大神们为什么都喜欢用命令行？因为它忠实地还原你的键盘输入，甚至从理论上来说，即使没有显示器，你照样可以输入命令！但它最大（或许是唯一）的缺点，是不能精细到像素级别，像是缩进层次的提示（就是左边那一排排很细的灰色竖线）就无法做到了。所以，图形界面也还是有必要的。</p>
+<p>许多人都用WebStorm，但我在虚拟机里试用后，感觉这不是我的菜，理由如下：</p>
+<ul>
+    <li>这家公司推出了许许多多的编辑器，而且更新频繁，都要收费，这就只可能是一个原因，就是这是一家靠堆积“量”而盈利的公司。</li>
+    <li>它太“重”，不过可以理解，毕竟是收费的，功能越多就越好卖。</li>
+    <li>其CoffeeScript语法高亮有问题，我只不过试了两三条语句居然就找到一个bug，可见这家公司不是很用心地在做。<br /><img src="webstorm.png" /><br /><small>（截自 WebStorm 8.0.4）</small></li>
+    <li>它是用Java写的，安装它必须要安装JDK。Mac OS X 从2010年就开始不再集成Java了，而我除了node以外，并没安装任何第三方runtime，我不想为了区区一个编辑器去打破这个状态。</li>
+</ul>
+<p>附：就在写本文时，我惊讶地发现GitHub自己也推出编辑器了，叫做Atom！它能否取代 Sublime Text 呢？我要等安装了之后才知道。</p>
+<h2>四色定理</h2>
+<p>语法高亮的目的，是且仅是：</p>
+<p>“帮助程序员快速辨别不容易一下子看清的地方。”</p>
+<p>仅此而已，它没必要具有任何其他的功能。所以，我真的不在乎它的颜色有多丰富，再说颜色丰富也不一定就好看，对吧？于是，我试验。结果我发现4种颜色，已经能够使我达到辨认的目的。这4种颜色分别表示：</p>
+<ul>
+    <li>关键字</li>
+    <li>字符串（也包括正则表达式）</li>
+    <li>注释</li>
+    <li>剩余的所有代码</li>
+</ul>
+<p>如果你用白色背景，那么可以分别设为蓝、绿、灰、黑，如果你不喜欢灰的注释，那么可以把注释设为绿色，把字符串设为红色，这样就RGB三原色都有了。</p>
+<p>许多配色方案还有什么黄色、紫色、褐色，这些我一概不要。为什么？
+<ul>
+    <li>颜色越多，出现你不喜欢的颜色的几率就越大，比如我知道许多男性都不喜欢紫色。</li>
+    <li>颜色越多，就越难配色。</li>
+    <li>颜色越多，出现颜色bug的概率也就越大。</li>
+    <li>颜色越多，黑色也就越少，以至于黑色会失去主导色的地位，如果你是一个色彩完美主义者，就会觉得这是不可容忍的。</li>
+</ul>
+<p>注意：在浅色背景下，4种颜色都不应过浅，这样才协调。特别是绿色和黄色，一定要深才好看。</p>
+<p>本文中的代码颜色还挺多的，我用的是highlight.js这个第三方库（不太好，经常有解析错误），以后我可能会自己写个HTML页面的语法高亮器，只使用4种颜色，但必须精准。</p>
+<h2>扁平化目录结构</h2>
+<p>当项目中充斥着：</p>
+<pre>
+    require("../../../file")
+</pre>
+<p>这显得很丑陋，也很不可靠。我的解决办法是：所有的源代码文件都放在一个目录里，并且目录只能有一层。用点号表示层次，代替目录的作用。</p>
+<p>例如，你可以把abc/def/ghi.js扁平化，改成abc.def.ghi.js。如果你想要列出abc.def下的所有文件，<code>ls abc.def.*</code>即可。使用点号分隔，有再多的文件也不会使人感到混乱。</p>
+<p>我还反对为某个类型专门建一个目录的做法。例如许多人喜欢建一个images目录，然后把所有的图片放进去。实际上，文件的后缀名已经起到了分类的作用，所以再建个目录等于增加了冗余。那为什么所有操作系统的用户目录里面都有Pictures、Videos、Music目录呢？我的理解是，这是为了方便普通用户，但对程序员而言并不是最好的。应该是，为某个特性、某个库或包（需要隔离）而建立目录。</p>
+<h2>合并顺序（慎用！）</h2>
+<p>这个方法可能不适用于大多数项目，所以请勿在你的项目上试验。</p>
+<p>如果不用模块化，那么在“多文件、大项目”中有两个问题：名字冲突、合并顺序。名字冲突可以用闭包和命名空间解决，所以关键在于要解决合并顺序。</p>
+<p>以我的mate仓库为例，其<a href="https://github.com/zhanzhenzhen/mate/tree/46ba3d5f9100aa3c39e68290fc6e62a462786c45/src">src</a>目录：</p>
+<pre>
+    1.license.coffee
+    2.prelude.coffee
+    5.array.coffee
+    5.compatibility.coffee
+    5.main.coffee
+    5.math.coffee
+    6.timer.coffee
+    9.coda.coffee
+</pre>
+<ul>
+    <li>用数字表示合并顺序，先是license，接着是prelude（前奏），最后是coda（尾声）。</li>
+    <li>包和包之间使用模块化思想（加载外部包的require都放在“前奏”里面），但在包内部使用原始思想（即文件简单合并，不使用require）。</li>
+    <li>代码中用闭包和命名空间（以点号分隔的对象）来避免名字冲突。</li>
+</ul>
+<p>这样做还有几个额外的好处，是“完全模块化”所不具备的：</p>
+<ul>
+    <li>减少冗余，特别当你在每个文件的开头都要写大量的require时。</li>
+    <li>整体的依赖顺序显得非常清晰。</li>
+</ul>
+<p>不过，这个方法也有个最大的问题，就是违反了当今世界的潮流：模块化。所以，到底适不适合别的项目，说不准。</p>
+<p>注意：数字应具备相同的位数。通常来说，1位数已足够，例如：5为普通级别，1为最先，9为最后。如果要有超过9个级别，那么必须每个数字都是2位数，例如：01、02，切不可省略01中的0，这样电脑才会以正确的顺序列目录和合并文件。</p>
+<h2>代码文件的风格</h2>
+<p>我在编程时经常遇到的问题是：</p>
+<ul>
+    <li>分隔代码块，是该空1行，空2行，还是空更多行（为了体现层次）？</li>
+    <li>某注释到底针对的是一行代码，还是一块代码？如果我要在一块代码中注释一行代码，如何是好？</li>
+    <li>空行遇到缩进，容易造成错觉。
+    </li>
+</ul>
+<p>我的解决方案也比较“猛”：</p>
+<ul>
+    <li>把代码文件分成两部分：顶端的注释（可省略），和主体部分。</li>
+    <li>顶端的注释针对的是整个文件，里面可以有空行。</li>
+    <li>主体不能出现任何空行。顶端注释和主体之间须有一空行。</li>
+    <li>主体中的整行注释，针对的始终是下一行（和属于它的缩进），除非遇到“[”或“]”。</li>
+    <li>通过使用“=”、“-”、“[”、“]”这四种字符，达到更强大的表现力。</li>
+</ul>
+<p>以Wishlist仓库中的一个文件为例：</p>
+<img src="sha256.png" />
+<h2>结尾的换行符</h2>
+<p>我以前用 Visual Studio 写代码的时候，文件的结尾都不换行，想不通为什么许多人喜欢在文件的结尾输入一个空行，这不是多余的吗？直到我接触到Linux，才知道这是为什么：</p>
+<p>用命令行工具cat合并文件，如果最后一行没有换行符，那么合并的结果将是灾难性的，例如：</p>
+<p>文件a：</p>
+<pre>
+    This is A
+</pre>
+<p>文件b：</p>
+<pre>
+    This is B
+</pre>
+<p>没有换行符的话，会合并成为：</p>
+<pre>
+    This is AThis is B
+</pre>
+<p>文本文件必须以换行符结尾，已经成为一个约定俗成的法则，即使今天许多合并工具已经可以自动添加换行符，这个法则还是遵守为好。</p>
+<h2>代码质量</h2>
+<p>我衡量代码质量的标准是：</p>
+<ul>
+    <li>冗余</li>
+    <li>可读性，美观程度</li>
+    <li>代码长度</li>
+    <li>性能</li>
+</ul>
+<p>当只牵涉到一个标准时，很容易作出决断。使人头痛的通常是，某个标准的满足会以另一个标准的牺牲为代价。该如何权衡？下面分主题来探讨。</p>
+<h2>对齐？</h2>
+<p>许多“视觉控”们喜欢使用“对齐”，例如：</p>
+<pre><code class="js">
+    var a = {
+        abc      : "aaaa",
+        defghijk : "bbbb",
+        lmnop    : "cccc",
+        qrstuvw  : "dddd"
+    };
+</code></pre>
+<p>因为我也是视觉控，所以我一开始也喜欢这种方法，但是现在发现弊大于利，因为它是为了美观而增加冗余。如果你以后要给最长的那个项更名，那么就必须调整所有的。这是一种冗余，因为它把其他行的长度信息加入到了这行中。</p>
+<p>所以，我现在反对这种“牵一发而动全身”的形式，除非：</p>
+<ul>
+    <li>项很少，如在3个以内；或</li>
+    <li>今后（如1年之内）不可能会更改；或</li>
+    <li>你预留出了一定的长度。</li>
+</ul>
+<p>我写了个函数：</p>
+<pre><code class="js">
+    function preservedLength(lens, p) {
+        var sum = 0;
+        var maxLength = -1;
+        lens.forEach(function(len) {
+            maxLength = Math.max(maxLength, len);
+            sum += len;
+        });
+        var average = sum / lens.length;
+        var t = 0;
+        lens.forEach(function(len) {
+            t += Math.pow(len - average, 2);
+        });
+        var sd = Math.sqrt(t / (lens.length - 1));
+        var estimate = average + sd / (Math.sqrt((1 - p) * 2));
+        return Math.ceil(Math.max(maxLength, estimate) - maxLength);
+    }
+</code></pre>
+<p>上例中，长度分别是3、8、5、7，那么我们用<code>preservedLength([3, 8, 5, 7], 0.95)</code>得出的结果是：需要再预留5个空格，以确保在添加或修改一个项时至少有95%的概率不会牵一发而动全身。</p>
+<pre><code class="js">
+    var a = {
+        abc           : "aaaa",
+        defghijk      : "bbbb",
+        lmnop         : "cccc",
+        qrstuvw       : "dddd"
+    };
+</code></pre>
+<p>但是，最好的办法，我认为，是根本不使用对齐。</p>
+<h2>for与forEach</h2>
+<p>传统中，我们若要对数组的每个元素进行操作，那得用for关键字。不过现在可以用数组的方法forEach，不但能在所有场合都替代for，而且还有额外的好处。</p>
+<pre><code class="js">
+    for (var i = 0; i < list.length; i++) {
+        (function() {
+            var filename = list[i];
+            fs.readFile(filename, function() {
+                compile(filename);
+            });
+        })();
+    }
+</code></pre>
+<p>作为JavaScript程序员的你，肯定写过上面的这类代码。当循环内部有异步回调函数的时候，我们只能写一个闭包，来hold住filename变量。不然，你将发现回调函数内每个filename都相同了！那如果我们用forEach，是否还需要多加一层呢？</p>
+<pre><code class="js">
+    list.forEach(function(filename) {
+        fs.readFile(filename, function() {
+            compile(filename);
+        });
+    });
+</code></pre>
+<p>forEach的参数本身就是个函数，所以它天生就能hold住filename变量。它唯一的缺点，就是如果你在任何场合都用forEach的话，会有一点点性能上的损失，没有不含函数的for执行得快。不过说实话，JavaScript里没必要关注这方面的性能损失，就算在Java、C#里面这也是很难控制的，也只有C++才有方法（比如内联）来减少函数调用本身造成的性能损失。所以如果没有兼容 IE 6,7,8 的要求，那么最好是始终使用forEach。</p>
+<p>--------</p>
+<p>未完待续。</p>
+<h2>我正在做的项目</h2>
+<p>我目前专注于Wishlist和Mate项目，如果你觉得下面这些项目有创意，欢迎你一起来为它们作些贡献。</p>
+<p>如果你发现我在这篇文章中介绍的方法有任何缺陷，请务必告诉我。</p>
+<p>
+    <a href="https://github.com/zhanzhenzhen">https://github.com/zhanzhenzhen</a><br />
+    <a href="https://github.com/zhanzhenzhen/wishlist">https://github.com/zhanzhenzhen/wishlist</a> | <a href="wishlist/">教程</a><br />
+    <a href="https://github.com/zhanzhenzhen/mate">https://github.com/zhanzhenzhen/mate</a> | <a href="mate/">教程</a><br />
+    <a href="https://github.com/zhanzhenzhen/js-bundler">https://github.com/zhanzhenzhen/js-bundler</a><br />
+    <a href="https://github.com/zhanzhenzhen/doc-html">https://github.com/zhanzhenzhen/doc-html</a>
+</p>
+<p><a href="mailto:zhanzhenzhen@hotmail.com">zhanzhenzhen@hotmail.com</a></p>
+</body>
+</html>
