@@ -9,8 +9,4 @@ server.onRequest (ctx) ->
     else
         response.handleFile()
 server.httpPort = 50003
-server.httpsPort = 50004
-server.httpsEnabled = true
-server.httpsCredential =
-    pfx: fsMod.readFileSync "credential.p12"
 server.start()
