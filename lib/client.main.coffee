@@ -1,6 +1,6 @@
 shared = require "site/shared"
 client = require "site/client"
-manuals = require "./client.manuals.coffee"
+#manuals = require "./client.manuals.coffee"
 ui = client.ui
 web = npmMate.web
 
@@ -18,8 +18,9 @@ loads =
 Promise.all(loads.map((item) -> web.get(item.filename)))
 .then (x) ->
     x.forEach (item, index) ->
-        loads[index].text = x.body
+        loads[index].text = item.body
 
+window.loads = loads
 return
 
 ui.root.add(
