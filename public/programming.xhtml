@@ -83,9 +83,9 @@
 <p>本文中的代码颜色还挺多的，我用的是highlight.js这个第三方库（不太好，经常有解析错误），以后我可能会自己写个HTML页面的语法高亮器，只使用4种颜色，但必须精准。</p>
 <h2>扁平化目录结构</h2>
 <p>当项目中充斥着：</p>
-<pre>
+<pre><![CDATA[
     require("../../../file")
-</pre>
+]]></pre>
 <p>这显得很丑陋，也很不可靠。我的解决办法是：所有的源代码文件都放在一个目录里，并且目录只能有一层。用点号表示层次，代替目录的作用。</p>
 <p>例如，你可以把abc/def/ghi.js扁平化，改成abc.def.ghi.js。如果你想要列出abc.def下的所有文件，<code>ls abc.def.*</code>即可。使用点号分隔，有再多的文件也不会使人感到混乱。</p>
 <p>我还反对为某个类型专门建一个目录的做法。例如许多人喜欢建一个images目录，然后把所有的图片放进去。实际上，文件的后缀名已经起到了分类的作用，所以再建个目录等于增加了冗余。那为什么所有操作系统的用户目录里面都有Pictures、Videos、Music目录呢？我的理解是，这是为了方便普通用户，但对程序员而言并不是最好的。应该是，为某个特性、某个库或包（需要隔离）而建立目录。</p>
@@ -93,7 +93,7 @@
 <p>这个方法可能不适用于大多数项目，所以请勿在你的项目上试验。</p>
 <p>如果不用模块化，那么在“多文件、大项目”中有两个问题：名字冲突、合并顺序。名字冲突可以用闭包和命名空间解决，所以关键在于要解决合并顺序。</p>
 <p>以我的mate仓库为例，其<a href="https://github.com/zhanzhenzhen/mate/tree/46ba3d5f9100aa3c39e68290fc6e62a462786c45/src">src</a>目录：</p>
-<pre>
+<pre><![CDATA[
     1.license.coffee
     2.prelude.coffee
     5.array.coffee
@@ -102,7 +102,7 @@
     5.math.coffee
     6.timer.coffee
     9.coda.coffee
-</pre>
+]]></pre>
 <ul>
     <li>用数字表示合并顺序，先是license，接着是prelude（前奏），最后是coda（尾声）。</li>
     <li>包和包之间使用模块化思想（加载外部包的require都放在“前奏”里面），但在包内部使用原始思想（即文件简单合并，不使用require）。</li>
@@ -137,17 +137,17 @@
 <p>我以前用 Visual Studio 写代码的时候，文件的结尾都不换行，想不通为什么许多人喜欢在文件的结尾输入一个空行，这不是多余的吗？直到我接触到Linux，才知道这是为什么：</p>
 <p>用命令行工具cat合并文件，如果最后一行没有换行符，那么合并的结果将是灾难性的，例如：</p>
 <p>文件a：</p>
-<pre>
+<pre><![CDATA[
     This is A
-</pre>
+]]></pre>
 <p>文件b：</p>
-<pre>
+<pre><![CDATA[
     This is B
-</pre>
+]]></pre>
 <p>没有换行符的话，会合并成为：</p>
-<pre>
+<pre><![CDATA[
     This is AThis is B
-</pre>
+]]></pre>
 <p>文本文件必须以换行符结尾，已经成为一个约定俗成的法则，即使今天许多合并工具已经可以自动添加换行符，这个法则还是遵守为好。</p>
 <h2>代码质量</h2>
 <p>我衡量代码质量的标准是：</p>
@@ -160,14 +160,14 @@
 <p>当只牵涉到一个标准时，很容易作出决断。使人头痛的通常是，某个标准的满足会以另一个标准的牺牲为代价。该如何权衡？下面分主题来探讨。</p>
 <h2>对齐？</h2>
 <p>许多“视觉控”们喜欢使用“对齐”，例如：</p>
-<pre><code class="js">
+<pre><code class="js"><![CDATA[
     var a = {
         abc      : "aaaa",
         defghijk : "bbbb",
         lmnop    : "cccc",
         qrstuvw  : "dddd"
     };
-</code></pre>
+]]></code></pre>
 <p>因为我也是视觉控，所以我一开始也喜欢这种方法，但是现在发现弊大于利，因为它是为了美观而增加冗余。如果你以后要给最长的那个项更名，那么就必须调整所有的。这是一种冗余，因为它把其他行的长度信息加入到了这行中。</p>
 <p>所以，我现在反对这种“牵一发而动全身”的形式，除非：</p>
 <ul>
@@ -176,7 +176,7 @@
     <li>你预留出了一定的长度。</li>
 </ul>
 <p>我写了个函数：</p>
-<pre><code class="js">
+<pre><code class="js"><![CDATA[
     function preservedLength(lens, p) {
         var sum = 0;
         var maxLength = -1;
@@ -193,20 +193,20 @@
         var estimate = average + sd / (Math.sqrt((1 - p) * 2));
         return Math.ceil(Math.max(maxLength, estimate) - maxLength);
     }
-</code></pre>
+]]></code></pre>
 <p>上例中，长度分别是3、8、5、7，那么我们用<code>preservedLength([3, 8, 5, 7], 0.95)</code>得出的结果是：需要再预留5个空格，以确保在添加或修改一个项时至少有95%的概率不会牵一发而动全身。</p>
-<pre><code class="js">
+<pre><code class="js"><![CDATA[
     var a = {
         abc           : "aaaa",
         defghijk      : "bbbb",
         lmnop         : "cccc",
         qrstuvw       : "dddd"
     };
-</code></pre>
+]]></code></pre>
 <p>但是，最好的办法，我认为，是根本不使用对齐。</p>
 <h2>for与forEach</h2>
 <p>传统中，我们若要对数组的每个元素进行操作，那得用for关键字。不过现在可以用数组的方法forEach，不但能在所有场合都替代for，而且还有额外的好处。</p>
-<pre><code class="js">
+<pre><code class="js"><![CDATA[
     for (var i = 0; i < list.length; i++) {
         (function() {
             var filename = list[i];
@@ -215,15 +215,15 @@
             });
         })();
     }
-</code></pre>
+]]></code></pre>
 <p>作为JavaScript程序员的你，肯定写过上面的这类代码。当循环内部有异步回调函数的时候，我们只能写一个闭包，来hold住filename变量。不然，你将发现回调函数内每个filename都相同了！那如果我们用forEach，是否还需要多加一层呢？</p>
-<pre><code class="js">
+<pre><code class="js"><![CDATA[
     list.forEach(function(filename) {
         fs.readFile(filename, function() {
             compile(filename);
         });
     });
-</code></pre>
+]]></code></pre>
 <p>forEach的参数本身就是个函数，所以它天生就能hold住filename变量。它唯一的缺点，就是如果你在任何场合都用forEach的话，会有一点点性能上的损失，没有不含函数的for执行得快。不过说实话，JavaScript里没必要关注这方面的性能损失，就算在Java、C#里面这也是很难控制的，也只有C++才有方法（比如内联）来减少函数调用本身造成的性能损失。所以如果没有兼容 IE 6,7,8 的要求，那么最好是始终使用forEach。</p>
 <p>--------</p>
 <p>未完待续。</p>
