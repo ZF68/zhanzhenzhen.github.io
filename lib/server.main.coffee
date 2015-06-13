@@ -7,7 +7,7 @@ server.onRequest (ctx) ->
     response = ctx.response
     if host.is "www.zhanzhenzhen.com"
         response.redirectHost "zhanzhenzhen.com"
-    else if path.is "/"
+    else if path.is("/") or path.raw.indexOf(".") == -1
         response.handleHome()
     else
         response.handleFile()

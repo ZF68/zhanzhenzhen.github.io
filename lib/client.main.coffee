@@ -64,7 +64,7 @@ Promise.all(loads.map((item) -> web.get(item.filename)))
 
     oldPath = null
     uriUpdateHandler = ->
-        path = location.pathname
+        path = decodeURI(location.pathname)
         if path == oldPath then return
 
         contentElement.empty()
@@ -72,6 +72,10 @@ Promise.all(loads.map((item) -> web.get(item.filename)))
         if path == "/"
             window.contentElement = contentElement
             contentElement.raw.innerHTML = loads[0].element.getElementsByTagName("body")[0].innerHTML
+        else
+            contentElement.raw.innerHTML = loads.single((m) ->
+                m.filename == path.substr(1) + ".xhtml"
+            ).element.getElementsByTagName("body")[0].innerHTML
 
         oldPath = path
 
