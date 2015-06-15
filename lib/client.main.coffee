@@ -21,8 +21,8 @@ blogs = [
 ]
 
 loads =
-    books.map((book) -> {type: "book", filename: book + ".xhtml"})
-    .concat(blogs.map((blog) -> {type: "blog", filename: blog + ".xhtml"}))
+    books.map((book) -> {type: "book", filename: book + ".xhtml", name: book})
+    .concat(blogs.map((blog) -> {type: "blog", filename: blog + ".xhtml", name: blog}))
 Promise.all(loads.map((item) -> web.get(item.filename)))
 .then (x) ->
 
@@ -59,7 +59,18 @@ Promise.all(loads.map((item) -> web.get(item.filename)))
         )
     )
     loads.filter((m) -> m.type == "book").forEach((book) ->
-        leftCol.add(new ui.Text(book.title))
+        leftCol.add(new ui.Text(book.title, {
+            backgroundPaint: "rgb(224,224,224)"
+            pointer: "link"
+            click: -> client.setUri("/" + book.name)
+        }))
+    )
+    loads.filter((m) -> m.type == "blog").forEach((blog) ->
+        rightCol.add(new ui.Text(blog.title, {
+            backgroundPaint: "rgb(224,224,224)"
+            pointer: "link"
+            click: -> client.setUri("/" + blog.name)
+        }))
     )
 
     oldPath = null
