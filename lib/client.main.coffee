@@ -18,7 +18,10 @@ books = [
 
 blogs = [
     "2015-04-23-苹果手表"
+    "2015-06-16-玄米抹茶的做法"
 ]
+
+ui.setRem(0.02)
 
 loads =
     books.map((book) -> {type: "book", filename: book + ".xhtml", name: book})
@@ -60,6 +63,7 @@ Promise.all(loads.map((item) -> web.get(item.filename)))
     )
     loads.filter((m) -> m.type == "book").forEach((book) ->
         leftCol.add(new ui.Text(book.title, {
+            padding: new ui.Padding("0.5rem")
             backgroundPaint: "rgb(224,224,224)"
             pointer: "link"
             click: -> client.setUri("/" + book.name)
@@ -67,6 +71,7 @@ Promise.all(loads.map((item) -> web.get(item.filename)))
     )
     loads.filter((m) -> m.type == "blog").forEach((blog) ->
         rightCol.add(new ui.Text(blog.title, {
+            padding: new ui.Padding("0.5rem")
             backgroundPaint: "rgb(224,224,224)"
             pointer: "link"
             click: -> client.setUri("/" + blog.name)
