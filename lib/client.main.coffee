@@ -74,12 +74,17 @@ Promise.all(loads.map((item) -> web.get(item.filename)))
         dateStr = date.getUTCFullYear().pad(4) + "-" +
             (date.getUTCMonth() + 1).pad(2) + "-" +
             date.getUTCDate().pad(2)
-        rightCol.add(new ui.Text(blog.title + "\n" + dateStr, {
-            padding: new ui.Padding("0.5rem")
-            backgroundPaint: "rgb(224,224,224)"
-            pointer: "link"
-            click: -> client.setUri("/" + blog.name)
-        }))
+        rightCol.add(new ui.Stack(
+            {
+                height: "auto"
+                padding: new ui.Padding("0.5rem")
+                backgroundPaint: "rgb(224,224,224)"
+                pointer: "link"
+                click: -> client.setUri("/" + blog.name)
+            }
+            new ui.Text(blog.title)
+            new ui.Text(dateStr, {fontSize: 0.7})
+        ))
     )
 
     oldPath = null
