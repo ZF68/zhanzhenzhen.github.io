@@ -70,7 +70,11 @@ Promise.all(loads.map((item) -> web.get(item.filename)))
         }))
     )
     loads.filter((m) -> m.type == "blog").forEach((blog) ->
-        rightCol.add(new ui.Text(blog.title, {
+        date = new Date(blog.time)
+        dateStr = date.getUTCFullYear().pad(4) + "-" +
+            (date.getUTCMonth() + 1).pad(2) + "-" +
+            date.getUTCDate().pad(2)
+        rightCol.add(new ui.Text(blog.title + "\n" + dateStr, {
             padding: new ui.Padding("0.5rem")
             backgroundPaint: "rgb(224,224,224)"
             pointer: "link"
