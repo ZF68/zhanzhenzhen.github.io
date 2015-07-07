@@ -4,6 +4,8 @@ client = require "site/client"
 ui = client.ui
 web = npmMate.web
 
+client.autoCloseStartup = false
+
 parseElement = (s) -> (new DOMParser()).parseFromString(s, "application/xml").documentElement
 articleTime = (element) ->
     metas = Array.from(element.getElementsByTagName("meta"))
@@ -30,6 +32,8 @@ loads =
     .concat(blogs.map((blog) -> {type: "blog", filename: blog + ".xhtml", name: blog}))
 Promise.all(loads.map((item) -> web.get(item.filename)))
 .then (x) ->
+
+    client.closeStartup()
 
     x.forEach (item, index) ->
         load = loads[index]
