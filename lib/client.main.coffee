@@ -8,16 +8,6 @@ web = npmMate.web
 client.autoCloseStartup = false
 
 parseElement = (s) -> (new DOMParser()).parseFromString(s, "application/xml").documentElement
-articleTime = (element, load) ->
-    jsonld.compact(
-        element.querySelector("script[type=\"application/ld+json\"]"),
-        {"@context": "http://schema.org/"}
-    ).then((data) ->
-        load.time = data.dateCreated
-    )
-    metas = Array.from(element.getElementsByTagName("meta"))
-    meta = metas.singleOrNull((meta) -> meta.getAttribute("property") == "dc:date")
-    if meta? then meta.getAttribute("content") else null
 articleTitle = (element) ->
     element.getElementsByTagName("title")[0].textContent
 
