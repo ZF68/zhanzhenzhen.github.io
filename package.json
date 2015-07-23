@@ -4,7 +4,8 @@
     "private": true,
     "dependencies": {
         "coffee-script": "1.9.1",
-        "site": "0.11.4"
+        "site": "0.11.4",
+        "json-ld": "0.1.0"
     },
     "scripts": {
         "start": "node node_modules/coffee-script/bin/coffee lib/server.main.coffee"

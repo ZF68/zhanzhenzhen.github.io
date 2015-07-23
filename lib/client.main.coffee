@@ -1,5 +1,6 @@
 shared = require "site/shared"
 client = require "site/client"
+jsonld = require "json-ld"
 #manuals = require "./client.manuals.coffee"
 ui = client.ui
 web = npmMate.web
@@ -7,7 +8,13 @@ web = npmMate.web
 client.autoCloseStartup = false
 
 parseElement = (s) -> (new DOMParser()).parseFromString(s, "application/xml").documentElement
-articleTime = (element) ->
+articleTime = (element, load) ->
+    jsonld.compact(
+        element.querySelector("script[type=\"application/ld+json\"]"),
+        {"@context": "http://schema.org/"}
+    ).then((data) ->
+        load.time = data.dateCreated
+    )
     metas = Array.from(element.getElementsByTagName("meta"))
     meta = metas.singleOrNull((meta) -> meta.getAttribute("property") == "dc:date")
     if meta? then meta.getAttribute("content") else null
@@ -32,15 +39,24 @@ loads =
     .concat(blogs.map((blog) -> {type: "blog", filename: blog + ".xhtml", name: blog}))
 Promise.all(loads.map((item) -> web.get(item.filename)))
 .then (x) ->
-
-    client.closeStartup()
-
     x.forEach (item, index) ->
         load = loads[index]
         load.text = item.body
         load.element = parseElement(item.body)
-        load.time = articleTime(load.element)
         load.title = articleTitle(load.element)
+    Promise.all(loads.map((item) ->
+        jsonld.compact(
+            JSON.parse(item.element.querySelector("script[type=\"application/ld+json\"]").textContent),
+            {"@context": "http://schema.org/"}
+        )
+    ))
+.then (x) ->
+
+    client.closeStartup()
+
+    x.forEach (data, index) ->
+        load = loads[index]
+        load.time = data.dateCreated
 
     contentElement = new ui.Element(
         {
