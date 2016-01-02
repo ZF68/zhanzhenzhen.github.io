@@ -17,6 +17,16 @@ server.host =
     else
         undefined
 server.httpPort = 50003
+server.httpsPort = 50004
+server.httpEnabled =
+    if shared.isDebug()
+        false
+    else
+        true
+server.httpsEnabled = true
+server.httpsCredential =
+    pfx: fsMod.readFileSync "credential.p12"
+server.maxRequestBodySize = 65536
 server.homePageAfterScript = """
     <script><![CDATA[
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
