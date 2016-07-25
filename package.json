@@ -4,11 +4,12 @@
     "private": true,
     "author": "Zhenzhen Zhan <zhanzhenzhen@hotmail.com>",
     "dependencies": {
-        "coffee-script": "1.9.3",
-        "site": "0.11.7",
+        "site": "2.1.0",
+        "fus-ext": "1.3.0",
+        "babel-polyfill": "6.x",
         "json-ld": "0.1.0"
     },
     "scripts": {
-        "start": "node node_modules/coffee-script/bin/coffee lib/server.main.coffee"
+        "start": "node target/server.main"
     }
 }

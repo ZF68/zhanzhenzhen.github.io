@@ -1,0 +1,7 @@
+{
+    "publishTo": {
+        "type": "git-branch",
+        "value": "master"
+    },
+    "homePageInfo": {}
+}
