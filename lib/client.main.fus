@@ -7,138 +7,106 @@ import "./shared.main"
 client: import "site/client"
 
 jsonld: import "json-ld"
+marked: import "marked"
 #manuals: require("./client.manuals.coffee")
 ui: client.ui
 
-client.autoCloseStartup: false
+blogsObj: {}
 
 parseElement: s -> DOMParser().parseFromString(s, "application/xml").documentElement
-articleTitle: element ->
-    element.getElementsByTagName("title").0.textContent
-
-books: [
-    "programming"
-]
-
-blogs: [
-    "所谓的曲面电视"
-    "屏幕分辨率多少才完美"
-    "玄米抹茶的做法"
-    "苹果手表"
-    "AlphaGo人机大战之预测"
-]
 
 ui.setRem(0.02)
 
-Promise.all(loads.map(item -> web.get(item.filename)))
-.then(x ->
-    x.forEach (item, index) ->
-        load: loads.(index)
-        load.text: item.body
-        load.element: parseElement(item.body)
-        load.title: articleTitle(load.element)
-    Promise.all(loads.map(item ->
-        jsonld.compact(
-            JSON.parse(item.element.querySelector("script[type=\"application/ld+json\"]").textContent),
-            {"@context": "http://schema.org/"}
-        )
+contentElement: ui.Element(
+    {
+        width: 0.8
+        overflow: "scroll"
+        lineHeight: 1.5
+        selectable: true
+        pointer: "auto"
+        padding: "0.5rem"
+    }
+)
+ui.root.add(
+    ui.Stack(
+        {
+            width: "auto"
+            aspectRatio: 1.25
+            horizontal: true
+        },
+        ui.Stack{
+            width: 0.2
+            childSpacing: "0.3rem"
+            padding: ui.Padding(0, "2rem", 0, 0)
+        } as leftCol,
+        contentElement
+    )
+)
+client.text.map(blog ->
+    if (blog.filename.endsWith(".md") or blog.filename.endsWith(".markdown"))
+    and blog.content.startsWith("<script ")
+        pos: blog.content.search("</script>")
+        metaString: blog.content.substr(0, pos + "</script>".length)
+        metaElement:
+            DOMParser().parseFromString(metaString, "text/html")
+            .querySelector("script[type=\"application/ld+json\"]")
+        fileType: "markdown"
+    meta:
+        if metaElement'ok
+            jsonld.compact(
+                JSON.parse(metaElement.textContent),
+                {"@context": "http://schema.org/"}
+            )
+        else
+            {
+                headline: "no title"
+                dateCreated: "2010-01-02T00:00Z"
+            }
+    {
+        title: meta.headline
+        time: Date(meta.dateCreated)
+        type: fileType
+        id: blog.filename.substr(0, blog.filename.indexOf("."))
+        content: blog.content
+    }
+)..sortDescending(m -> m.time).forEach(blog ->
+    if blog.id ≠ ""
+        blogsObj.(blog.id): blog
+    date: blog.time
+    dateStr: date.getUTCFullYear()..pad(4) + "-"
+        + (date.getUTCMonth() + 1)..pad(2) + "-"
+        + date.getUTCDate()..pad(2)
+    leftCol.add(ui.Stack(
+        {
+            height: "auto"
+            padding: ui.Padding("0.5rem")
+            backgroundPaint: "rgb(224,224,224)"
+            pointer: "link"
+            click: <> client.setUri("/" + blog.title)
+        },
+        ui.Text(blog.title),
+        ui.Text(dateStr, {fontSize: 0.7})
     ))
-).then(x ->
-
-    client.closeStartup()
-
-    x.forEach (data, index) ->
-        load: loads.(index)
-        load.time: data.dateCreated
-
-    contentElement: ui.Element(
-        {
-            width: 0.8
-            overflow: "scroll"
-            lineHeight: 1.5
-            selectable: true
-            pointer: "auto"
-            padding: "0.5rem"
-        }
-    )
-    ui.root.add(
-        ui.Stack(
-            {
-                width: "auto"
-                aspectRatio: 1.25
-                horizontal: true
-            },
-            ui.Stack{
-                width: 0.2
-                childSpacing: "0.3rem"
-                padding: ui.Padding(0, "2rem", 0, 0)
-            } as leftCol,
-            contentElement
-        )
-    )
-    client.text.map(blog ->
-        if (blog.filename.endsWith(".md") or blog.filename.endsWith(".markdown"))
-        and blog.content.startsWith("<script ")
-            pos: blog.content.search("</script>")
-            metaString: blog.content.substr(0, pos + "</script>".length)
-            metaElement:
-                DOMParser().parseFromString(metaString, "text/html")
-                .querySelector("script[type=\"application/ld+json\"]")
-            fileType: "markdown"
-        meta:
-            if metaElement'ok
-                jsonld.compact(
-                    JSON.parse(metaElement.textContent),
-                    {"@context": "http://schema.org/"}
-                )
-            else
-                {
-                    headline: "no title"
-                    dateCreated: "2010-01-02T00:00Z"
-                }
-        {
-            title: meta.headline
-            time: Date(meta.dateCreated)
-            type: fileType
-            content: blog.content
-        }
-    )..sortDescending(m -> m.time).forEach(blog ->
-        date: blog.time
-        dateStr: date.getUTCFullYear()..pad(4) + "-"
-            + (date.getUTCMonth() + 1)..pad(2) + "-"
-            + date.getUTCDate()..pad(2)
-        leftCol.add(ui.Stack(
-            {
-                height: "auto"
-                padding: ui.Padding("0.5rem")
-                backgroundPaint: "rgb(224,224,224)"
-                pointer: "link"
-                click: <> client.setUri("/" + blog.title)
-            },
-            ui.Text(blog.title),
-            ui.Text(dateStr, {fontSize: 0.7})
-        ))
-    )
-
-    oldPath: null
-    uriUpdateHandler: <>
-        path: decodeURI(location.pathname)
-        if path ≠ oldPath
-
-            contentElement.empty()
-
-            if path = "/"
-                window.contentElement: contentElement
-                contentElement.raw.innerHTML: loads.0.element.getElementsByTagName("body").0.innerHTML
-            else
-                contentElement.raw.innerHTML: loads..single(m ->
-                    m.filename = path.substr(1) + ".xhtml"
-                ).element.getElementsByTagName("body").0.innerHTML
-
-            oldPath: path
-
-    uriUpdateHandler()
-    client.onUriChange(uriUpdateHandler)
 )
 
-window.loads: loads
+oldPath: null
+uriUpdateHandler: <>
+    path: decodeURI(location.pathname)
+    if path ≠ oldPath
+
+        contentElement.empty()
+
+        contentElement.raw.innerHTML:
+            if path = "/"
+                ""
+            else
+                parseElement("
+                    <div xmlns="http://www.w3.org/1999/xhtml">
+                        \(marked.parse(blogsObj.(path.substr(1))))
+                    </div>
+                ").innerHTML
+
+        oldPath: path
+
+uriUpdateHandler()
+client.onUriChange(uriUpdateHandler)
