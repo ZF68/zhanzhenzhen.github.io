@@ -103,7 +103,10 @@ Promise.all(client.text.map(blog ->
                 if path = "/"
                     "这是詹臻臻的个人网站。"
                 else
-                    htmlString: marked.parse(blogsObj.(path.substr(1)).content)
+                    strippedPath: path.substr(1)
+                    if strippedPath.endsWith("/")
+                        strippedPath: strippedPath.substr(0, strippedPath.length - 1)
+                    htmlString: marked.parse(blogsObj.(strippedPath).content)
                     parseElement("
                         <div xmlns="http://www.w3.org/1999/xhtml">
                             \(htmlString)
