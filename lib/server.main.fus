@@ -12,7 +12,7 @@ server.onRequest ctx ->
     host: ctx.request.host
     path: ctx.request.path
     response: ctx.response
-    if path.is "/" or path.raw.indexOf(".") = -1
+    if path.is("/") or path.raw.indexOf(".") = -1
         response.handleHome()
     else
         response.handleFile()

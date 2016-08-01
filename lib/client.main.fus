@@ -101,7 +101,7 @@ Promise.all(client.text.map(blog ->
 
             contentElement.raw.innerHTML:
                 if path = "/"
-                    ""
+                    "这是詹臻臻的个人网站。"
                 else
                     htmlString: marked.parse(blogsObj.(path.substr(1)).content)
                     parseElement("
