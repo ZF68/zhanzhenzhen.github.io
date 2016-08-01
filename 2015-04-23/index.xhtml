@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,
+minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <style type="text/css"><![CDATA[
+            html {
+                font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+                color: rgb(0%,0%,0%);
+                font-size: 1.5625vmin;
+                line-height: 1;
+                stroke-width: 0.0933333rem;
+                cursor: default;
+                overflow: hidden;
+                /*
+                 * must stretch html and body to 100% otherwise in firefox
+                 * text can still be selected if clicking "outside"
+                 */
+                width: 100%;
+                height: 100%;
+            }
+            body {
+                margin: 0;
+                width: 100%;
+                height: 100%;
+            }
+            html, body {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                box-sizing: border-box;
+                -webkit-overflow-scrolling: touch;
+            }
+            /* Workaround Firefox's inconsistency with other browsers,
+             * because -moz-user-select by default is not
+             * inherited by absolutely positioned elements, see:
+             * https://developer.mozilla.org/en-US/docs/Web/CSS/user-select
+             */
+            div {
+                -webkit-user-select: inherit;
+                -moz-user-select: inherit;
+                -ms-user-select: inherit;
+                user-select: inherit;
+            }
+            div {
+                box-sizing: inherit;
+            }
+            table {
+                border-collapse: collapse;
+            }
+            table td {
+                border-width: 0;
+                padding: 0;
+            }
+            a {
+                color: inherit;
+                text-decoration: underline;
+            }
+            /* set display to "block" to avoid line-height being applied in layout */
+            img, audio, video, svg {
+                display: block;
+            }
+            body > * {
+                position: absolute;
+            }
+            .group-705357537593286848 > * {
+                position: absolute;
+            }
+            .stack-705357537593286848 {
+                display: -webkit-flex;
+                display: flex;
+            }
+            .stack-705357537593286848 > * {
+                position: static;
+            }
+            .shape-705357537593286848 {
+                pointer-events: none;
+            }
+            .shape-705357537593286848 > svg > * {
+                pointer-events: auto;
+            }
+            .contented-705357537593286848 {
+                display: -webkit-flex;
+                display: flex;
+                -webkit-justify-content: center;
+                justify-content: center;
+                -webkit-align-items: center;
+                align-items: center;
+            }
+            .contented-705357537593286848 > * {
+                position: static;
+            }
+            .button-705357537593286848 > * {
+                text-align: center;
+            }
+            #startup-705357537593286848 {
+                display: -webkit-flex;
+                display: flex;
+                width: 100%;
+                height: 100%;
+                background-color: rgb(255,255,255);
+                -webkit-justify-content: center;
+                justify-content: center;
+                -webkit-align-items: center;
+                align-items: center;
+            }
+        ]]></style>
+        
+        <script type="text/javascript"><![CDATA[
+            document.addEventListener("DOMContentLoaded", function() {
+                window.global = window;
+
+                var startupText = document.getElementById("startup-text-705357537593286848");
+                startupText.textContent = "Downloading... Please wait";
+
+                var script = document.createElementNS(
+                    "http://www.w3.org/1999/xhtml", "script"
+                );
+                script.type = "text/javascript";
+                script.src = "/bundle-705357537593286848.js";
+                var loaded = false;
+                script.onload = function() {
+                    if (!loaded) {
+                        loaded = true;
+                        window.callMain_705357537593286848();
+                    }
+                };
+                document.head.appendChild(script);
+            });
+        ]]></script>
+        
+    </head>
+    <body>
+        <div id="startup-705357537593286848">
+            <div id="startup-text-705357537593286848" />
+        </div>
+    </body>
+</html>
