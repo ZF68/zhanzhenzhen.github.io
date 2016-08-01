@@ -3,7 +3,7 @@ import "babel-polyfill"
 import "./shared.manifest" all
 
 shared: import "site/shared"
-import "./shared.main"
+#import "./shared.main"
 client: import "site/client"
 
 jsonld: import "json-ld"
