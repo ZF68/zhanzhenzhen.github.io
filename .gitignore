@@ -18,6 +18,7 @@ node_modules
 
 *.compressed-705357537593286848.gz
 
-/lib/client.init-705357537593286848.js
-/lib/shared.config-type-705357537593286848.json
 /public/bundle-705357537593286848.js
+
+/target
+/test-target
