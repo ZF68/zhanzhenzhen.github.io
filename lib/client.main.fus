@@ -6,7 +6,6 @@ shared: import "site/shared"
 #import "./shared.main"
 client: import "site/client"
 
-jsonld: import "json-ld"
 marked: import "marked"
 #manuals: require("./client.manuals.coffee")
 ui: client.ui
@@ -53,7 +52,7 @@ Promise.all(client.text.map(blog ->
         fileType: "markdown"
     (
         if metaElement'ok
-            jsonld.compact(
+            shared.jsonLd.compact(
                 JSON.parse(metaElement.textContent),
                 {"@context": "http://schema.org/"}
             )
@@ -106,7 +105,9 @@ Promise.all(client.text.map(blog ->
                     strippedPath: path.substr(1)
                     if strippedPath.endsWith("/")
                         strippedPath: strippedPath.substr(0, strippedPath.length - 1)
-                    htmlString: marked.parse(blogsObj.(strippedPath).content)
+                    blog: blogsObj.(strippedPath)
+                    document.title: blog.title
+                    htmlString: marked.parse(blog.content)
                     parseElement("
                         <div xmlns="http://www.w3.org/1999/xhtml">
                             \(htmlString)
