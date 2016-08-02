@@ -11,6 +11,7 @@ marked: import "marked"
 ui: client.ui
 
 blogsObj: {}
+originalTitle: document.title
 
 parseElement: s -> DOMParser().parseFromString(s, "application/xml").documentElement
 
@@ -98,21 +99,21 @@ Promise.all(client.text.map(blog ->
 
             contentElement.empty()
 
-            contentElement.raw.innerHTML:
-                if path = "/"
-                    "这是詹臻臻的个人网站。"
-                else
-                    strippedPath: path.substr(1)
-                    if strippedPath.endsWith("/")
-                        strippedPath: strippedPath.substr(0, strippedPath.length - 1)
-                    blog: blogsObj.(strippedPath)
-                    document.title: blog.title
-                    htmlString: marked.parse(blog.content)
-                    parseElement("
-                        <div xmlns="http://www.w3.org/1999/xhtml">
-                            \(htmlString)
-                        </div>
-                    ").innerHTML
+            if path = "/"
+                document.title: originalTitle
+                contentElement.raw.innerHTML: "这是詹臻臻的个人网站。"
+            else
+                strippedPath: path.substr(1)
+                if strippedPath.endsWith("/")
+                    strippedPath: strippedPath.substr(0, strippedPath.length - 1)
+                blog: blogsObj.(strippedPath)
+                document.title: blog.title
+                htmlString: marked.parse(blog.content)
+                contentElement.raw.innerHTML: parseElement("
+                    <div xmlns="http://www.w3.org/1999/xhtml">
+                        \(htmlString)
+                    </div>
+                ").innerHTML
 
             oldPath: path
 
