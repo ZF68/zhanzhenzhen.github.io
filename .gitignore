@@ -1,3 +1,6 @@
+.*
+!.gitignore
+
 # OS X
 .DS_Store
 
@@ -10,5 +13,8 @@ Desktop.ini
 
 # Node
 node_modules
+
+*.pem
+*.p12
 
 *.compressed-705357537593286848.gz
