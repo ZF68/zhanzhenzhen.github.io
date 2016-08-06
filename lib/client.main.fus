@@ -58,39 +58,59 @@ Promise.all(client.text.map(blog ->
                 {"@context": "http://schema.org/"}
             )
         else
-            Promise.resolve{
-                headline: "no title"
-                dateCreated: "2010-01-02T00:00Z"
-            }
+            Promise.resolve{}
     ).then(meta ->
+        candidateId: blog.filename.substr(0, blog.filename.lastIndexOf("."))
         {
-            title: meta.headline
-            time: Date(meta.dateCreated)
+            title: meta.headline ifnull "no title"
+            time: Date(meta.dateCreated ifnull "2010-01-02T00:00Z")
             type: fileType
-            id: blog.filename.substr(0, blog.filename.indexOf("."))
+            id: match candidateId
+                ""     ? null
+                "home" ? ""
+                |        candidateId
             content: blog.content
         }
     )
 )).then(blogs ->
-    blogs..sortDescending(m -> m.time).forEach(blog ->
-        if blog.id ≠ ""
-            blogsObj.(blog.id): blog
-        date: blog.time
-        dateStr: date.getUTCFullYear()..pad(4) + "-"
-            + (date.getUTCMonth() + 1)..pad(2) + "-"
-            + date.getUTCDate()..pad(2)
-        leftCol.add(ui.Stack(
-            {
-                height: "auto"
-                padding: ui.Padding("0.5rem")
-                backgroundPaint: "rgb(224,224,224)"
-                pointer: "link"
-                click: <> client.setUri("/" + blog.id)
-            },
-            ui.Text(blog.title),
-            ui.Text(dateStr, {fontSize: 0.7})
-        ))
+    groups: blogs.filter(m -> m.type'ok and m.id'ok)..group(m ->
+        if m.id = ""
+            "home"
+        else if m.id.match(r"^\d\d\d\d-\d\d-\d\d\b")'ok
+            "blog"
+        else
+            "article"
     )
+    homeGroup: docs.filter(m -> m.0 = "home")
+    blogGroup: docs.filter(m -> m.0 = "blog")
+
+    if not homeGroup..isEmpty()
+        leftCol.add(ui.Text(homeGroup.1.0.title, {
+            padding: ui.Padding("0.5rem")
+            backgroundPaint: "rgb(224,224,224)"
+            pointer: "link"
+            click: <> client.setUri("/")
+        }))
+
+    if not blogGroup..isEmpty()
+        blogGroup.1..sortDescending(m -> m.time).forEach(blog ->
+            blogsObj.(blog.id): blog
+            date: blog.time
+            dateStr: date.getUTCFullYear()..pad(4) + "-"
+                + (date.getUTCMonth() + 1)..pad(2) + "-"
+                + date.getUTCDate()..pad(2)
+            leftCol.add(ui.Stack(
+                {
+                    height: "auto"
+                    padding: ui.Padding("0.5rem")
+                    backgroundPaint: "rgb(224,224,224)"
+                    pointer: "link"
+                    click: <> client.setUri("/" + blog.id)
+                },
+                ui.Text(blog.title),
+                ui.Text(dateStr, {fontSize: 0.7})
+            ))
+        )
 
     oldPath: null
     uriUpdateHandler: <>
