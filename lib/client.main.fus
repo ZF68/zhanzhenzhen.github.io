@@ -84,10 +84,10 @@ Promise.all(client.text.map(doc ->
         else
             "article"
     )
-    homeGroup: groups.filter(m -> m.0 = "home")
-    blogGroup: groups.filter(m -> m.0 = "blog")
+    homeGroup: groups..singleOrNull(m -> m.0 = "home")
+    blogGroup: groups..singleOrNull(m -> m.0 = "blog")
 
-    if not homeGroup..isEmpty()
+    if homeGroup'ok
         leftCol.add(ui.Text(homeGroup.1.0.title, {
             padding: ui.Padding("0.5rem")
             backgroundPaint: "rgb(224,224,224)"
@@ -95,7 +95,7 @@ Promise.all(client.text.map(doc ->
             click: <> client.setUri("/")
         }))
 
-    if not blogGroup..isEmpty()
+    if blogGroup'ok
         blogGroup.1..sortDescending(m -> m.time).forEach(blog ->
             date: blog.time
             dateStr: date.getUTCFullYear()..pad(4) + "-"
