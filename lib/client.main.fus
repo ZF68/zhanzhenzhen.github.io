@@ -10,7 +10,7 @@ marked: import "marked"
 #manuals: require("./client.manuals.coffee")
 ui: client.ui
 
-blogsObj: {}
+docsObj: {}
 originalTitle: document.title
 
 parseElement: s -> DOMParser().parseFromString(s, "application/xml").documentElement
@@ -42,11 +42,11 @@ ui.root.add(
         contentElement
     )
 )
-Promise.all(client.text.map(blog ->
-    if (blog.filename.endsWith(".md") or blog.filename.endsWith(".markdown"))
-    and blog.content.startsWith("<script ")
-        pos: blog.content.search("</script>")
-        metaString: blog.content.substr(0, pos + "</script>".length)
+Promise.all(client.text.map(doc ->
+    if (doc.filename.endsWith(".md") or doc.filename.endsWith(".markdown"))
+    and doc.content.startsWith("<script ")
+        pos: doc.content.search("</script>")
+        metaString: doc.content.substr(0, pos + "</script>".length)
         metaElement:
             DOMParser().parseFromString(metaString, "text/html")
             .querySelector("script[type=\"application/ld+json\"]")
@@ -60,7 +60,7 @@ Promise.all(client.text.map(blog ->
         else
             Promise.resolve{}
     ).then(meta ->
-        candidateId: blog.filename.substr(0, blog.filename.lastIndexOf("."))
+        candidateId: doc.filename.substr(0, doc.filename.lastIndexOf("."))
         {
             title: meta.headline ifnull "no title"
             time: Date(meta.dateCreated ifnull "2010-01-02T00:00Z")
@@ -69,14 +69,14 @@ Promise.all(client.text.map(blog ->
                 ""     ? null
                 "home" ? ""
                 |        candidateId
-            content: blog.content
+            content: doc.content
         }
     )
-)).then(blogs ->
-    validDocs: blogs.filter(m -> m.type'ok and m.id'ok)
-    validDocs.forEach doc ->
-        blogsObj.(doc.id): doc
-    groups: blogs.filter(m -> m.type'ok and m.id'ok)..group(m ->
+)).then(rawDocs ->
+    docs: rawDocs.filter(m -> m.type'ok and m.id'ok)
+    docs.forEach doc ->
+        docsObj.(doc.id): doc
+    groups: docs..group(m ->
         if m.id = ""
             "home"
         else if m.id.match(r"^\d\d\d\d-\d\d-\d\d\b")'ok
@@ -84,8 +84,8 @@ Promise.all(client.text.map(blog ->
         else
             "article"
     )
-    homeGroup: docs.filter(m -> m.0 = "home")
-    blogGroup: docs.filter(m -> m.0 = "blog")
+    homeGroup: groups.filter(m -> m.0 = "home")
+    blogGroup: groups.filter(m -> m.0 = "blog")
 
     if not homeGroup..isEmpty()
         leftCol.add(ui.Text(homeGroup.1.0.title, {
@@ -124,19 +124,19 @@ Promise.all(client.text.map(blog ->
             strippedPath: path.substr(1)
             if strippedPath.endsWith("/")
                 strippedPath: strippedPath.substr(0, strippedPath.length - 1)
-            blog: blogsObj.(strippedPath)
+            doc: docsObj.(strippedPath)
 
-            if blog'ok
-                document.title: blog.title
-                if blog.type = "markdown"
-                    htmlString: marked.parse(blog.content)
+            if doc'ok
+                document.title: doc.title
+                if doc.type = "markdown"
+                    htmlString: marked.parse(doc.content)
                     contentElement.raw.innerHTML: parseElement("
                         <div xmlns="http://www.w3.org/1999/xhtml">
                             \(htmlString)
                         </div>
                     ").innerHTML
                 else
-                    contentElement.raw.textContent: blog.content
+                    contentElement.raw.textContent: doc.content
             else
                 document.title: ""
                 contentElement.raw.textContent: ""
