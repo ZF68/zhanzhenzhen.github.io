@@ -73,6 +73,9 @@ Promise.all(client.text.map(blog ->
         }
     )
 )).then(blogs ->
+    validDocs: blogs.filter(m -> m.type'ok and m.id'ok)
+    validDocs.forEach doc ->
+        blogsObj.(doc.id): doc
     groups: blogs.filter(m -> m.type'ok and m.id'ok)..group(m ->
         if m.id = ""
             "home"
@@ -94,7 +97,6 @@ Promise.all(client.text.map(blog ->
 
     if not blogGroup..isEmpty()
         blogGroup.1..sortDescending(m -> m.time).forEach(blog ->
-            blogsObj.(blog.id): blog
             date: blog.time
             dateStr: date.getUTCFullYear()..pad(4) + "-"
                 + (date.getUTCMonth() + 1)..pad(2) + "-"
@@ -119,21 +121,25 @@ Promise.all(client.text.map(blog ->
 
             contentElement.empty()
 
-            if path = "/"
-                document.title: originalTitle
-                contentElement.raw.innerHTML: "这是詹臻臻的个人网站。"
-            else
-                strippedPath: path.substr(1)
-                if strippedPath.endsWith("/")
-                    strippedPath: strippedPath.substr(0, strippedPath.length - 1)
-                blog: blogsObj.(strippedPath)
+            strippedPath: path.substr(1)
+            if strippedPath.endsWith("/")
+                strippedPath: strippedPath.substr(0, strippedPath.length - 1)
+            blog: blogsObj.(strippedPath)
+
+            if blog'ok
                 document.title: blog.title
-                htmlString: marked.parse(blog.content)
-                contentElement.raw.innerHTML: parseElement("
-                    <div xmlns="http://www.w3.org/1999/xhtml">
-                        \(htmlString)
-                    </div>
-                ").innerHTML
+                if blog.type = "markdown"
+                    htmlString: marked.parse(blog.content)
+                    contentElement.raw.innerHTML: parseElement("
+                        <div xmlns="http://www.w3.org/1999/xhtml">
+                            \(htmlString)
+                        </div>
+                    ").innerHTML
+                else
+                    contentElement.raw.textContent: blog.content
+            else
+                document.title: ""
+                contentElement.raw.textContent: ""
 
             oldPath: path
 
