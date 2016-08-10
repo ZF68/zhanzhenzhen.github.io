@@ -5,7 +5,6 @@
     "author": "Zhenzhen Zhan <zhanzhenzhen@hotmail.com>",
     "dependencies": {
         "site": "2.5.0",
-        "fus-ext": "1.5.0",
         "babel-polyfill": "6.x",
         "marked": "0.x"
     },
