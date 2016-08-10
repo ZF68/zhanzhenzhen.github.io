@@ -79,7 +79,7 @@ Promise.all(client.text.map(doc ->
     groups: docs..group(m ->
         if m.id = ""
             "home"
-        else if m.id.match(r"^\d\d\d\d-\d\d-\d\d\b")'ok
+        else if m.id.match(r"^\d\d\d\d_\d\d_\d\d($|_)")'ok
             "blog"
         else
             "article"
