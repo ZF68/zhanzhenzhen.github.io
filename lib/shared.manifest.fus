@@ -31,8 +31,10 @@ fus 2.0.6
     feUint8Array
     feUint8ArrayStatic
     fePromiseStatic
+    global
+    siteUint8Array
     ..
-}: import "fus-ext"
+}: import "site/shared.manifest"
 
 export loop
 export repeat
@@ -43,8 +45,8 @@ export compose
 export assert
 export spread
 export eventField
-(sys.global.setImmediate ifvoid setImmediate) export as setImmediate
-(sys.global.clearImmediate ifvoid clearImmediate) export as clearImmediate
+export setImmediate
+export clearImmediate
 export Timer
 export IntervalTimer
 export Observer
@@ -64,6 +66,6 @@ export feConsole
 export feUint8Array
 export feUint8ArrayStatic
 export fePromiseStatic
+export global
+export siteUint8Array
 export ..
-
-global'export: sys.global
