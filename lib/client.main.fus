@@ -69,7 +69,7 @@ ui.root.add(
             ui.Button("添加评论", {
                 fontSize: 1.3
                 click: <>
-                    location.href: "https://github.com/\(username)/\(repo)/issues"
+                    location.href: "https://github.com/\(username)/\(repo)/issues/new"
             })
         )
     )
