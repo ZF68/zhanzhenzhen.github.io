@@ -60,6 +60,11 @@ ui.root.add(
                 height: "auto"
                 childSpacing: "0.5rem"
             } as commentsElement,
+            ui.Text("
+                点击此按钮后，请在标题栏输入文章的ID，文章ID为URL中的路径名（不包括“/”）。\
+                例如，URL为https://zhanzhenzhen.github.io/2016_01_01则ID为2016_01_01。\
+                如果是为主页添加评论，则不用加ID。
+            "),
             ui.Button("添加评论")
         )
     )
@@ -173,6 +178,7 @@ Promise.all(client.text.map(doc ->
                         {
                             childAlignment: "start"
                             height: "auto"
+                            childSpacing: "0.3rem"
                         },
                         ui.Text(issue.user.login + ":"),
                         ui.Text(issue.body),
@@ -180,7 +186,7 @@ Promise.all(client.text.map(doc ->
                             childAlignment: "start"
                             height: "auto"
                         } as subcommentsElement,
-                        ui.Button("回复")
+                        ui.Button("回复", {fontSize: 0.8})
                     ))
                     web.jsonGet("\(apiBase)/repos/\(username)/\(repo)/issues/\(issue.number)\
                     /comments?per_page=100")
