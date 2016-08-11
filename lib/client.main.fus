@@ -2,7 +2,7 @@ fus 2.0.6
 import "babel-polyfill"
 import "./shared.manifest" all
 
-# Modify these 3 variables to match yours.
+# Modify these 2 variables to match yours.
 username: "zhanzhenzhen"
 repo: "zhanzhenzhen.github.io"
 
