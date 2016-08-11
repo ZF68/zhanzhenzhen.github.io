@@ -60,8 +60,9 @@ ui.root.add(
                 height: "auto"
                 childSpacing: "0.5rem"
             } as commentsElement,
+            ui.Element{height: "1rem"},
             ui.Text("
-                点击此按钮后，请在标题栏输入文章的ID，文章ID为URL中的路径名（不包括“/”）。\
+                点击下面按钮后，请在标题栏输入文章的ID，文章ID为URL中的路径名（不包括“/”）。\
                 例如，URL为https://zhanzhenzhen.github.io/2016_01_01则ID为2016_01_01。\
                 如果是为主页添加评论，则不用加ID。
             "),
