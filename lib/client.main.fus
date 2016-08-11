@@ -163,7 +163,7 @@ Promise.all(client.text.map(doc ->
                 contentDom.textContent: ""
 
             web.jsonGet("\(apiBase)/search/issues?q=\(encodeURIComponent(doc.id))+\
-            in:title+repo:\(username)/\(repo)&sort=created")
+            in:title+-label:blocked+repo:\(username)/\(repo)&sort=created")
             .then(response ->
                 issues: response.body.items
                 issues.forEach issue ->
