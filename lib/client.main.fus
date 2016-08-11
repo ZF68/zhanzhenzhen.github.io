@@ -47,11 +47,14 @@ ui.root.add(
             padding: ui.Padding(0, "2rem", 0, 0)
         } as leftCol,
         ui.Stack(
+            {
+                childAlignment: "start"
+            },
             contentElement,
             ui.Text("评论", {fontSize: 2, backgroundPaint: "rgb(224,255,224)"}),
             ui.Text("以下是网友评论。不代表本人支持其中的观点。请勿发表不良内容，否则一经发现将被删除\
             （如发现请向本人举报）。", {fontSize: 0.8}),
-            ui.Stack() as commentsElement,
+            ui.Stack{childAlignment: "start"} as commentsElement,
             ui.Button("添加评论")
         )
     )
@@ -134,6 +137,7 @@ Promise.all(client.text.map(doc ->
         if path ≠ oldPath
 
             contentElement.empty()
+            commentsElement.empty()
 
             strippedPath: path.substr(1)
             if strippedPath.endsWith("/")
@@ -163,7 +167,7 @@ Promise.all(client.text.map(doc ->
                     commentsElement.add(ui.Stack(
                         ui.Text(issue.user.login + ":"),
                         ui.Text(issue.body),
-                        ui.Stack() as subcommentsElement
+                        ui.Stack() as subcommentsElement,
                         ui.Button("回复")
                     ))
                     web.jsonGet("\(apiBase)/repos/\(username)/\(repo)/issues/\(issue.number)\
