@@ -29,7 +29,6 @@ contentElement: ui.Element(
         lineHeight: 1.5
         selectable: true
         pointer: "auto"
-        padding: "0.5rem"
     }
 )
 contentDom: contentElement.raw
@@ -50,6 +49,7 @@ ui.root.add(
                 childAlignment: "start"
                 overflow: "scroll"
                 childSpacing: "1rem"
+                padding: "0.5rem"
             },
             contentElement,
             ui.Text("评论", {fontSize: 2, backgroundPaint: "rgb(224,255,224)"}),
@@ -65,7 +65,7 @@ ui.root.add(
                 例如，URL为https://zhanzhenzhen.github.io/2016_01_01则ID为2016_01_01。\
                 如果是为主页添加评论，则不用加ID。
             "),
-            ui.Button("添加评论")
+            ui.Button("添加评论", {fontSize: 1.3})
         )
     )
 )
