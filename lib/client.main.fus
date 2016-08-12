@@ -61,16 +61,22 @@ ui.root.add(
                 childSpacing: "0.5rem"
             } as commentsElement,
             ui.Element{height: "1rem"},
+            ui.Text("
+                点击“添加评论”后，请在标题栏输入文章的ID，文章ID为URL中的路径名（不包括“/”）。\
+                例如，URL为“https://zhanzhenzhen.github.io/2016_01_01”，则ID为“2016_01_01”。\
+                如果是为主页添加评论，则不用输入ID。
+            ", {wrapping: "wrap", fontSize: 0.9}),
             ui.Button("添加评论", {
                 fontSize: 1.3
+                padding: ui.Padding("1rem", "0.5rem")
                 click: <>
                     location.href: "https://github.com/\(username)/\(repo)/issues/new"
             }),
-            ui.Text("
-                点击该按钮后，请在标题栏输入文章的ID，文章ID为URL中的路径名（不包括“/”）。\
-                例如，URL为“https://zhanzhenzhen.github.io/2016_01_01”，则ID为“2016_01_01”。\
-                如果是为主页添加评论，则不用输入ID。
-            ", {wrapping: "wrap", fontSize: 0.9})
+            ui.Button("All Issues", {
+                fontSize: 0.9
+                click: <>
+                    location.href: "https://github.com/\(username)/\(repo)/issues"
+            })
         )
     )
 )
