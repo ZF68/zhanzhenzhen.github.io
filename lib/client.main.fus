@@ -25,7 +25,6 @@ ui.setRem(0.02)
 
 contentElement: ui.Element(
     {
-        width: 0.8
         lineHeight: 1.5
         selectable: true
         pointer: "auto"
@@ -50,6 +49,7 @@ ui.root.add(
                 overflow: "scroll"
                 childSpacing: "1rem"
                 padding: "0.5rem"
+                width: 0.8
             },
             contentElement,
             ui.Text("评论", {fontSize: 2, backgroundPaint: "rgb(224,255,224)"}),
@@ -193,27 +193,12 @@ Promise.all(client.text.map(doc ->
                         },
                         ui.Text(issue.user.login + ":"),
                         ui.Text(issue.body, {wrapping: "wrap"}),
-                        ui.Stack{
-                            childAlignment: "start"
-                            height: "auto"
-                        } as subcommentsElement,
-                        ui.Button("回复", {
+                        ui.Button("\(issue.comments)回复", {
                             fontSize: 0.8
                             click: <>
                                 location.href: issue.html_url
                         })
                     ))
-                    web.jsonGet("\(apiBase)/repos/\(username)/\(repo)/issues/\(issue.number)\
-                    /comments?per_page=100")
-                    .then(commentsResponse ->
-                        comments: commentsResponse.body
-                        comments.forEach comment ->
-                            subcommentsElement.add(ui.Text(comment.body, {
-                                fontSize: 0.85
-                                padding: ui.Padding("1rem", "0rem", "0rem", "0rem")
-                                wrapping: "wrap"
-                            }))
-                    )
             ).catch(<>
             )
 
