@@ -184,22 +184,31 @@ Promise.all(client.text.map(doc ->
             in:title+-label:blocked+repo:\(username)/\(repo)&sort=created")
             .then(response ->
                 issues: response.body.items
-                issues.forEach issue ->
-                    commentsElement.add(ui.Stack(
-                        {
-                            childAlignment: "start"
-                            height: "auto"
-                            childSpacing: "0.3rem"
-                        },
-                        ui.Text(issue.user.login + ":"),
-                        ui.Text(issue.body, {wrapping: "wrap"}),
-                        ui.Button("\(issue.comments)回复", {
-                            fontSize: 0.8
-                            click: <>
-                                location.href: issue.html_url
-                        })
-                    ))
+                if issues..isEmpty()
+                    commentsElement.add(
+                        ui.Text("无评论。")
+                    )
+                else
+                    issues.forEach issue ->
+                        commentsElement.add(ui.Stack(
+                            {
+                                childAlignment: "start"
+                                height: "auto"
+                                childSpacing: "0.3rem"
+                            },
+                            ui.Text(issue.user.login + ":"),
+                            ui.Text(issue.body, {wrapping: "wrap"}),
+                            ui.Button("\(issue.comments)回复", {
+                                fontSize: 0.8
+                                click: <>
+                                    location.href: issue.html_url
+                            })
+                        ))
             ).catch(<>
+                commentsElement.add(
+                    ui.Text("评论加载错误，请在1分钟后再试试。如果您在1分钟之内浏览不同页面超过10次，\
+                    将超出GitHub的配额，导致评论无法加载。", {wrapping: "wrap"})
+                )
             )
 
             oldPath: path
