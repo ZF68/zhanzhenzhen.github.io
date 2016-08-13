@@ -42,5 +42,6 @@ server.homePageAfterScript: "
         ga('create', 'UA-19880790-4', 'auto');
         ga('send', 'pageview');
     ]]></script>
+    <script src="/3rd-party/highlight/highlight.pack.js" type="text/javascript" />
 "
 server.start()
