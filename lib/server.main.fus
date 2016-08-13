@@ -34,6 +34,7 @@ server.httpsCredential: {
 }
 server.maxRequestBodySize: 65536
 server.homePageAfterScript: "
+    <link rel="stylesheet" href="/highlight-custom.css" type="text/css" />
     <script><![CDATA[
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -42,6 +43,5 @@ server.homePageAfterScript: "
         ga('create', 'UA-19880790-4', 'auto');
         ga('send', 'pageview');
     ]]></script>
-    <script src="/3rd-party/highlight/highlight.pack.js" type="text/javascript" />
 "
 server.start()
