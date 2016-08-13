@@ -11,6 +11,7 @@ shared: import "site/shared"
 client: import "site/client"
 
 marked: import "marked"
+hljs: import "highlight.js"
 #manuals: require("./client.manuals.coffee")
 ui: client.ui
 
@@ -18,6 +19,10 @@ apiBase: "https://api.github.com"
 
 docsObj: {}
 originalTitle: document.title
+
+marked.setOptions{
+    highlight: code -> hljs.highlightAuto(code).value
+}
 
 parseElement: s -> DOMParser().parseFromString(s, "application/xml").documentElement
 

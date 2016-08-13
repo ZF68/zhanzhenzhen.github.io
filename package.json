@@ -6,7 +6,8 @@
     "dependencies": {
         "site": "2.6.1",
         "babel-polyfill": "6.x",
-        "marked": "0.x"
+        "marked": "0.x",
+        "highlight.js": "9.x"
     },
     "scripts": {
         "start": "node target/server.main"
