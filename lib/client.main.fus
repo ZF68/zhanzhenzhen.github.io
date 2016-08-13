@@ -37,12 +37,12 @@ ui.root.add(
             width: "auto"
             aspectRatio: 1.25
             horizontal: true
-        },
+        }
         ui.Stack{
             width: 0.2
             childSpacing: "0.3rem"
             padding: ui.Padding(0, "2rem", 0, 0)
-        } as leftCol,
+        } as leftCol
         ui.Stack(
             {
                 childAlignment: "start"
@@ -50,28 +50,28 @@ ui.root.add(
                 childSpacing: "1rem"
                 padding: "0.5rem"
                 width: 0.8
-            },
-            contentElement,
-            ui.Text("评论", {fontSize: 2, backgroundPaint: "rgb(224,255,224)"}),
+            }
+            contentElement
+            ui.Text("评论", {fontSize: 2, backgroundPaint: "rgb(224,255,224)"})
             ui.Text("以下是网友评论。不代表本人支持其中的观点。请勿发表不良内容，否则一经发现将被删除\
-            （如发现请向本人举报）。", {fontSize: 0.8, wrapping: "wrap"}),
+            （如发现请向本人举报）。", {fontSize: 0.8, wrapping: "wrap"})
             ui.Stack{
                 childAlignment: "start"
                 height: "auto"
                 childSpacing: "0.5rem"
-            } as commentsElement,
-            ui.Element{height: "1rem"},
+            } as commentsElement
+            ui.Element{height: "1rem"}
             ui.Text("
                 点击“添加评论”后，请在标题栏输入文章的ID，文章ID为URL中的路径名（不包括“/”）。\
                 例如，URL为“https://zhanzhenzhen.github.io/2016_01_01”，则ID为“2016_01_01”。\
                 如果是为主页添加评论，则不用输入ID。
-            ", {wrapping: "wrap", fontSize: 0.9}),
+            ", {wrapping: "wrap", fontSize: 0.9})
             ui.Button("添加评论", {
                 fontSize: 1.3
                 padding: ui.Padding("1rem", "0.5rem")
                 click: <>
                     location.href: "https://github.com/\(username)/\(repo)/issues/new"
-            }),
+            })
             ui.Button("All Issues", {
                 fontSize: 0.9
                 click: <>
@@ -146,8 +146,8 @@ Promise.all(client.text.map(doc ->
                     backgroundPaint: "rgb(224,224,224)"
                     pointer: "link"
                     click: <> client.setUri("/" + blog.id)
-                },
-                ui.Text(blog.title),
+                }
+                ui.Text(blog.title)
                 ui.Text(dateStr, {fontSize: 0.7})
             ))
         )
@@ -195,9 +195,9 @@ Promise.all(client.text.map(doc ->
                                 childAlignment: "start"
                                 height: "auto"
                                 childSpacing: "0.3rem"
-                            },
-                            ui.Text(issue.user.login + ":"),
-                            ui.Text(issue.body, {wrapping: "wrap"}),
+                            }
+                            ui.Text(issue.user.login + ":")
+                            ui.Text(issue.body, {wrapping: "wrap"})
                             ui.Button("\(issue.comments)回复", {
                                 fontSize: 0.8
                                 click: <>
