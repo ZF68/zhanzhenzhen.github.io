@@ -20,9 +20,12 @@ apiBase: "https://api.github.com"
 docsObj: {}
 originalTitle: document.title
 
+markedRenderer: marked.Renderer()
 marked.setOptions{
     highlight: code -> hljs.highlightAuto(code).value
+    renderer: markedRenderer
 }
+markedRenderer.html: s -> s.startsWith("<script ") or s.startsWith("<script>") ? "" | s
 
 parseElement: s -> DOMParser().parseFromString(s, "application/xml").documentElement
 
@@ -176,6 +179,7 @@ Promise.all(client.text.map(doc ->
                     htmlString: marked.parse(doc.content)
                     contentDom.innerHTML: parseElement("
                         <div xmlns="http://www.w3.org/1999/xhtml">
+                            <h1>\(shared.encodeXMLComponent(doc.title))</h1>
                             \(htmlString)
                         </div>
                     ").innerHTML
