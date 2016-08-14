@@ -29,6 +29,12 @@ markedRenderer.html: s -> s.startsWith("<script ") or s.startsWith("<script>") ?
 
 parseElement: s -> DOMParser().parseFromString(s, "application/xml").documentElement
 
+contentElement: null
+contentDom: null
+leftCol: null
+commentsElement: null
+docs: null
+
 ui.setRem(0.02)
 
 Promise.all(client.text.map(doc ->
@@ -62,6 +68,7 @@ Promise.all(client.text.map(doc ->
         }
     )
 )).then(rawDocs ->
+    docs: rawDocs.filter(m -> m.type'ok and m.id'ok)
     contentElement: ui.Element(
         {
             lineHeight: 1.5
@@ -70,9 +77,10 @@ Promise.all(client.text.map(doc ->
         }
     )
     contentDom: contentElement.raw
-    ui.root.setBorder{width: "1rem"}
-    ui.root.setPaint("rgb(192,192,192)")
-    ui.root.add(
+    ui.root
+    .setPaint("rgb(224,224,224)")
+    .setBackgroundPaint("rgb(255,255,255)")
+    .add(
         ui.Stack(
             {
                 width: "auto"
@@ -121,15 +129,7 @@ Promise.all(client.text.map(doc ->
             )
         )
     )
-    setImmediate(<>
-        ui.root.animate{
-            from: {scale: 1}
-            to: {scale: 0.5}
-            duration: 2000
-        }
-    )
 
-    docs: rawDocs.filter(m -> m.type'ok and m.id'ok)
     docs.forEach doc ->
         docsObj.(doc.id): doc
     groups: docs..group(m ->
@@ -234,4 +234,10 @@ Promise.all(client.text.map(doc ->
 
     uriUpdateHandler()
     client.onUriChange(uriUpdateHandler)
+
+    ui.root.animate{
+        to: {backgroundPaint: "rgb(51,51,51)"}
+        duration: 600
+    }
+).then(<>
 )
