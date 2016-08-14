@@ -238,6 +238,9 @@ Promise.all(client.text.map(doc ->
     uriUpdateHandler()
     client.onUriChange(uriUpdateHandler)
 
-    sceneBox.showScene(scene, ui.transition.slide("down"), 600)
+    setTimeout(
+        <> sceneBox.showScene(scene, ui.transition.slide("down"), 600)
+        100
+    )
 ).then(<>
 )
