@@ -238,6 +238,16 @@ Promise.all(client.text.map(doc ->
     uriUpdateHandler()
     client.onUriChange(uriUpdateHandler)
 
-    sceneBox.showScene(scene, ui.transition.slide("down"), 600)
+    sceneBox.showScene(
+        scene
+        [
+            ui.transition.dissolve
+            ui.transition.slide("left")
+            ui.transition.slide("right")
+            ui.transition.slide("up")
+            ui.transition.slide("down")
+        ]..randomOne()
+        600
+    )
 ).then(<>
 )
