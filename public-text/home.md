@@ -7,7 +7,7 @@
 }
 </script>
 
-这是詹臻臻的个人网站。
+这是詹臻臻的个人网站。（本人Email：zhanzhenzhen@hotmail.com）
 
 它的特色在于，用 GitHub Pages 的同时，实现评论，全部的架构都位于GitHub，不依赖第三方，零费用。
 
