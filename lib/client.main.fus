@@ -121,12 +121,12 @@ Promise.all(client.text.map(doc ->
                 fontSize: 1.3
                 padding: ui.Padding("1rem", "0.5rem")
                 click: <>
-                    location.href: "https://github.com/\(username)/\(repo)/issues/new"
+                    open("https://github.com/\(username)/\(repo)/issues/new")
             })
             ui.Button("All Issues", {
                 fontSize: 0.9
                 click: <>
-                    location.href: "https://github.com/\(username)/\(repo)/issues"
+                    open("https://github.com/\(username)/\(repo)/issues")
             })
         )
     ))
@@ -223,7 +223,7 @@ Promise.all(client.text.map(doc ->
                             ui.Button("\(issue.comments)回复", {
                                 fontSize: 0.8
                                 click: <>
-                                    location.href: issue.html_url
+                                    open(issue.html_url)
                             })
                         ))
             ).catch(<>
