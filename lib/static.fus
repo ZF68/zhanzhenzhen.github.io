@@ -15,8 +15,9 @@ export: {
                 }
                 pre {
                     white-space: pre-wrap;
-                    border-left: 0.6em solid rgb(70,70,70);
-                    padding: 0.25em 1em;
+                    background-color: rgb(30,30,30);
+                    border-radius: 1rem;
+                    padding: 0.5em 1em;
                     font-size: 0.93rem;
                 }
                 p code, li code {
