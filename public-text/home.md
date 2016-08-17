@@ -13,7 +13,7 @@
 
 [网站的Repo在这里。](https://github.com/zhanzhenzhen/zhanzhenzhen.github.io)
 
-我使用自己开发的 Site Engine 来作为框架，并使用自己发明的FutureScript语言来写代码。
+我使用自己开发的 Site Engine 来作为框架，并使用自己设计的FutureScript语言来写代码。
 
 [想要了解FutureScript和 Site Engine，点击这里。](https://zizisoft.com/)
 
