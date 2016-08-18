@@ -18,3 +18,5 @@ node_modules
 *.p12
 
 *.compressed-705357537593286848.gz
+
+/temp-705357537593286848
