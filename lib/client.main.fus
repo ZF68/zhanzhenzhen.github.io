@@ -82,6 +82,7 @@ Promise.all(client.text.map(doc ->
     ui.root
     .setPaint("rgb(224,224,224)")
     .setBackgroundPaint("rgb(255,255,255)")
+    .setPointerDefaultEnabled(true)
     scene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
         {
             width: "auto"
