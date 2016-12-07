@@ -7,15 +7,17 @@
         <meta name="keywords" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0,
 minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
         <style type="text/css"><![CDATA[
             html {
                 font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
                 color: rgb(0%,0%,0%);
-                font-size: 1.5625vmin;
                 line-height: 1;
                 stroke-width: 0.0933333rem;
                 cursor: default;
                 overflow: hidden;
+                position: fixed;
                 /*
                  * must stretch html and body to 100% otherwise in firefox
                  * text can still be selected if clicking "outside"
@@ -24,6 +26,7 @@ minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
                 height: 100%;
             }
             body {
+                position: fixed;
                 margin: 0;
                 width: 100%;
                 height: 100%;
@@ -106,14 +109,44 @@ minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
                 -webkit-align-items: center;
                 align-items: center;
             }
+            #scale-keeper-705357537593286848 {
+                visibility: hidden;
+                z-index: 100100;
+                pointer-events: none;
+                opacity: 0.8;
+                display: -webkit-flex;
+                display: flex;
+                background-color: rgb(255,255,255);
+                -webkit-justify-content: center;
+                justify-content: center;
+                -webkit-align-items: center;
+                align-items: center;
+            }
         ]]></style>
+        <style type="text/css" title="animation-705357537593286848" />
         
         <script type="text/javascript"><![CDATA[
             document.addEventListener("DOMContentLoaded", function() {
                 window.global = window;
 
+                var remSize;
+                if (Math.min(screen.width, screen.height) < 512) {
+                    remSize = "3.125vmin";
+                }
+                else {
+                    remSize = "1.5625vmin";
+                }
+
+                document.documentElement.style.fontSize = remSize;
+
+                var startup = document.getElementById("startup-705357537593286848");
+                startup.style.fontSize = remSize; // explicitly set to not be related to rem
                 var startupText = document.getElementById("startup-text-705357537593286848");
                 startupText.textContent = "Downloading... Please wait";
+
+                var scaleKeeper = document.getElementById("scale-keeper-705357537593286848");
+                var scaleKeeperText = document.getElementById("scale-keeper-text-705357537593286848");
+                scaleKeeperText.textContent = "It seems that you are on mobile and you've scaled                 the page to more than 100%. Please use your fingers to scale down. Current scale:";
 
                 var script = document.createElementNS(
                     "http://www.w3.org/1999/xhtml", "script"
@@ -159,6 +192,13 @@ minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 ]]></script>
     </head>
     <body>
+        <div id="scale-keeper-705357537593286848">
+            <div style="margin: 1em;">
+                <div id="scale-keeper-text-705357537593286848" />
+                <div style="height: 1em;" />
+                <div id="scale-keeper-current-scale-705357537593286848" />
+            </div>
+        </div>
         <div id="startup-705357537593286848">
             <div id="startup-text-705357537593286848" />
         </div>
