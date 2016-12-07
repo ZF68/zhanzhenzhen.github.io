@@ -25,6 +25,9 @@ server.host:
         void
 server.httpPort: 50003
 server.httpsPort: 50004
+
+# Remove these lines if you don't want to configure HTTPS for testing.
+#--------------------------------------------------------------------------------
 server.httpEnabled:
     if shared.isDebug()
         false
@@ -40,6 +43,8 @@ server.password:
     else
         null
 server.debugMustHavePassword: true
+#--------------------------------------------------------------------------------
+
 server.maxRequestBodySize: 65536
 server.homePageAfterScript: $static.homePageInfo.afterScript
 server.start()
