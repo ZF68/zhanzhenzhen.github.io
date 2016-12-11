@@ -8,6 +8,7 @@
         "babel-polyfill": "6.x",
         "markdown-it": "8.x",
         "markdown-it-emoji": "1.x",
+        "twemoji": "2.x",
         "highlight.js": "9.x"
     },
     "scripts": {
