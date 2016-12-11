@@ -37,8 +37,11 @@ md: markdownIt{
 md.use(emoji)
 md.renderer.rules.emoji: (token, idx) ->
     r: twemoji.parse(token.(idx).content)
+
+    # This emoji plugin isn't compatible with XHTML, so we must convert it to XHTML
     matched: r.match(r"^(<img\b[^>]+[^/])>$")
     r: matched'ok ? matched.1 + "/>" | token.(idx).content
+
     r
 
 parseElement: s -> DOMParser().parseFromString(s, "application/xml").documentElement
