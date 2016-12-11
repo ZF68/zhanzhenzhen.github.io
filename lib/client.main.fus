@@ -182,7 +182,7 @@ Promise.all(client.text.map(doc ->
                     pointer: "link"
                     click: <> client.setUri("/" + blog.id)
                 }
-                ui.Text(blog.title)
+                ui.Text(blog.title, {wrapping: "wrap"})
                 ui.Text(dateStr, {fontSize: 0.7})
             ))
         )
