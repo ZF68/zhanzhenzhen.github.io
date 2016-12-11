@@ -10,7 +10,8 @@ shared: import "site/shared"
 #import "./shared.main"
 client: import "site/client"
 
-marked: import "marked"
+markdownIt: import "markdown-it"
+emoji: import "markdown-it-emoji"
 hljs: import "highlight.js"
 #manuals: require("./client.manuals.coffee")
 ui: client.ui
@@ -20,12 +21,19 @@ apiBase: "https://api.github.com"
 docsObj: {}
 originalTitle: document.title
 
-markedRenderer: marked.Renderer()
-marked.setOptions{
-    highlight: code -> hljs.highlightAuto(code).value
-    renderer: markedRenderer
+md: markdownIt{
+    html: true
+    xhtmlOut: true
+    highlight: (str, lang) ->
+        if hljs.getLanguage(lang)'ok
+            try
+                hljs.highlight(lang, str).value
+            catch
+                ""
+        else
+            ""
 }
-markedRenderer.html: s -> s.startsWith("<script ") or s.startsWith("<script>") ? "" | s
+md.use(emoji)
 
 parseElement: s -> DOMParser().parseFromString(s, "application/xml").documentElement
 
@@ -195,7 +203,7 @@ Promise.all(client.text.map(doc ->
             if doc'ok
                 document.title: doc.title
                 if doc.type = "markdown"
-                    htmlString: marked.parse(doc.content)
+                    htmlString: md.render(doc.content)
                     contentDom.innerHTML: parseElement("
                         <div xmlns="http://www.w3.org/1999/xhtml">
                             <h1>\(shared.encodeXMLComponent(doc.title))</h1>
