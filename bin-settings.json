@@ -1,0 +1,3 @@
+{
+    "deploy": "site build release && site static && git push origin master"
+}
