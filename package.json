@@ -4,7 +4,7 @@
     "private": true,
     "author": "Zhenzhen Zhan <zhanzhenzhen@hotmail.com>",
     "dependencies": {
-        "site": "2.22.1",
+        "site": "2.23.0",
         "babel-polyfill": "6.x",
         "markdown-it": "8.x",
         "markdown-it-emoji": "1.x",
