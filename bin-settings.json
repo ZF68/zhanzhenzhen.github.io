@@ -1,3 +1,3 @@
 {
-    "deploy": "site build release && site static && git push origin master"
+    "deploy": "site build release && site static && git push --all && git push --tags"
 }
