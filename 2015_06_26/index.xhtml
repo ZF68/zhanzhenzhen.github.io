@@ -130,11 +130,12 @@ minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
                 window.global = window;
 
                 var remSize;
+                var average = Math.sqrt(window.innerWidth * window.innerHeight);
                 if (Math.min(screen.width, screen.height) < 512) {
-                    remSize = "3.125vmin";
+                    remSize = (average * 0.03125).toString() + "px";
                 }
                 else {
-                    remSize = "1.5625vmin";
+                    remSize = (average * 0.015625).toString() + "px";
                 }
 
                 document.documentElement.style.fontSize = remSize;
