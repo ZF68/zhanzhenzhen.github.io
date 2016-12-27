@@ -54,7 +54,7 @@ docs: null
 scene: null
 sceneBox: null
 
-ui.setRem(0.02)
+ui.setRem ui.MinRem(0.02)
 
 Promise.all(client.text.map(doc ->
     if (doc.filename.endsWith(".md") or doc.filename.endsWith(".markdown"))
