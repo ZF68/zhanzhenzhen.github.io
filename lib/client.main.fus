@@ -56,6 +56,7 @@ secondScene: null
 mainScene: null
 sceneBox: null
 wheelEffective: true
+lastWheelInfo: null
 
 ui.setRem ui.MinRem(0.02)
 
@@ -274,9 +275,11 @@ Promise.all(client.text.map(doc ->
     uriUpdateHandler()
     client.onUriChange(uriUpdateHandler)
 
+    ui.root.onWheel(e ->
+        lastWheelInfo: {time: Date.now(), delta: e.delta}
+    )
     ui.root.onWheelStart(e ->
         if wheelEffective
-            console.log Math.random()
             wheelEffective: false
             (
                 if e.forward
@@ -284,11 +287,17 @@ Promise.all(client.text.map(doc ->
                         firstScene
                             sceneBox.showScene(secondScene, ui.transition.dissolve, 600)
                         secondScene
+                            mainSceneStartTime: Date.now()
                             scrollElement.setPointerArea("none")
                             sceneBox.showScene(mainScene, ui.transition.dissolve, 600)
-                            .then(<> Promise..delay(1400))
                             .then(<>
-                                scrollElement.setPointerArea(null)
+                                do <>
+                                    now: Date.now()
+                                    if now - mainSceneStartTime > 2000
+                                    or (lastWheelInfo'ok and now - lastWheelInfo.time > 250)
+                                        scrollElement.setPointerArea(null)
+                                    else
+                                        Promise..delay(50).then(-- fun())
                             )
                         |
                             Promise.resolve()
