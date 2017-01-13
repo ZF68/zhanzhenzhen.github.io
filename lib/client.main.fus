@@ -51,8 +51,11 @@ contentDom: null
 leftCol: null
 commentsElement: null
 docs: null
-scene: null
+firstScene: null
+secondScene: null
+mainScene: null
 sceneBox: null
+wheelEffective: true
 
 ui.setRem ui.MinRem(0.02)
 
@@ -100,7 +103,16 @@ Promise.all(client.text.map(doc ->
     .setPaint("rgb(224,224,224)")
     .setBackgroundPaint("rgb(255,255,255)")
     .setPointerDefaultEnabled(true)
-    scene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
+    firstScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
+        ui.Text("这是詹臻臻的博客")
+        ui.Text("向下滚动")
+    ))
+    secondScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
+        {childAlignment: "center", width: 0.5}
+        ui.Image({width: 1}, "/childhood-computer.jpg")
+        ui.Text("向下滚动")
+    ))
+    mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
         {
             width: "auto"
             height: 1
@@ -150,9 +162,9 @@ Promise.all(client.text.map(doc ->
                 click: <>
                     open("https://github.com/\(username)/\(repo)/issues")
             })
-        )
+        ) as scrollElement
     ))
-    sceneBox: ui.SceneBox(scene)
+    sceneBox: ui.SceneBox(firstScene, secondScene, mainScene)
     ui.root.add sceneBox
 
     docs.forEach doc ->
@@ -262,8 +274,35 @@ Promise.all(client.text.map(doc ->
     uriUpdateHandler()
     client.onUriChange(uriUpdateHandler)
 
+    ui.root.onWheelStart(e ->
+        if wheelEffective
+            console.log Math.random()
+            wheelEffective: false
+            (
+                if e.forward
+                    match sceneBox.getCurrentScene()
+                        firstScene
+                            sceneBox.showScene(secondScene, ui.transition.dissolve, 600)
+                        secondScene
+                            scrollElement.setPointerArea("none")
+                            sceneBox.showScene(mainScene, ui.transition.dissolve, 600).then(<>
+                                scrollElement.setPointerArea(null)
+                            )
+                        |
+                            Promise.resolve()
+                else
+                    match sceneBox.getCurrentScene()
+                        secondScene
+                            sceneBox.showScene(firstScene, ui.transition.dissolve, 600)
+                        |
+                            Promise.resolve()
+            ).then(<>
+                wheelEffective: true
+            )
+    )
+
     sceneBox.showScene(
-        scene
+        firstScene
         [
             ui.transition.dissolve
             ui.transition.slide("left")
