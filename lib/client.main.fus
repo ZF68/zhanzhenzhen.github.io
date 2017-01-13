@@ -285,7 +285,9 @@ Promise.all(client.text.map(doc ->
                             sceneBox.showScene(secondScene, ui.transition.dissolve, 600)
                         secondScene
                             scrollElement.setPointerArea("none")
-                            sceneBox.showScene(mainScene, ui.transition.dissolve, 600).then(<>
+                            sceneBox.showScene(mainScene, ui.transition.dissolve, 600)
+                            .then(<> Promise..delay(1400))
+                            .then(<>
                                 scrollElement.setPointerArea(null)
                             )
                         |
