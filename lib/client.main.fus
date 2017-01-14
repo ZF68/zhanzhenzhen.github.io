@@ -308,7 +308,8 @@ Promise.all(client.text.map(doc ->
                         |
                             Promise.resolve()
             ).then(<>
-                wheelEffective: true
+                if sceneBox.getCurrentScene() ≠ mainScene
+                    wheelEffective: true
             )
     )
 
