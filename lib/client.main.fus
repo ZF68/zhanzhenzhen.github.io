@@ -104,11 +104,12 @@ Promise.all(client.text.map(doc ->
     .setBackgroundPaint("rgb(255,255,255)")
     .setPointerDefaultEnabled(true)
     firstScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
-        ui.Text("这是詹臻臻的博客")
+        {childAlignment: "center", width: 1, childSpacing: "4rem"}
+        ui.Text({fontSize: 4}, "詹臻臻的博客")
         ui.Text("向下滚动")
     ))
     secondScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
-        {childAlignment: "center", width: 0.5}
+        {childAlignment: "center", width: 0.5, childSpacing: "2rem"}
         ui.Image({width: 1}, "/childhood-computer.jpg")
         ui.Text("向下滚动")
     ))
