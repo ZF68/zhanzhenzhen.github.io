@@ -56,7 +56,6 @@ secondScene: null
 mainScene: null
 sceneBox: null
 wheelEffective: true
-lastWheelInfo: null
 
 ui.setRem ui.MinRem(0.02)
 
@@ -130,7 +129,7 @@ Promise.all(client.text.map(doc ->
         ui.Stack(
             {
                 childAlignment: "start"
-                overflow: "scroll"
+                overflow: "hidden"
                 childSpacing: "1rem"
                 padding: "0.5rem"
                 width: 0.8
@@ -275,9 +274,6 @@ Promise.all(client.text.map(doc ->
     uriUpdateHandler()
     client.onUriChange(uriUpdateHandler)
 
-    ui.root.onWheel(e ->
-        lastWheelInfo: {time: Date.now(), delta: e.delta}
-    )
     ui.root.onWheelStart(e ->
         if wheelEffective
             wheelEffective: false
@@ -287,29 +283,25 @@ Promise.all(client.text.map(doc ->
                         firstScene
                             sceneBox.showScene(secondScene, ui.transition.dissolve, 600)
                         secondScene
-                            mainSceneStartTime: Date.now()
-                            scrollElement.setPointerArea("none")
                             sceneBox.showScene(mainScene, ui.transition.dissolve, 600)
-                            .then(<>
-                                do <>
-                                    now: Date.now()
-                                    if now - mainSceneStartTime > 2000
-                                    or (lastWheelInfo'ok and now - lastWheelInfo.time > 250)
-                                        scrollElement.setPointerArea(null)
-                                    else
-                                        Promise..delay(50).then(-- fun())
-                            )
+                        mainScene
+                            if ui.root.getWheelTarget() = null
+                                ui.root.setWheelTarget(scrollElement)
+                            Promise.resolve()
                         |
                             Promise.resolve()
                 else
                     match sceneBox.getCurrentScene()
                         secondScene
                             sceneBox.showScene(firstScene, ui.transition.dissolve, 600)
+                        mainScene
+                            if ui.root.getWheelTarget() = null
+                                ui.root.setWheelTarget(scrollElement)
+                            Promise.resolve()
                         |
                             Promise.resolve()
             ).then(<>
-                if sceneBox.getCurrentScene() ≠ mainScene
-                    wheelEffective: true
+                wheelEffective: true
             )
     )
 
