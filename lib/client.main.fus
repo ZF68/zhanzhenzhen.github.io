@@ -185,6 +185,7 @@ Promise.all(client.text.map(doc ->
         backgroundPaint: "rgb(96,96,96)"
         pointer: "link"
         click: <>
+            scrollElement.raw.scrollTop: 0
             ui.root.setWheelTarget(null)
             sceneBox.showScene(firstScene, ui.transition.dissolve, 600)
             client.setUri("/")
