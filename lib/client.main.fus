@@ -51,13 +51,15 @@ contentDom: null
 leftCol: null
 commentsElement: null
 docs: null
+mainBody: null
 firstScene: null
 secondScene: null
 mainScene: null
+scrollElement: null
 sceneBox: null
 wheelEffective: true
 
-ui.setRem ui.MinRem(0.02)
+ui.setRem ui.GmRem(client.browser.deviceType = "handheld" ? 0.032 | 0.016)
 
 Promise.all(client.text.map(doc ->
     if (doc.filename.endsWith(".md") or doc.filename.endsWith(".markdown"))
@@ -174,7 +176,7 @@ Promise.all(client.text.map(doc ->
                     open("https://github.com/\(username)/\(repo)/issues")
             })
         ) as scrollElement
-    ))
+    ) as mainBody)
     sceneBox: ui.SceneBox(firstScene, secondScene, mainScene)
     ui.root.add sceneBox
 
@@ -297,6 +299,20 @@ Promise.all(client.text.map(doc ->
 
     uriUpdateHandler()
     client.onUriChange(uriUpdateHandler)
+
+    resizeHandler: <>
+        viewportSize: ui.getSize()
+
+        if viewportSize.x / viewportSize.y < 1
+            mainBody.setAspectRatio(null).setWidth(1.5).setAnchor(0.333333, 0.5).setX(0)
+            leftCol.setWidth(0.333333)
+            scrollElement.setWidth(0.666666)
+        else
+            mainBody.setAspectRatio(1.25).setWidth("auto").setAnchor(0.5, 0.5).setX(0.5)
+            leftCol.setWidth(0.2)
+            scrollElement.setWidth(0.8)
+    ui.onResize(resizeHandler)
+    resizeHandler()
 
     ui.root.onWheelStart(e ->
         if wheelEffective
