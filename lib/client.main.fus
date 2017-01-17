@@ -49,6 +49,7 @@ parseElement: s -> DOMParser().parseFromString(s, "application/xml").documentEle
 contentElement: null
 contentDom: null
 leftCol: null
+toc: null
 commentsElement: null
 docs: null
 mainBody: null
@@ -133,12 +134,53 @@ Promise.all(client.text.map(doc ->
             horizontal: true
             backgroundPaint: "rgb(51,51,51)"
         }
-        ui.Stack{
-            width: 0.22
-            height: 1
-            childSpacing: "0.3rem"
-            padding: ui.Padding("0.5rem", "2rem", 0, "1rem")
-        } as leftCol
+        ui.Stack(
+            {
+                width: 0.22
+                height: 1
+                childSpacing: "0.3rem"
+                padding: ui.Padding("0.5rem", "2rem", 0, "1rem")
+            }
+            ui.Stack(
+                {
+                    width: 1
+                    childSpacing: "0.3rem"
+                }
+                ui.Text("重新载入", {
+                    padding: ui.Padding("0.5rem")
+                    backgroundPaint: "rgb(96,96,96)"
+                    pointer: "link"
+                    click: <>
+                        client.localData.homeLoaded: false
+                        client.saveLocalData()
+                        scrollElement.raw.scrollTop: 0
+                        ui.root.setWheelTarget(null)
+                        sceneBox.showScene(firstScene, ui.transition.dissolve, 600)
+                        client.setUri("/")
+                })
+                ui.Text("主页", {
+                    padding: ui.Padding("0.5rem")
+                    backgroundPaint: "rgb(96,96,96)"
+                    pointer: "link"
+                    click: <> client.setUri("/")
+                })
+            )
+            ui.Stack{
+                width: 1
+                height: 0.7
+                childSpacing: "0.3rem"
+            } as toc
+            ui.Stack(
+                {
+                    horizontal: true
+                    width: 1
+                    height: 0.08
+                    childSpacing: "0.3rem"
+                }
+                ui.Button("前")
+                ui.Button("后")
+            )
+        ) as leftCol
         ui.Stack(
             {
                 childAlignment: "start"
@@ -193,34 +235,13 @@ Promise.all(client.text.map(doc ->
     homeGroup: groups..singleOrNull(m -> m.0 = "home")
     blogGroup: groups..singleOrNull(m -> m.0 = "blog")
 
-    leftCol.add(ui.Text("重新载入", {
-        padding: ui.Padding("0.5rem")
-        backgroundPaint: "rgb(96,96,96)"
-        pointer: "link"
-        click: <>
-            client.localData.homeLoaded: false
-            client.saveLocalData()
-            scrollElement.raw.scrollTop: 0
-            ui.root.setWheelTarget(null)
-            sceneBox.showScene(firstScene, ui.transition.dissolve, 600)
-            client.setUri("/")
-    }))
-
-    if homeGroup'ok
-        leftCol.add(ui.Text(homeGroup.1.0.title, {
-            padding: ui.Padding("0.5rem")
-            backgroundPaint: "rgb(96,96,96)"
-            pointer: "link"
-            click: <> client.setUri("/")
-        }))
-
     if blogGroup'ok
         blogGroup.1..sortDescending(m -> m.time).forEach(blog ->
             date: blog.time
             dateStr: date.getUTCFullYear()..pad(4) + "-"
                 + (date.getUTCMonth() + 1)..pad(2) + "-"
                 + date.getUTCDate()..pad(2)
-            leftCol.add(ui.Stack(
+            toc.add(ui.Stack(
                 {
                     width: 1
                     height: "auto"
