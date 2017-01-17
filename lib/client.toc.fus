@@ -6,6 +6,7 @@ ui: client.ui
 main: import "./client.main" all
 
 fillBlogs'export: blogs ->
+    main.toc.empty()
     blogs..sortDescending(m -> m.time).forEach(blog ->
         main.toc.add(ui.Group(
             {
