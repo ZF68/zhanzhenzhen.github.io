@@ -17,6 +17,8 @@ hljs: import "highlight.js"
 #manuals: require("./client.manuals.coffee")
 ui: client.ui
 
+$toc: import "./client.toc" all
+
 apiBase: "https://api.github.com"
 
 docsObj: {}
@@ -46,19 +48,19 @@ md.renderer.rules.emoji: (token, idx) ->
 
 parseElement: s -> DOMParser().parseFromString(s, "application/xml").documentElement
 
-contentElement: null
-contentDom: null
-leftCol: null
-toc: null
-commentsElement: null
-docs: null
-mainBody: null
-firstScene: null
-secondScene: null
-mainScene: null
-scrollElement: null
-sceneBox: null
-wheelEffective: true
+contentElement'export: null
+contentDom'export: null
+leftCol'export: null
+toc'export: null
+commentsElement'export: null
+docs'export: null
+mainBody'export: null
+firstScene'export: null
+secondScene'export: null
+mainScene'export: null
+scrollElement'export: null
+sceneBox'export: null
+wheelEffective'export: true
 
 ui.setRem ui.GmRem(client.browser.deviceType = "handheld" ? 0.032 | 0.016)
 
@@ -236,6 +238,8 @@ Promise.all(client.text.map(doc ->
     blogGroup: groups..singleOrNull(m -> m.0 = "blog")
 
     if blogGroup'ok
+        $toc.fillBlogs(blogGroup.1)
+        ###
         blogGroup.1..sortDescending(m -> m.time).forEach(blog ->
             date: blog.time
             dateStr: date.getUTCFullYear()..pad(4) + "-"
@@ -254,6 +258,7 @@ Promise.all(client.text.map(doc ->
                 ui.Text(dateStr, {fontSize: 0.7})
             ))
         )
+        ###
 
     oldPath: null
     uriUpdateHandler: <>
