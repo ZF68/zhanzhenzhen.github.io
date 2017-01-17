@@ -129,12 +129,12 @@ Promise.all(client.text.map(doc ->
         {
             width: "auto"
             height: 1
-            aspectRatio: 1.25
+            aspectRatio: 1.33333
             horizontal: true
             backgroundPaint: "rgb(51,51,51)"
         }
         ui.Stack{
-            width: 0.2
+            width: 0.22
             height: 1
             childSpacing: "0.3rem"
             padding: ui.Padding("0.5rem", "2rem", 0, "1rem")
@@ -145,7 +145,7 @@ Promise.all(client.text.map(doc ->
                 overflow: "hidden"
                 childSpacing: "1rem"
                 padding: "0.5rem"
-                width: 0.8
+                width: 0.78
                 height: 1
             }
             contentElement
@@ -312,9 +312,9 @@ Promise.all(client.text.map(doc ->
             leftCol.setWidth(0.3)
             scrollElement.setWidth(0.7)
         else
-            mainBody.setAspectRatio(1.25).setWidth("auto").setAnchor(0.5, 0.5).setX(0.5)
-            leftCol.setWidth(0.2)
-            scrollElement.setWidth(0.8)
+            mainBody.setAspectRatio(1.33333).setWidth("auto").setAnchor(0.5, 0.5).setX(0.5)
+            leftCol.setWidth(0.22)
+            scrollElement.setWidth(0.78)
     ui.onResize(resizeHandler)
     resizeHandler()
 
