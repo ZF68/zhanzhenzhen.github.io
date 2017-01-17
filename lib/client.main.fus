@@ -167,14 +167,14 @@ Promise.all(client.text.map(doc ->
             )
             ui.Stack{
                 width: 1
-                height: 0.7
+                height: "35rem"
                 childSpacing: "0.3rem"
             } as toc
             ui.Stack(
                 {
                     horizontal: true
                     width: 1
-                    height: 0.08
+                    height: "2rem"
                     childSpacing: "0.3rem"
                 }
                 ui.Button("前")
