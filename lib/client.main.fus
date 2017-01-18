@@ -329,10 +329,11 @@ resizeHandler: <>
         mainBody.setAspectRatio(1.33333).setWidth("auto").setAnchor(0.5, 0.5).setX(0.5)
         leftCol.setWidth(0.22)
         scrollElement.setWidth(0.78)
+
+    $toc.fillBlogs(blogs..portion(0, tocLimit))
+
 ui.onResize(resizeHandler)
 resizeHandler()
-
-$toc.fillBlogs(blogs..portion(0, tocLimit))
 
 ui.root.onWheelStart(e ->
     if wheelEffective
