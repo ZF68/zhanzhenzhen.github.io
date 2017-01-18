@@ -73,6 +73,7 @@ docs: client.text
     head: doc.content.substr(0, 80).trim()
     head: head.match(r"^(?:#* )?([^\r\n]*)").1
     renderedHead: md.render(head)
+    renderedHead: renderedHead.match(r"<p>(.*)</p>").1
     id: doc.filename.substr(0, doc.filename.lastIndexOf("."))
     if id = "home"
         id: ""
