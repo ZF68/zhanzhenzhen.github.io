@@ -17,6 +17,6 @@ fillBlogs'export: blogs ->
                 pointer: "link"
                 click: <> client.setUri("/" + blog.id)
             }
-            ui.Text(blog.htmlTitle, {width: 0.93, wrapping: "wrap", lineHeight: 1.2})
+            ui.Element(blog.htmlTitle, {width: 0.93, wrapping: "wrap", lineHeight: 1.2})
         ))
     )
