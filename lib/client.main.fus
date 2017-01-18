@@ -330,10 +330,12 @@ resizeHandler: <>
         leftCol.setWidth(0.22)
         scrollElement.setWidth(0.78)
 
-    $toc.fillBlogs(blogs..portion(0, tocLimit))
+    $toc.refresh()
 
 ui.onResize(resizeHandler)
 resizeHandler()
+
+$toc.fillBlogs(blogs..portion(0, 10))
 
 ui.root.onWheelStart(e ->
     if wheelEffective
