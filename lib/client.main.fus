@@ -169,11 +169,6 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
                 click: <> client.setUri("/")
             })
         )
-        ui.Stack{
-            width: 1
-            height: "35rem"
-            childSpacing: "0.3rem"
-        } as toc
         ui.Stack(
             {
                 horizontal: true
@@ -190,6 +185,11 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
                 $toc.fillBlogs(blogs..portion(blogsCursor, 10))
             }) as nextButton
         )
+        ui.Stack{
+            width: 1
+            height: "35rem"
+            childSpacing: "0.3rem"
+        } as toc
     ) as leftCol
     ui.Stack(
         {

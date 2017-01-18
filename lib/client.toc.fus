@@ -20,6 +20,7 @@ fillBlogs'export: blogs ->
             ui.Element(blog.htmlTitle, {width: 0.93, wrapping: "wrap", lineHeight: 1.2})
         ))
     )
+    refresh()
 
 refresh'export: <>
     main.toc.getChildren().forEach((item, index) ->
