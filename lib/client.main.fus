@@ -52,6 +52,8 @@ contentElement'export: null
 contentDom'export: null
 leftCol'export: null
 toc'export: null
+blogs'export: null
+blogsCursor'export: 0
 commentsElement'export: null
 docs'export: null
 tocLimit'export: null
@@ -179,8 +181,14 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
                 height: "2rem"
                 childSpacing: "0.3rem"
             }
-            ui.Button("前")
-            ui.Button("后")
+            ui.Button("前", {click: <>
+                blogsCursor: Math.max(self - tocLimit, 0)
+                $toc.fillBlogs(blogs..portion(blogsCursor, 10))
+            }) as previousButton
+            ui.Button("后", {click: <>
+                blogsCursor: Math.max(Math.min(self + tocLimit, blogs.length - tocLimit), 0)
+                $toc.fillBlogs(blogs..portion(blogsCursor, 10))
+            }) as nextButton
         )
     ) as leftCol
     ui.Stack(
