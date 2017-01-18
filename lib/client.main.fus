@@ -226,7 +226,7 @@ ui.root.add sceneBox
 docs.forEach doc ->
     docsObj.(doc.id): doc
 
-$toc.fillBlogs(docs.filter(m -> m.category = "blog"))
+$toc.fillBlogs(docs.filter(m -> m.category = "blog")..sortDescending(m -> m.time))
 ###
 blogGroup.1..sortDescending(m -> m.time).forEach(blog ->
     date: blog.time
