@@ -75,9 +75,10 @@ docs: client.text
     renderedHead: md.render(head)
     id: doc.filename.substr(0, doc.filename.lastIndexOf("."))
     if id = "home"
+        id: ""
         category: "home"
     else
-        matched: m.id.match(r"^(\d\d\d\d)_(\d\d)_(\d\d)($|_)")
+        matched: id.match(r"^(\d\d\d\d)_(\d\d)_(\d\d)($|_)")
         if matched'ok
             category: "blog"
             time: "\(matched.1)-\(matched.2)-\(matched.3)"
