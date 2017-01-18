@@ -64,323 +64,303 @@ wheelEffective'export: true
 
 ui.setRem ui.GmRem(client.browser.deviceType = "handheld" ? 0.032 | 0.016)
 
-Promise.all(client.text.map(doc ->
-    if (doc.filename.endsWith(".md") or doc.filename.endsWith(".markdown"))
-    and doc.content.startsWith("<script ")
-        pos: doc.content.search("</script>")
-        metaString: doc.content.substr(0, pos + "</script>".length)
-        metaElement:
-            DOMParser().parseFromString(metaString, "text/html")
-            .querySelector("script[type=\"application/ld+json\"]")
-        fileType: "markdown"
-    (
-        if metaElement'ok
-            shared.jsonLd.compact(
-                JSON.parse(metaElement.textContent),
-                {"@context": "http://schema.org/"}
-            )
-        else
-            Promise.resolve{}
-    ).then(meta ->
-        candidateId: doc.filename.substr(0, doc.filename.lastIndexOf("."))
-        {
-            title: meta.headline ifnull "no title"
-            time: Date(meta.dateCreated ifnull "2010-01-02T00:00Z")
-            type: fileType
-            id: match candidateId
-                ""     ? null
-                "home" ? ""
-                |        candidateId
-            content: doc.content
-        }
+docs: client.text
+.filter(doc ->
+    not doc.filename.startsWith(".") and (
+        doc.filename.endsWith(".md") or doc.filename.endsWith(".markdown")
     )
-)).then(rawDocs ->
-    docs: rawDocs.filter(m -> m.type'ok and m.id'ok)
-    contentElement: ui.Element(
-        {
-            lineHeight: 1.5
-            selectable: true
-            pointer: "auto"
-        }
-    )
-    contentDom: contentElement.raw
-    ui.root
-    .setPaint("rgb(224,224,224)")
-    .setBackgroundPaint("rgb(255,255,255)")
-    .setPointerDefaultEnabled(true)
-    firstScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
-        {childAlignment: "center", width: 1, childSpacing: "4rem"}
-        ui.Text({fontSize: 4}, "詹臻臻的博客")
-        ui.Text("向下滚动")
-    ))
-    secondScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
-        {childAlignment: "center", width: 0.5, childSpacing: "2rem"}
-        ui.Image({width: 1}, "/childhood-computer.jpg")
-        ui.Text(
-            {wrapping: "wrap"}
-            "
-                我生于1982年，小时候对一切自己会动的玩具感兴趣。1989年读小学1年级时，\
-                家里有了一台叫做“中华学习机”的电脑，从此接触并爱上编程（因为觉得会自动运行真的很好玩）。\
-                这幅照片显示了我小时候是怎样玩电脑的。那时没有专门的显示器，这台黑白电视机勉强能够应付，\
-                里面可以看到似乎有文字，其实是一段BASIC程序。这电脑是兼容Apple-II的，\
-                还接了个5寸盘的驱动器（在左边）。
-            "
-        )
-        ui.Text("向下滚动")
-    ))
-    mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
-        {
-            width: "auto"
-            height: 1
-            aspectRatio: 1.33333
-            horizontal: true
-            backgroundPaint: "rgb(51,51,51)"
-        }
-        ui.Stack(
-            {
-                width: 0.22
-                height: 1
-                childSpacing: "1rem"
-                padding: ui.Padding("0.5rem", "2rem", 0, "1rem")
-            }
-            ui.Stack(
-                {
-                    width: 1
-                    childSpacing: "0.3rem"
-                }
-                ui.Text("重新载入", {
-                    padding: ui.Padding("0.5rem")
-                    backgroundPaint: "rgb(96,96,96)"
-                    pointer: "link"
-                    click: <>
-                        client.localData.homeLoaded: false
-                        client.saveLocalData()
-                        scrollElement.raw.scrollTop: 0
-                        ui.root.setWheelTarget(null)
-                        sceneBox.showScene(firstScene, ui.transition.dissolve, 600)
-                        client.setUri("/")
-                })
-                ui.Text("主页", {
-                    padding: ui.Padding("0.5rem")
-                    backgroundPaint: "rgb(96,96,96)"
-                    pointer: "link"
-                    click: <> client.setUri("/")
-                })
-            )
-            ui.Stack{
-                width: 1
-                height: "35rem"
-                childSpacing: "0.3rem"
-            } as toc
-            ui.Stack(
-                {
-                    horizontal: true
-                    width: 1
-                    height: "2rem"
-                    childSpacing: "0.3rem"
-                }
-                ui.Button("前")
-                ui.Button("后")
-            )
-        ) as leftCol
-        ui.Stack(
-            {
-                childAlignment: "start"
-                overflow: "hidden"
-                childSpacing: "1rem"
-                padding: "0.5rem"
-                width: 0.78
-                height: 1
-            }
-            contentElement
-            ui.Text("评论", {fontSize: 2})
-            ui.Text("以下是网友评论。不代表本人支持其中的观点。请勿发表不良内容，否则一经发现将被删除\
-            （如发现请向本人举报）。", {fontSize: 0.8, wrapping: "wrap"})
-            ui.Stack{
-                childAlignment: "start"
-                width: 1
-                height: "auto"
-                childSpacing: "0.5rem"
-            } as commentsElement
-            ui.Element{height: "1rem"}
-            ui.Text("
-                点击“添加评论”后，请在标题栏输入文章的ID，文章ID为URL中的路径名（不包括“/”）。\
-                例如，URL为“https://zhanzhenzhen.github.io/2016_01_01”，则ID为“2016_01_01”。\
-                如果是为主页添加评论，则不用输入ID。
-            ", {wrapping: "wrap", fontSize: 0.9})
-            ui.Button("添加评论", {
-                fontSize: 1.3
-                padding: ui.Padding("1rem", "0.5rem")
-                click: <>
-                    open("https://github.com/\(username)/\(repo)/issues/new")
-            })
-            ui.Button("All Issues", {
-                fontSize: 0.9
-                click: <>
-                    open("https://github.com/\(username)/\(repo)/issues")
-            })
-        ) as scrollElement
-    ) as mainBody)
-    sceneBox: ui.SceneBox(firstScene, secondScene, mainScene)
-    ui.root.add sceneBox
-
-    docs.forEach doc ->
-        docsObj.(doc.id): doc
-    groups: docs..group(m ->
-        if m.id = ""
-            "home"
-        else if m.id.match(r"^\d\d\d\d_\d\d_\d\d($|_)")'ok
-            "blog"
-        else
-            "article"
-    )
-    homeGroup: groups..singleOrNull(m -> m.0 = "home")
-    blogGroup: groups..singleOrNull(m -> m.0 = "blog")
-
-    if blogGroup'ok
-        $toc.fillBlogs(blogGroup.1)
-        ###
-        blogGroup.1..sortDescending(m -> m.time).forEach(blog ->
-            date: blog.time
-            dateStr: date.getUTCFullYear()..pad(4) + "-"
-                + (date.getUTCMonth() + 1)..pad(2) + "-"
-                + date.getUTCDate()..pad(2)
-            toc.add(ui.Stack(
-                {
-                    width: 1
-                    height: "4rem"
-                    padding: ui.Padding("0.5rem")
-                    backgroundPaint: "rgb(96,96,96)"
-                    pointer: "link"
-                    click: <> client.setUri("/" + blog.id)
-                }
-                ui.Text(blog.title, {wrapping: "wrap"})
-                ui.Text(dateStr, {fontSize: 0.7})
-            ))
-        )
-        ###
-
-    oldPath: null
-    uriUpdateHandler: <>
-        path: decodeURI(location.pathname)
-        if path ≠ oldPath
-
-            contentElement.empty()
-            commentsElement.empty()
-
-            strippedPath: path.substr(1)
-            if strippedPath.endsWith("/")
-                strippedPath: strippedPath.substr(0, strippedPath.length - 1)
-            doc: docsObj.(strippedPath)
-
-            if doc'ok
-                document.title: doc.title
-                if doc.type = "markdown"
-                    htmlString: md.render(doc.content)
-                    contentDom.innerHTML: parseElement("
-                        <div xmlns="http://www.w3.org/1999/xhtml">
-                            <h1>\(shared.encodeXMLComponent(doc.title))</h1>
-                            \(htmlString)
-                        </div>
-                    ").innerHTML
-                else
-                    contentDom.textContent: doc.content
-            else
-                document.title: ""
-                contentDom.textContent: ""
-
-            web.jsonGet("\(apiBase)/search/issues?q=\(encodeURIComponent(doc.id))+\
-            in:title+-label:blocked+repo:\(username)/\(repo)&sort=created")
-            .then(response ->
-                issues: response.body.items
-                if issues..isEmpty()
-                    commentsElement.add(
-                        ui.Text("无评论。")
-                    )
-                else
-                    issues.forEach issue ->
-                        commentsElement.add(ui.Stack(
-                            {
-                                childAlignment: "start"
-                                width: 1
-                                height: "auto"
-                                childSpacing: "0.3rem"
-                            }
-                            ui.Text(issue.user.login + ":")
-                            ui.Text(issue.body, {wrapping: "wrap"})
-                            ui.Button("\(issue.comments)回复", {
-                                fontSize: 0.8
-                                click: <>
-                                    open(issue.html_url)
-                            })
-                        ))
-            ).catch(<>
-                commentsElement.add(
-                    ui.Text("评论加载错误，请在1分钟后再试试。如果您在1分钟之内浏览不同页面超过10次，\
-                    将超出GitHub的配额，导致评论无法加载。", {wrapping: "wrap"})
-                )
-            )
-
-            oldPath: path
-
-    uriUpdateHandler()
-    client.onUriChange(uriUpdateHandler)
-
-    resizeHandler: <>
-        viewportSize: ui.getSize()
-
-        if viewportSize.x / viewportSize.y < 1
-            mainBody.setAspectRatio(null).setWidth(1.5).setAnchor(0.333333, 0.5).setX(0)
-            leftCol.setWidth(0.333333)
-            scrollElement.setWidth(0.666666)
-        else if client.browser.deviceType = "handheld"
-            mainBody.setAspectRatio(null).setWidth(1).setAnchor(0.5, 0.5).setX(0.5)
-            leftCol.setWidth(0.3)
-            scrollElement.setWidth(0.7)
-        else
-            mainBody.setAspectRatio(1.33333).setWidth("auto").setAnchor(0.5, 0.5).setX(0.5)
-            leftCol.setWidth(0.22)
-            scrollElement.setWidth(0.78)
-    ui.onResize(resizeHandler)
-    resizeHandler()
-
-    ui.root.onWheelStart(e ->
-        if wheelEffective
-            wheelEffective: false
-            (
-                if e.forward
-                    match sceneBox.getCurrentScene()
-                        firstScene
-                            sceneBox.showScene(secondScene, ui.transition.dissolve, 600)
-                        secondScene
-                            client.localData.homeLoaded: true
-                            client.saveLocalData()
-                            sceneBox.showScene(mainScene, ui.transition.dissolve, 600)
-                        mainScene
-                            if ui.root.getWheelTarget() = null
-                                ui.root.setWheelTarget(scrollElement)
-                            Promise.resolve()
-                        |
-                            Promise.resolve()
-                else
-                    match sceneBox.getCurrentScene()
-                        secondScene
-                            sceneBox.showScene(firstScene, ui.transition.dissolve, 600)
-                        mainScene
-                            if ui.root.getWheelTarget() = null
-                                ui.root.setWheelTarget(scrollElement)
-                            Promise.resolve()
-                        |
-                            Promise.resolve()
-            ).then(<>
-                wheelEffective: true
-            )
-    )
-
-    if client.localData.homeLoaded
-        ui.root.setWheelTarget(scrollElement)
-        sceneBox.showScene(mainScene, ui.transition.dissolve, 600)
+).map(doc ->
+    head: doc.content.substr(0, 80).trim()
+    head: head.match(r"^(?:#* )?([^\r\n]*)").1
+    renderedHead: md.render(head)
+    id: doc.filename.substr(0, doc.filename.lastIndexOf("."))
+    if id = "home"
+        category: "home"
     else
-        sceneBox.showScene(firstScene, ui.transition.dissolve, 600)
-).then(<>
+        matched: m.id.match(r"^(\d\d\d\d)_(\d\d)_(\d\d)($|_)")
+        if matched'ok
+            category: "blog"
+            time: "\(matched.1)-\(matched.2)-\(matched.3)"
+        else
+            category: "article"
+    {
+        id: id
+        category: category
+        title: head
+        htmlTitle: renderedHead
+        time: time
+        content: doc.content
+    }
 )
+
+contentElement: ui.Element(
+    {
+        lineHeight: 1.5
+        selectable: true
+        pointer: "auto"
+    }
+)
+contentDom: contentElement.raw
+ui.root
+.setPaint("rgb(224,224,224)")
+.setBackgroundPaint("rgb(255,255,255)")
+.setPointerDefaultEnabled(true)
+firstScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
+    {childAlignment: "center", width: 1, childSpacing: "4rem"}
+    ui.Text({fontSize: 4}, "詹臻臻的博客")
+    ui.Text("向下滚动")
+))
+secondScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
+    {childAlignment: "center", width: 0.5, childSpacing: "2rem"}
+    ui.Image({width: 1}, "/childhood-computer.jpg")
+    ui.Text(
+        {wrapping: "wrap"}
+        "
+            我生于1982年，小时候对一切自己会动的玩具感兴趣。1989年读小学1年级时，\
+            家里有了一台叫做“中华学习机”的电脑，从此接触并爱上编程（因为觉得会自动运行真的很好玩）。\
+            这幅照片显示了我小时候是怎样玩电脑的。那时没有专门的显示器，这台黑白电视机勉强能够应付，\
+            里面可以看到似乎有文字，其实是一段BASIC程序。这电脑是兼容Apple-II的，\
+            还接了个5寸盘的驱动器（在左边）。
+        "
+    )
+    ui.Text("向下滚动")
+))
+mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
+    {
+        width: "auto"
+        height: 1
+        aspectRatio: 1.33333
+        horizontal: true
+        backgroundPaint: "rgb(51,51,51)"
+    }
+    ui.Stack(
+        {
+            width: 0.22
+            height: 1
+            childSpacing: "1rem"
+            padding: ui.Padding("0.5rem", "2rem", 0, "1rem")
+        }
+        ui.Stack(
+            {
+                width: 1
+                childSpacing: "0.3rem"
+            }
+            ui.Text("重新载入", {
+                padding: ui.Padding("0.5rem")
+                backgroundPaint: "rgb(96,96,96)"
+                pointer: "link"
+                click: <>
+                    client.localData.homeLoaded: false
+                    client.saveLocalData()
+                    scrollElement.raw.scrollTop: 0
+                    ui.root.setWheelTarget(null)
+                    sceneBox.showScene(firstScene, ui.transition.dissolve, 600)
+                    client.setUri("/")
+            })
+            ui.Text("主页", {
+                padding: ui.Padding("0.5rem")
+                backgroundPaint: "rgb(96,96,96)"
+                pointer: "link"
+                click: <> client.setUri("/")
+            })
+        )
+        ui.Stack{
+            width: 1
+            height: "35rem"
+            childSpacing: "0.3rem"
+        } as toc
+        ui.Stack(
+            {
+                horizontal: true
+                width: 1
+                height: "2rem"
+                childSpacing: "0.3rem"
+            }
+            ui.Button("前")
+            ui.Button("后")
+        )
+    ) as leftCol
+    ui.Stack(
+        {
+            childAlignment: "start"
+            overflow: "hidden"
+            childSpacing: "1rem"
+            padding: "0.5rem"
+            width: 0.78
+            height: 1
+        }
+        contentElement
+        ui.Text("评论", {fontSize: 2})
+        ui.Text("以下是网友评论。不代表本人支持其中的观点。请勿发表不良内容，否则一经发现将被删除\
+        （如发现请向本人举报）。", {fontSize: 0.8, wrapping: "wrap"})
+        ui.Stack{
+            childAlignment: "start"
+            width: 1
+            height: "auto"
+            childSpacing: "0.5rem"
+        } as commentsElement
+        ui.Element{height: "1rem"}
+        ui.Text("
+            点击“添加评论”后，请在标题栏输入文章的ID，文章ID为URL中的路径名（不包括“/”）。\
+            例如，URL为“https://zhanzhenzhen.github.io/2016_01_01”，则ID为“2016_01_01”。\
+            如果是为主页添加评论，则不用输入ID。
+        ", {wrapping: "wrap", fontSize: 0.9})
+        ui.Button("添加评论", {
+            fontSize: 1.3
+            padding: ui.Padding("1rem", "0.5rem")
+            click: <>
+                open("https://github.com/\(username)/\(repo)/issues/new")
+        })
+        ui.Button("All Issues", {
+            fontSize: 0.9
+            click: <>
+                open("https://github.com/\(username)/\(repo)/issues")
+        })
+    ) as scrollElement
+) as mainBody)
+sceneBox: ui.SceneBox(firstScene, secondScene, mainScene)
+ui.root.add sceneBox
+
+docs.forEach doc ->
+    docsObj.(doc.id): doc
+
+$toc.fillBlogs(docs.filter(m -> m.category = "blog"))
+###
+blogGroup.1..sortDescending(m -> m.time).forEach(blog ->
+    date: blog.time
+    dateStr: date.getUTCFullYear()..pad(4) + "-"
+        + (date.getUTCMonth() + 1)..pad(2) + "-"
+        + date.getUTCDate()..pad(2)
+    toc.add(ui.Stack(
+        {
+            width: 1
+            height: "4rem"
+            padding: ui.Padding("0.5rem")
+            backgroundPaint: "rgb(96,96,96)"
+            pointer: "link"
+            click: <> client.setUri("/" + blog.id)
+        }
+        ui.Text(blog.title, {wrapping: "wrap"})
+        ui.Text(dateStr, {fontSize: 0.7})
+    ))
+)
+###
+
+oldPath: null
+uriUpdateHandler: <>
+    path: decodeURI(location.pathname)
+    if path ≠ oldPath
+
+        contentElement.empty()
+        commentsElement.empty()
+
+        strippedPath: path.substr(1)
+        if strippedPath.endsWith("/")
+            strippedPath: strippedPath.substr(0, strippedPath.length - 1)
+        doc: docsObj.(strippedPath)
+
+        if doc'ok
+            document.title: doc.title
+            htmlString: md.render(doc.content)
+            contentDom.innerHTML: parseElement("
+                <div xmlns="http://www.w3.org/1999/xhtml">
+                    \(htmlString)
+                </div>
+            ").innerHTML
+        else
+            document.title: ""
+            contentDom.textContent: ""
+
+        web.jsonGet("\(apiBase)/search/issues?q=\(encodeURIComponent(doc.id))+\
+        in:title+-label:blocked+repo:\(username)/\(repo)&sort=created")
+        .then(response ->
+            issues: response.body.items
+            if issues..isEmpty()
+                commentsElement.add(
+                    ui.Text("无评论。")
+                )
+            else
+                issues.forEach issue ->
+                    commentsElement.add(ui.Stack(
+                        {
+                            childAlignment: "start"
+                            width: 1
+                            height: "auto"
+                            childSpacing: "0.3rem"
+                        }
+                        ui.Text(issue.user.login + ":")
+                        ui.Text(issue.body, {wrapping: "wrap"})
+                        ui.Button("\(issue.comments)回复", {
+                            fontSize: 0.8
+                            click: <>
+                                open(issue.html_url)
+                        })
+                    ))
+        ).catch(<>
+            commentsElement.add(
+                ui.Text("评论加载错误，请在1分钟后再试试。如果您在1分钟之内浏览不同页面超过10次，\
+                将超出GitHub的配额，导致评论无法加载。", {wrapping: "wrap"})
+            )
+        )
+
+        oldPath: path
+
+uriUpdateHandler()
+client.onUriChange(uriUpdateHandler)
+
+resizeHandler: <>
+    viewportSize: ui.getSize()
+
+    if viewportSize.x / viewportSize.y < 1
+        mainBody.setAspectRatio(null).setWidth(1.5).setAnchor(0.333333, 0.5).setX(0)
+        leftCol.setWidth(0.333333)
+        scrollElement.setWidth(0.666666)
+    else if client.browser.deviceType = "handheld"
+        mainBody.setAspectRatio(null).setWidth(1).setAnchor(0.5, 0.5).setX(0.5)
+        leftCol.setWidth(0.3)
+        scrollElement.setWidth(0.7)
+    else
+        mainBody.setAspectRatio(1.33333).setWidth("auto").setAnchor(0.5, 0.5).setX(0.5)
+        leftCol.setWidth(0.22)
+        scrollElement.setWidth(0.78)
+ui.onResize(resizeHandler)
+resizeHandler()
+
+ui.root.onWheelStart(e ->
+    if wheelEffective
+        wheelEffective: false
+        (
+            if e.forward
+                match sceneBox.getCurrentScene()
+                    firstScene
+                        sceneBox.showScene(secondScene, ui.transition.dissolve, 600)
+                    secondScene
+                        client.localData.homeLoaded: true
+                        client.saveLocalData()
+                        sceneBox.showScene(mainScene, ui.transition.dissolve, 600)
+                    mainScene
+                        if ui.root.getWheelTarget() = null
+                            ui.root.setWheelTarget(scrollElement)
+                        Promise.resolve()
+                    |
+                        Promise.resolve()
+            else
+                match sceneBox.getCurrentScene()
+                    secondScene
+                        sceneBox.showScene(firstScene, ui.transition.dissolve, 600)
+                    mainScene
+                        if ui.root.getWheelTarget() = null
+                            ui.root.setWheelTarget(scrollElement)
+                        Promise.resolve()
+                    |
+                        Promise.resolve()
+        ).then(<>
+            wheelEffective: true
+        )
+)
+
+if client.localData.homeLoaded
+    ui.root.setWheelTarget(scrollElement)
+    sceneBox.showScene(mainScene, ui.transition.dissolve, 600)
+else
+    sceneBox.showScene(firstScene, ui.transition.dissolve, 600)
