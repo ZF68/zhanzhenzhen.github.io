@@ -264,9 +264,10 @@ uriUpdateHandler: <>
         if doc'ok
             document.title: doc.title
             htmlString: md.render(doc.content)
+            timeHtml: doc.category = "blog" ? "<p>\(doc.time)</p>" | ""
             contentDom.innerHTML: parseElement("
                 <div xmlns="http://www.w3.org/1999/xhtml">
-                    \(htmlString)
+                    \(timeHtml)\(htmlString)
                 </div>
             ").innerHTML
         else
