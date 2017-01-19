@@ -162,6 +162,7 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
                     client.saveLocalData()
                     scrollElement.raw.scrollTop: 0
                     ui.root.setWheelTarget(null)
+                    $toc.compactToggle(true) if $toc.compactSwitch
                     sceneBox.showScene(firstScene, ui.transition.dissolve, 600)
                     client.setUri("/")
             })
