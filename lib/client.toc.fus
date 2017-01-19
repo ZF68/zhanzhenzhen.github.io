@@ -5,7 +5,7 @@ client: import "site/client"
 ui: client.ui
 main: import "./client.main" all
 
-compactSwitch: false
+compactSwitch'export: false
 
 fillBlogs'export: blogs ->
     main.toc.empty()
@@ -34,9 +34,13 @@ refresh'export: <>
             item.hide()
     )
 
-compactToggle'export: <>
+compactToggle'export: (quick: false) ->
     compactSwitch: not self
-    main.mainBody.animate{
-        to: {translate: [compactSwitch ? 0.333333 | 0, 0]}
-        duration: 300
-    }
+    newTranslate: [compactSwitch ? 0.333333 | 0, 0]
+    if quick
+        main.mainBody.setTranslate(newTranslate)
+    else
+        main.mainBody.animate{
+            to: {translate: newTranslate}
+            duration: 300
+        }

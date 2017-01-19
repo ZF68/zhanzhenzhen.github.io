@@ -372,6 +372,7 @@ resizeHandler: <>
             leftCol.setWidth(0.22)
             scrollElement.setWidth(0.78)
 
+    $toc.compactToggle(true) if $toc.compactSwitch
     $toc.refresh()
     refreshHeader(false)
 
