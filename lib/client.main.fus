@@ -203,9 +203,13 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
             width: 0.78
             height: 1
         }
-        ui.Stack{
-            horizontal: true
-        } as header
+        ui.Stack(
+            {
+                horizontal: true
+            }
+            ui.Text() as headerTime
+            ui.Button("目录") as headerTocButton
+        ) as header
         contentElement
         ui.Text("评论", {fontSize: 2})
         ui.Text("以下是网友评论。不代表本人支持其中的观点。请勿发表不良内容，否则一经发现将被删除\
@@ -263,16 +267,19 @@ blogGroup.1..sortDescending(m -> m.time).forEach(blog ->
 )
 ###
 
-refreshHeader: <>
-    header.empty()
-
-    if currentDoc'ok and currentDoc.category = "blog"
-        header.add ui.Text(currentDoc.time)
+refreshHeader: (changesTime: true) ->
+    if changesTime
+        if currentDoc'ok and currentDoc.category = "blog"
+            headerTime.setSource(currentDoc.time).show()
+        else
+            headerTime.collapse()
 
     if inCompactMode
-        header.add ui.Button("目录")
+        headerTocButton.show()
+    else
+        headerTocButton.collapse()
 
-    if header.getChildren()..isEmpty()
+    if headerTime.getVisibility() = "collapsed" and headerTocButton.getVisibility() = "collapsed"
         header.collapse()
     else
         header.show()
@@ -364,7 +371,7 @@ resizeHandler: <>
             scrollElement.setWidth(0.78)
 
     $toc.refresh()
-    refreshHeader()
+    refreshHeader(false)
 
 ui.onResize(resizeHandler)
 
