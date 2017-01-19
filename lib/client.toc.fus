@@ -5,6 +5,8 @@ client: import "site/client"
 ui: client.ui
 main: import "./client.main" all
 
+compactSwitch: false
+
 fillBlogs'export: blogs ->
     main.toc.empty()
     blogs.forEach(blog ->
@@ -15,7 +17,9 @@ fillBlogs'export: blogs ->
                 padding: ui.Padding("0.5rem")
                 backgroundPaint: "rgb(96,96,96)"
                 pointer: "link"
-                click: <> client.setUri("/" + blog.id)
+                click: <>
+                    compactToggle() if main.inCompactMode
+                    client.setUri("/" + blog.id)
             }
             ui.Element(blog.htmlTitle, {width: 0.93, wrapping: "wrap", lineHeight: 1.2})
         ))
@@ -29,3 +33,10 @@ refresh'export: <>
         else
             item.hide()
     )
+
+compactToggle'export: <>
+    compactSwitch: not self
+    main.mainBody.animate{
+        to: {translate: [compactSwitch ? 0.333333 | 0, 0]}
+        duration: 300
+    }

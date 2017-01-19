@@ -208,7 +208,9 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
                 horizontal: true
             }
             ui.Text() as headerTime
-            ui.Button("目录") as headerTocButton
+            ui.Button("目录", {click: <>
+                $toc.compactToggle() if inCompactMode
+            }) as headerTocButton
         ) as header
         contentElement
         ui.Text("评论", {fontSize: 2})
