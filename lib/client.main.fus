@@ -169,7 +169,9 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
                 padding: ui.Padding("0.5rem")
                 backgroundPaint: "rgb(96,96,96)"
                 pointer: "link"
-                click: <> client.setUri("/")
+                click: <>
+                    $toc.compactToggle() if inCompactMode
+                    client.setUri("/")
             })
         )
         ui.Stack(
