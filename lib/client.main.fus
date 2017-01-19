@@ -212,7 +212,7 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
                 horizontal: true
             }
             ui.Text() as headerTime
-            ui.Button("目录", {click: <>
+            $button.Button("目录", {click: <>
                 $toc.compactToggle() if inCompactMode
             }) as headerTocButton
         ) as header
@@ -232,13 +232,13 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
             例如，URL为“https://zhanzhenzhen.github.io/2016_01_01”，则ID为“2016_01_01”。\
             如果是为主页添加评论，则不用输入ID。
         ", {wrapping: "wrap", fontSize: 0.9})
-        ui.Button("添加评论", {
+        $button.Button("添加评论", {
             fontSize: 1.3
             padding: ui.Padding("1rem", "0.5rem")
             click: <>
                 open("https://github.com/\(username)/\(repo)/issues/new")
         })
-        ui.Button("All Issues", {
+        $button.Button("All Issues", {
             fontSize: 0.9
             click: <>
                 open("https://github.com/\(username)/\(repo)/issues")
@@ -338,7 +338,7 @@ uriUpdateHandler: <>
                         }
                         ui.Text(issue.user.login + ":")
                         ui.Text(issue.body, {wrapping: "wrap"})
-                        ui.Button("\(issue.comments)回复", {
+                        $button.Button("\(issue.comments)回复", {
                             fontSize: 0.8
                             click: <>
                                 open(issue.html_url)
