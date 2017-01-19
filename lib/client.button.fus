@@ -1,0 +1,10 @@
+fus 2.3.0
+import "./shared.manifest" all
+
+client: import "site/client"
+ui: client.ui
+
+Button'export: class from ui.Button
+    static DEFAULT_BORDER: ui.Border{width: "0.0933333em", paint: "rgb(224,224,224)"}
+    static DEFAULT_ACTIVE_STYLES: {backgroundPaint: "rgba(224,224,224,0.4)"}
+    static DEFAULT_HOVER_STYLES: {backgroundPaint: "rgba(224,224,224,0.2)"}

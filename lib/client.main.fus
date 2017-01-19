@@ -18,6 +18,7 @@ hljs: import "highlight.js"
 ui: client.ui
 
 $toc: import "./client.toc" all
+$button: import "./client.button" all
 
 apiBase: "https://api.github.com"
 
@@ -182,11 +183,11 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
                 height: "2rem"
                 childSpacing: "0.3rem"
             }
-            ui.Button("前", {click: <>
+            $button.Button("前", {click: <>
                 blogsCursor: Math.max(self - tocLimit, 0)
                 $toc.fillBlogs(blogs..portion(blogsCursor, 10))
             }) as previousButton
-            ui.Button("后", {click: <>
+            $button.Button("后", {click: <>
                 blogsCursor: Math.max(Math.min(self + tocLimit, blogs.length - tocLimit), 0)
                 $toc.fillBlogs(blogs..portion(blogsCursor, 10))
             }) as nextButton
