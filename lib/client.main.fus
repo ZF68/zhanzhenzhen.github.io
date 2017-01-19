@@ -48,6 +48,8 @@ md.renderer.rules.emoji: (token, idx) ->
 
 parseElement: s -> DOMParser().parseFromString(s, "application/xml").documentElement
 
+inCompactMode'export: false
+header'export: null
 contentElement'export: null
 contentDom'export: null
 leftCol'export: null
@@ -200,6 +202,9 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
             width: 0.78
             height: 1
         }
+        ui.Stack{
+            horizontal: true
+        } as header
         contentElement
         ui.Text("评论", {fontSize: 2})
         ui.Text("以下是网友评论。不代表本人支持其中的观点。请勿发表不良内容，否则一经发现将被删除\
@@ -262,6 +267,7 @@ uriUpdateHandler: <>
     path: decodeURI(location.pathname)
     if path ≠ oldPath
 
+        header.empty()
         contentElement.empty()
         commentsElement.empty()
 
@@ -273,10 +279,21 @@ uriUpdateHandler: <>
         if doc'ok
             document.title: doc.title
             htmlString: md.render(doc.content)
-            timeHtml: doc.category = "blog" ? "<p>\(doc.time)</p>" | ""
+
+            if doc.category = "blog"
+                header.add ui.Text(doc.time)
+
+            if inCompactMode
+                header.add ui.Button("目录")
+
+            if header.getChildren()..isEmpty()
+                header.collapse()
+            else
+                header.show()
+
             contentDom.innerHTML: parseElement("
                 <div xmlns="http://www.w3.org/1999/xhtml">
-                    \(timeHtml)\(htmlString)
+                    \(htmlString)
                 </div>
             ").innerHTML
         else
@@ -317,7 +334,6 @@ uriUpdateHandler: <>
 
         oldPath: path
 
-uriUpdateHandler()
 client.onUriChange(uriUpdateHandler)
 
 resizeHandler: <>
@@ -326,24 +342,24 @@ resizeHandler: <>
     tocLimit: Math.max(0, Math.floor((viewportSize.y - 15) / 3))
 
     if viewportSize.x / viewportSize.y < 1
+        inCompactMode: true
         mainBody.setAspectRatio(null).setWidth(1.5).setAnchor(0.333333, 0.5).setX(0)
         leftCol.setWidth(0.333333)
         scrollElement.setWidth(0.666666)
-    else if client.browser.deviceType = "handheld"
-        mainBody.setAspectRatio(null).setWidth(1).setAnchor(0.5, 0.5).setX(0.5)
-        leftCol.setWidth(0.3)
-        scrollElement.setWidth(0.7)
     else
-        mainBody.setAspectRatio(1.33333).setWidth("auto").setAnchor(0.5, 0.5).setX(0.5)
-        leftCol.setWidth(0.22)
-        scrollElement.setWidth(0.78)
+        inCompactMode: false
+        if client.browser.deviceType = "handheld"
+            mainBody.setAspectRatio(null).setWidth(1).setAnchor(0.5, 0.5).setX(0.5)
+            leftCol.setWidth(0.3)
+            scrollElement.setWidth(0.7)
+        else
+            mainBody.setAspectRatio(1.33333).setWidth("auto").setAnchor(0.5, 0.5).setX(0.5)
+            leftCol.setWidth(0.22)
+            scrollElement.setWidth(0.78)
 
     $toc.refresh()
 
 ui.onResize(resizeHandler)
-resizeHandler()
-
-$toc.fillBlogs(blogs..portion(0, 10))
 
 ui.root.onWheelStart(e ->
     if wheelEffective
@@ -377,6 +393,10 @@ ui.root.onWheelStart(e ->
             wheelEffective: true
         )
 )
+
+resizeHandler()
+uriUpdateHandler()
+$toc.fillBlogs(blogs..portion(0, 10))
 
 if client.localData.homeLoaded
     ui.root.setWheelTarget(scrollElement)
