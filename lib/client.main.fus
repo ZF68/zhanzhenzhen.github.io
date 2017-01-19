@@ -58,6 +58,7 @@ blogs'export: null
 blogsCursor'export: 0
 commentsElement'export: null
 docs'export: null
+currentDoc'export: null
 tocLimit'export: null
 mainBody'export: null
 firstScene'export: null
@@ -262,12 +263,25 @@ blogGroup.1..sortDescending(m -> m.time).forEach(blog ->
 )
 ###
 
+refreshHeader: <>
+    header.empty()
+
+    if currentDoc'ok and currentDoc.category = "blog"
+        header.add ui.Text(currentDoc.time)
+
+    if inCompactMode
+        header.add ui.Button("目录")
+
+    if header.getChildren()..isEmpty()
+        header.collapse()
+    else
+        header.show()
+
 oldPath: null
 uriUpdateHandler: <>
     path: decodeURI(location.pathname)
     if path ≠ oldPath
 
-        header.empty()
         contentElement.empty()
         commentsElement.empty()
 
@@ -277,28 +291,20 @@ uriUpdateHandler: <>
         doc: docsObj.(strippedPath)
 
         if doc'ok
+            currentDoc: doc
             document.title: doc.title
             htmlString: md.render(doc.content)
-
-            if doc.category = "blog"
-                header.add ui.Text(doc.time)
-
-            if inCompactMode
-                header.add ui.Button("目录")
-
-            if header.getChildren()..isEmpty()
-                header.collapse()
-            else
-                header.show()
-
             contentDom.innerHTML: parseElement("
                 <div xmlns="http://www.w3.org/1999/xhtml">
                     \(htmlString)
                 </div>
             ").innerHTML
         else
+            currentDoc: null
             document.title: ""
             contentDom.textContent: ""
+
+        refreshHeader()
 
         web.jsonGet("\(apiBase)/search/issues?q=\(encodeURIComponent(doc.id))+\
         in:title+-label:blocked+repo:\(username)/\(repo)&sort=created")
@@ -358,6 +364,7 @@ resizeHandler: <>
             scrollElement.setWidth(0.78)
 
     $toc.refresh()
+    refreshHeader()
 
 ui.onResize(resizeHandler)
 
