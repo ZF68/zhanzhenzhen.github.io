@@ -244,7 +244,11 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
             click: <>
                 open("https://github.com/\(username)/\(repo)/issues")
         })
-        ui.Element{height: "1rem"}
+
+        # This can't be replaced with a bottom-padding in the container, because bottom-padding
+        # will be ignored by some browsers. Also, we must set a non-zero width, otherwise Firefox
+        # will still ignore it.
+        ui.Element{width: "1rem", height: "1rem"}
     ) as scrollElement
 ) as mainBody)
 sceneBox: ui.SceneBox(firstScene, secondScene, mainScene)
