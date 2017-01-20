@@ -10,6 +10,11 @@ export: {
         afterScript: "
             <link rel="stylesheet" href="/highlight-custom.css" type="text/css" />
             <style type="text/css"><![CDATA[
+                h1:first-child {
+                    margin-top: 0;
+                    margin-bottom: 0.9em;
+                    line-height: 1;
+                }
                 pre, code {
                     font-family: "Source Code Pro", Menlo, Consolas, monospace;
                 }
