@@ -38,6 +38,10 @@ minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
                 user-select: none;
                 box-sizing: border-box;
                 -webkit-overflow-scrolling: touch;
+                -webkit-text-size-adjust: none;
+                -moz-text-size-adjust: none;
+                -ms-text-size-adjust: none;
+                text-size-adjust: none;
             }
             /* Workaround Firefox's inconsistency with other browsers,
              * because -moz-user-select by default is not
@@ -166,6 +170,11 @@ minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         ]]></script>
         <link rel="stylesheet" href="/highlight-custom.css" type="text/css" />
 <style type="text/css"><![CDATA[
+    h1:first-child {
+        margin-top: 0;
+        margin-bottom: 0.9em;
+        line-height: 1;
+    }
     pre, code {
         font-family: "Source Code Pro", Menlo, Consolas, monospace;
     }
