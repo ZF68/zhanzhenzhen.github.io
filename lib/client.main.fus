@@ -203,7 +203,7 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
             childAlignment: "start"
             overflow: "hidden"
             childSpacing: "1rem"
-            padding: "0.5rem"
+            padding: ui.Padding("0.5rem", "2rem", "0.5rem", "0rem")
             width: 0.78
             height: 1
         }
@@ -243,6 +243,7 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
             click: <>
                 open("https://github.com/\(username)/\(repo)/issues")
         })
+        ui.Element{height: "1rem"}
     ) as scrollElement
 ) as mainBody)
 sceneBox: ui.SceneBox(firstScene, secondScene, mainScene)
