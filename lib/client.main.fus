@@ -210,6 +210,7 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
         ui.Stack(
             {
                 horizontal: true
+                childSpacing: "1rem"
             }
             ui.Text() as headerTime
             $button.Button("目录", {click: <>
