@@ -53,6 +53,8 @@ openGithubUri: uri ->
     if not navigator.standalone
         open(uri)
     else
+        # Because iOS standalone mode forces URL to be opened in the same window,
+        # we have to disable this feature.
         alert("在App模式下无法进入GitHub。请在浏览器中点击此按钮。")
 
 inCompactMode'export: false
