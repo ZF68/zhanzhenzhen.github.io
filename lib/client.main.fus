@@ -105,7 +105,7 @@ docs: client.text
 contentElement: ui.Element(
     {
         lineHeight: 1.5
-        selectable: true
+        selectable: client.browser.deviceType = "computer"
         pointer: "auto"
     }
 )
@@ -113,7 +113,7 @@ contentDom: contentElement.raw
 ui.root
 .setPaint("rgb(224,224,224)")
 .setBackgroundPaint("rgb(255,255,255)")
-.setPointerDefaultEnabled(true)
+.setPointerDefaultEnabled(client.browser.deviceType = "computer")
 firstScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
     {childAlignment: "center", width: 1, childSpacing: "4rem"}
     ui.Text({fontSize: 4}, "詹臻臻的博客")
