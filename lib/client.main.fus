@@ -49,14 +49,6 @@ md.renderer.rules.emoji: (token, idx) ->
 
 parseElement: s -> DOMParser().parseFromString(s, "application/xml").documentElement
 
-openGithubUri: uri ->
-    if not navigator.standalone
-        open(uri)
-    else
-        # Because iOS standalone mode forces URL to be opened in the same window,
-        # we have to disable this feature.
-        alert("在App模式下无法进入GitHub。请在浏览器中点击此按钮。")
-
 inCompactMode'export: false
 header'export: null
 contentElement'export: null
@@ -249,12 +241,12 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
             fontSize: 1.3
             padding: ui.Padding("1rem", "0.5rem")
             click: <>
-                openGithubUri("https://github.com/\(username)/\(repo)/issues/new")
+                client.openLink("https://github.com/\(username)/\(repo)/issues/new", true)
         })
         $button.Button("All Issues", {
             fontSize: 0.9
             click: <>
-                openGithubUri("https://github.com/\(username)/\(repo)/issues")
+                client.openLink("https://github.com/\(username)/\(repo)/issues", true)
         })
 
         # This can't be replaced with a bottom-padding in the container, because bottom-padding
@@ -366,7 +358,7 @@ uriUpdateHandler: <>
                         $button.Button("\(issue.comments)回复", {
                             fontSize: 0.8
                             click: <>
-                                openGithubUri(issue.html_url)
+                                client.openLink(issue.html_url, true)
                         })
                     ))
         ).catch(<>
