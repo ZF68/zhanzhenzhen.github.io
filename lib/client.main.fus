@@ -330,6 +330,13 @@ uriUpdateHandler: <>
                     \(htmlString)
                 </div>
             ").innerHTML
+            if client.browser.deviceType ≠ "computer"
+                Array.from(contentDom.getElementsByTagName("a")).forEach(hyperlink ->
+                    client.dom.initElementEvents(hyperlink)
+                    hyperlink.addEventListener(client.dom.getCustomEventName("click"), <>
+                        client.openLink(hyperlink.href)
+                    )
+                )
         else
             currentDoc: null
             document.title: ""
