@@ -437,7 +437,7 @@ resizeHandler()
 uriUpdateHandler()
 $toc.fillBlogs(blogs..portion(0, 10))
 
-if client.localData.homeLoaded
+if client.localData.homeLoaded or location.pathname ≠ "/"
     ui.root.setWheelTarget(scrollElement)
     sceneBox.showScene(mainScene, ui.transition.dissolve, 600)
 else
