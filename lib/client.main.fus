@@ -390,9 +390,14 @@ resizeHandler: <>
             leftCol.setWidth(0.3)
             scrollElement.setWidth(0.7)
         else
-            mainBody.setAspectRatio(1.33333).setWidth("auto").setAnchor(0.5, 0.5).setX(0.5)
-            leftCol.setWidth(0.22)
-            scrollElement.setWidth(0.78)
+            if viewportSize.x / viewportSize.y < 1.33333
+                mainBody.setAspectRatio(null).setWidth(1).setAnchor(0.5, 0.5).setX(0.5)
+                leftCol.setWidth(0.22)
+                scrollElement.setWidth(0.78)
+            else
+                mainBody.setAspectRatio(1.33333).setWidth("auto").setAnchor(0.5, 0.5).setX(0.5)
+                leftCol.setWidth(0.22)
+                scrollElement.setWidth(0.78)
 
     $toc.compactToggle(true) if $toc.compactSwitch
     $toc.refresh()
