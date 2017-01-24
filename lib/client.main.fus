@@ -124,7 +124,7 @@ secondScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
     {childAlignment: "center", width: 0.5, childSpacing: "2rem"}
     ui.Image({width: 1}, "/childhood-computer.jpg")
     ui.Text(
-        {wrapping: "wrap", width: 1}
+        {wrapping: "wrap", width: 1, lineHeight: 1.35}
         "
             我生于1982年，小时候对一切自己会动的玩具感兴趣。1989年读小学1年级时，\
             家里有了一台叫做“中华学习机”的电脑，从此接触并爱上编程（因为觉得会自动运行真的很好玩）。\
@@ -225,7 +225,7 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
         contentElement
         ui.Text("评论", {fontSize: 2})
         ui.Text("以下是网友评论。不代表本人支持其中的观点。请勿发表不良内容，否则一经发现将被删除\
-        （如发现请向本人举报）。", {fontSize: 0.8, wrapping: "wrap", width: 1})
+        （如发现请向本人举报）。", {fontSize: 0.8, wrapping: "wrap", width: 1, lineHeight: 1.35})
         ui.Stack{
             childAlignment: "start"
             width: 1
@@ -237,7 +237,7 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
             点击“添加评论”后，请在标题栏输入文章的ID，文章ID为URL中的路径名（不包括“/”）。\
             例如，URL为“https://zhanzhenzhen.github.io/2016_01_01”，则ID为“2016_01_01”。\
             如果是为主页添加评论，则不用输入ID。
-        ", {wrapping: "wrap", fontSize: 0.9, width: 1})
+        ", {wrapping: "wrap", fontSize: 0.9, width: 1, lineHeight: 1.35})
         $button.Button("添加评论", {
             fontSize: 1.3
             padding: ui.Padding("1rem", "0.5rem")
@@ -355,7 +355,7 @@ uriUpdateHandler: <>
                             childSpacing: "0.3rem"
                         }
                         ui.Text(issue.user.login + ":")
-                        ui.Text(issue.body, {wrapping: "wrap", width: 1})
+                        ui.Text(issue.body, {wrapping: "wrap", width: 1, lineHeight: 1.35})
                         $button.Button("\(issue.comments)回复", {
                             fontSize: 0.8
                             click: <>
@@ -365,7 +365,7 @@ uriUpdateHandler: <>
         ).catch(<>
             commentsElement.add(
                 ui.Text("评论加载错误，请在1分钟后再试试。如果您在1分钟之内浏览不同页面超过10次，\
-                将超出GitHub的配额，导致评论无法加载。", {wrapping: "wrap", width: 1})
+                将超出GitHub的配额，导致评论无法加载。", {wrapping: "wrap", width: 1, lineHeight: 1.35})
             )
         )
 
