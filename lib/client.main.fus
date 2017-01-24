@@ -117,14 +117,14 @@ ui.root
 .setPointerDefaultEnabled(client.browser.deviceType = "computer")
 firstScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
     {childAlignment: "center", width: 1, childSpacing: "4rem"}
-    ui.Text({fontSize: 4}, "詹臻臻的博客")
+    ui.Text({fontSize: 3.5}, "詹臻臻的博客")
     ui.Text("向下滚动")
 ))
 secondScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
     {childAlignment: "center", width: 0.5, childSpacing: "2rem"}
     ui.Image({width: 1}, "/childhood-computer.jpg")
     ui.Text(
-        {wrapping: "wrap"}
+        {wrapping: "wrap", width: 1}
         "
             我生于1982年，小时候对一切自己会动的玩具感兴趣。1989年读小学1年级时，\
             家里有了一台叫做“中华学习机”的电脑，从此接触并爱上编程（因为觉得会自动运行真的很好玩）。\
@@ -365,7 +365,7 @@ uriUpdateHandler: <>
         ).catch(<>
             commentsElement.add(
                 ui.Text("评论加载错误，请在1分钟后再试试。如果您在1分钟之内浏览不同页面超过10次，\
-                将超出GitHub的配额，导致评论无法加载。", {wrapping: "wrap"})
+                将超出GitHub的配额，导致评论无法加载。", {wrapping: "wrap", width: 1})
             )
         )
 
