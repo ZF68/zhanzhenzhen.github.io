@@ -43,6 +43,7 @@ server.password:
     else
         null
 server.debugMustHavePassword: true
+server.requestOriginHost: shared.isDebug() ? server.host | null
 #--------------------------------------------------------------------------------
 
 server.maxRequestBodySize: 65536
