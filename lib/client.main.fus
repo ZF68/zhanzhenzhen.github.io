@@ -188,7 +188,11 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
                 height: "2rem"
                 childSpacing: "0.3rem"
             }
-            ui.TextBox{grow: 1, shrink: 1}
+            ui.TextBox{
+                grow: 1
+                shrink: 1
+                border: {width: "0.0933333em", paint: "rgb(224,224,224)"}
+            }
             $button.Button("搜索", {click: <>
             })
         )
