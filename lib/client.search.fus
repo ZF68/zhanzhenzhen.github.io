@@ -1,0 +1,23 @@
+fus 2.3.0
+import "./shared.manifest" all
+
+export: (query, blogs) ->
+    start: 0
+    inQuote: false
+    keywords: []
+    loop(query.length, i ->
+        char: query.(i)
+        if char = "\""
+            inQuote: not inQuote
+        else if inQuote
+            if query.(i - 1) = "\""
+                start: i
+            if query.(i + 1) = "\""
+                keywords.push query.substr(start, i - start + 1)
+        else if char ≠ " "
+            if query.(i - 1) in [" ", void]
+                start: i
+            if query.(i + 1) in [" ", void]
+                keywords.push query.substr(start, i - start + 1)
+    )
+    blogs.filter(m -> keywords.some(n -> m.title.includes(n)) or keywords.some(n -> m.content.includes(n)))
