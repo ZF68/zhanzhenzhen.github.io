@@ -19,7 +19,7 @@ ui: client.ui
 
 $toc: import "./client.toc" all
 $button: import "./client.button" all
-search: import "./search"
+search: import "./client.search"
 
 apiBase: "https://api.github.com"
 

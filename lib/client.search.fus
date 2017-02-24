@@ -20,4 +20,4 @@ export: (query, blogs) ->
             if query.(i + 1) in [" ", void]
                 keywords.push query.substr(start, i - start + 1)
     )
-    blogs.filter(m -> keywords.some(n -> m.title.includes(n)) or keywords.some(n -> m.content.includes(n)))
+    blogs.filter(m -> keywords.every(n -> m.title.includes(n)) or keywords.every(n -> m.content.includes(n)))
