@@ -50,6 +50,11 @@ md.renderer.rules.emoji: (token, idx) ->
 
 parseElement: s -> DOMParser().parseFromString(s, "application/xml").documentElement
 
+startSearch: <>
+    searchResultsCursor: 0
+    searchResults: search(searchBox.getSource(), blogs)
+    $toc.fillBlogs(searchResults..portion(searchResultsCursor, 10))
+
 inCompactMode'export: false
 header'export: null
 contentElement'export: null
@@ -194,12 +199,9 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
                 grow: 1
                 shrink: 1
                 border: {width: "0.0933333em", paint: "rgb(224,224,224)"}
+                commitTextInput: <> startSearch()
             } as searchBox
-            $button.Button("搜索", {click: <>
-                searchResultsCursor: 0
-                searchResults: search(searchBox.getSource(), blogs)
-                $toc.fillBlogs(searchResults..portion(searchResultsCursor, 10))
-            })
+            $button.Button("搜索", {click: <> startSearch()})
         )
         ui.Stack(
             {
