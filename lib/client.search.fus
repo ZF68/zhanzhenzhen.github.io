@@ -20,4 +20,15 @@ export: (query, blogs) ->
             if query.(i + 1) in [" ", void]
                 keywords.push query.substr(start, i - start + 1)
     )
-    blogs.filter(m -> keywords.every(n -> m.title.includes(n)) or keywords.every(n -> m.content.includes(n)))
+    if keywords..isEmpty()
+        blogs
+    else
+        regexKeywords: keywords.map(m -> m.replace(r"[\\^$*+?{}().|\[\]]"g, "\\$&"))
+        checkText: text ->
+            regexKeywords.every(regexKeyword ->
+                if regexKeyword.search(r"^\w") ≠ -1
+                    text.search(r"\b#(regexKeyword)"i) ≠ -1
+                else
+                    text.search(r"#(regexKeyword)"i) ≠ -1
+            )
+        blogs.filter(m -> checkText(m.title) or checkText(m.content))
