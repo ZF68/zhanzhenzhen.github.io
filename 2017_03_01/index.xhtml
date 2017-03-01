@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>詹臻臻的个人网站</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,
+minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <style type="text/css"><![CDATA[
+            * {
+                touch-action: none;
+            }
+            html {
+                font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+                color: rgb(0%,0%,0%);
+                line-height: 1;
+                stroke-width: 0.0933333rem;
+                cursor: default;
+                overflow: hidden;
+                position: fixed;
+                /*
+                 * must stretch html and body to 100% otherwise in firefox
+                 * text can still be selected if clicking "outside"
+                 */
+                width: 100%;
+                height: 100%;
+            }
+            body {
+                position: fixed;
+                margin: 0;
+                width: 100%;
+                height: 100%;
+            }
+            html, body {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                box-sizing: border-box;
+                -webkit-overflow-scrolling: touch;
+                -webkit-text-size-adjust: none;
+                -moz-text-size-adjust: none;
+                -ms-text-size-adjust: none;
+                text-size-adjust: none;
+            }
+            /* Workaround Firefox's inconsistency with other browsers,
+             * because -moz-user-select by default is not
+             * inherited by absolutely positioned elements, see:
+             * https://developer.mozilla.org/en-US/docs/Web/CSS/user-select
+             */
+            div, svg {
+                -webkit-user-select: inherit;
+                -moz-user-select: inherit;
+                -ms-user-select: inherit;
+                user-select: inherit;
+            }
+            div, svg, .text-input-705357537593286848 {
+                font-family: inherit;
+                font-size: inherit;
+                font-style: inherit;
+                font-weight: inherit;
+                box-sizing: inherit;
+                display: block;
+                line-height: inherit;
+                color: inherit;
+                min-width: 0;
+                min-height: 0;
+            }
+            .text-input-705357537593286848 {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                -ms-appearance: none;
+                appearance: none;
+            }
+            table {
+                border-collapse: collapse;
+            }
+            table td {
+                border-width: 0;
+                padding: 0;
+            }
+            a {
+                color: inherit;
+                text-decoration: underline;
+            }
+            /* set display to "block" to avoid line-height being applied in layout */
+            img, audio, video, svg {
+                display: block;
+            }
+            body > * {
+                position: absolute;
+            }
+            .group-705357537593286848 > * {
+                position: absolute;
+            }
+            .stack-705357537593286848 {
+                display: -webkit-flex;
+                display: flex;
+            }
+            .stack-705357537593286848 > * {
+                position: static;
+            }
+            .shape-705357537593286848 {
+                pointer-events: none;
+            }
+            .shape-705357537593286848 > svg > * {
+                pointer-events: auto;
+            }
+            .contented-705357537593286848 {
+                display: -webkit-flex;
+                display: flex;
+                -webkit-justify-content: center;
+                justify-content: center;
+                -webkit-align-items: center;
+                align-items: center;
+            }
+            .contented-705357537593286848 > * {
+                position: static;
+            }
+            #startup-705357537593286848 {
+                display: -webkit-flex;
+                display: flex;
+                width: 100%;
+                height: 100%;
+                background-color: rgb(255,255,255);
+                -webkit-justify-content: center;
+                justify-content: center;
+                -webkit-align-items: center;
+                align-items: center;
+            }
+            #scale-keeper-705357537593286848 {
+                visibility: hidden;
+                z-index: 100101;
+                pointer-events: none;
+                opacity: 0.8;
+                display: -webkit-flex;
+                display: flex;
+                background-color: rgb(255,255,255);
+                -webkit-justify-content: center;
+                justify-content: center;
+                -webkit-align-items: center;
+                align-items: center;
+            }
+            #scale-keeper-middle-705357537593286848 {
+                visibility: hidden;
+                z-index: 100100;
+                background-color: rgb(255,255,255);
+                opacity: 0;
+                width: 100%;
+                height: 100%;
+            }
+        ]]></style>
+        <style type="text/css" title="animation-705357537593286848" />
+        
+        <script type="text/javascript"><![CDATA[
+            document.addEventListener("DOMContentLoaded", function() {
+                window.global = window;
+
+                var remSize;
+                var average = Math.sqrt(window.innerWidth * window.innerHeight);
+                if (Math.min(screen.width, screen.height) < 512) {
+                    remSize = (average * 0.03125).toString() + "px";
+                }
+                else {
+                    remSize = (average * 0.015625).toString() + "px";
+                }
+
+                document.documentElement.style.fontSize = remSize;
+
+                var startup = document.getElementById("startup-705357537593286848");
+                startup.style.fontSize = remSize; // explicitly set to not be related to rem
+                var startupText = document.getElementById("startup-text-705357537593286848");
+                startupText.textContent = "Downloading... Please wait";
+
+                var scaleKeeper = document.getElementById("scale-keeper-705357537593286848");
+                var scaleKeeperText = document.getElementById("scale-keeper-text-705357537593286848");
+                scaleKeeperText.textContent = "It seems that you are on mobile and you've scaled                 the page to more than 100%. Please use your fingers to scale down. Current scale:";
+
+                var script = document.createElementNS(
+                    "http://www.w3.org/1999/xhtml", "script"
+                );
+                script.type = "text/javascript";
+                var passwordMatch = document.cookie.match(
+                    /(^|; )serverPassword_705357537593286848=([A-Za-z0-9]*)\b/
+                );
+                var queryString;
+                if (passwordMatch === null || location.protocol !== "https:") {
+                    queryString = "";
+                }
+                else {
+                    queryString = "?serverPassword_705357537593286848=" + passwordMatch[2];
+                }
+                script.src = "/bundle-705357537593286848.js" + queryString;
+                var loaded = false;
+                script.onload = function() {
+                    if (!loaded) {
+                        loaded = true;
+                        window.callMain_705357537593286848();
+                    }
+                };
+                document.head.appendChild(script);
+            });
+        ]]></script>
+        <link rel="stylesheet" href="/highlight-custom.css" type="text/css" />
+<style type="text/css"><![CDATA[
+    h1:first-child {
+        margin-top: 0;
+        margin-bottom: 0.9em;
+        line-height: 1;
+    }
+    pre, code {
+        font-family: "Source Code Pro", Menlo, Consolas, monospace;
+    }
+    pre {
+        white-space: pre-wrap;
+        background-color: rgb(30,30,30);
+        border-radius: 1rem;
+        padding: 0.5em 1em;
+        font-size: 0.93rem;
+    }
+    p code, li code {
+        border: 0.2em solid rgb(70,70,70);
+        padding: 0.1em 0.2em;
+        border-radius: 0.4em;
+        font-size: 0.9rem;
+    }
+    img.emoji {
+        display: inline;
+        height: 1.6em;
+    }
+]]></style>
+<script><![CDATA[
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-19880790-4', 'auto');
+    ga('send', 'pageview');
+]]></script>
+    </head>
+    <body>
+        <div id="scale-keeper-705357537593286848">
+            <div style="margin: 1em;">
+                <div id="scale-keeper-text-705357537593286848" />
+                <div style="height: 1em;" />
+                <div id="scale-keeper-current-scale-705357537593286848" />
+            </div>
+        </div>
+        <div id="scale-keeper-middle-705357537593286848" />
+        <div id="startup-705357537593286848">
+            <div id="startup-text-705357537593286848" />
+        </div>
+        <a id="link-simulator-705357537593286848" style="display: none;" />
+    </body>
+</html>
