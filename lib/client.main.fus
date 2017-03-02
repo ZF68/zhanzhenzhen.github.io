@@ -143,6 +143,10 @@ contentElement: ui.Element(
 )
 contentDom: contentElement.raw
 ui.root
+.setFontFamily("
+    "Helvetica Neue", Helvetica, Arial, "Lucida Grande", "Lucida Sans Unicode", \
+    "PingFang SC", "Microsoft YaHei UI", "Microsoft YaHei", SimHei, sans-serif
+")
 .setPaint("rgb(224,224,224)")
 .setBackgroundPaint("rgb(255,255,255)")
 .setPointerDefaultEnabled(client.browser.deviceType = "computer")
