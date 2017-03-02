@@ -55,6 +55,30 @@ startSearch: <>
     searchResults: search(searchBox.getSource(), blogs)
     $toc.fillBlogs(searchResults..portion(searchResultsCursor, tocLimit))
 
+showFirstScene: <>
+    viewportSize: ui.getSize()
+    firstScene.setPaint("rgb(255,255,255)").setBackgroundPaint("rgb(255,255,255)")
+    firstSceneHint.setTranslate(0, ui.RemLength(-viewportSize.y * 0.1)).setOpacity(0)
+    sceneBox.showScene(firstScene, ui.transition.dissolve, 300).then(<>
+        firstScene.animate{
+            keyframes: {
+                "0.167": {paint: "rgb(50,50,50)", backgroundPaint: "rgb(255,255,255)"}
+                "0.5": {backgroundPaint: "rgb(255,192,192)"}
+                "0.667": {backgroundPaint: "rgb(255,192,192)"}
+                "1": {paint: "rgb(50,50,50)", backgroundPaint: "rgb(255,216,192)"}
+            }
+            duration: 3600
+        }
+        firstSceneHint.animate{
+            keyframes: {
+                "0.5": {opacity: 0, translate: [0, ui.RemLength(-viewportSize.y * 0.1)]}
+                "1": {opacity: 1, translate: [0, 0]}
+            }
+            duration: 1200
+            timingFunction: "ease-out"
+        }
+    )
+
 inCompactMode'export: false
 header'export: null
 contentElement'export: null
@@ -122,11 +146,11 @@ ui.root
 .setPaint("rgb(224,224,224)")
 .setBackgroundPaint("rgb(255,255,255)")
 .setPointerDefaultEnabled(client.browser.deviceType = "computer")
-firstScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
-    {childAlignment: "center", width: 1, childSpacing: "4rem"}
-    ui.Text({fontSize: 3.5}, "詹臻臻的博客")
-    ui.Text("向下滚动")
-))
+firstScene: ui.Board(
+    {backgroundPaint: "rgb(255,255,255)", paint: "rgb(255,255,255)"}
+    ui.Text({fontSize: 3.5, y: 0.4}, "詹臻臻的博客")
+    ui.Text("向下滚动", {y: 0.6}) as firstSceneHint
+)
 secondScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
     {childAlignment: "center", width: 0.5, childSpacing: "2rem"}
     ui.Image({width: 1}, "/childhood-computer.jpg")
@@ -174,7 +198,7 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
                     scrollElement.raw.scrollTop: 0
                     ui.root.setWheelTarget(null)
                     $toc.compactToggle(true) if $toc.compactSwitch
-                    sceneBox.showScene(firstScene, ui.transition.dissolve, 600)
+                    showFirstScene()
                     client.setUri("/")
             })
             ui.Text("主页", {
@@ -449,7 +473,7 @@ ui.root.onWheelStart(e ->
             else
                 match sceneBox.getCurrentScene()
                     secondScene
-                        sceneBox.showScene(firstScene, ui.transition.dissolve, 600)
+                        showFirstScene()
                     mainScene
                         if ui.root.getWheelTarget() = null
                             ui.root.setWheelTarget(scrollElement)
@@ -469,4 +493,4 @@ if client.localData.homeLoaded or location.pathname ≠ "/"
     ui.root.setWheelTarget(scrollElement)
     sceneBox.showScene(mainScene, ui.transition.dissolve, 600)
 else
-    sceneBox.showScene(firstScene, ui.transition.dissolve, 600)
+    showFirstScene()
