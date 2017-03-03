@@ -49,48 +49,38 @@ minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
             }
-            /* Workaround Firefox's inconsistency with other browsers,
-             * because -moz-user-select by default is not
-             * inherited by absolutely positioned elements, see:
-             * https://developer.mozilla.org/en-US/docs/Web/CSS/user-select
-             */
-            div, svg {
-                -webkit-user-select: inherit;
-                -moz-user-select: inherit;
-                -ms-user-select: inherit;
-                user-select: inherit;
-            }
-            div, svg, .text-input-705357537593286848 {
-                font-family: inherit;
-                font-size: inherit;
-                font-style: inherit;
-                font-weight: inherit;
-                box-sizing: inherit;
-                display: block;
-                line-height: inherit;
-                color: inherit;
-                min-width: 0;
-                min-height: 0;
-            }
             .text-input-705357537593286848 {
                 -webkit-appearance: none;
                 -moz-appearance: none;
                 -ms-appearance: none;
                 appearance: none;
             }
-            table {
-                border-collapse: collapse;
-            }
-            table td {
-                border-width: 0;
-                padding: 0;
-            }
-            a {
+            /* There's a workaround for Firefox's inconsistency with other browsers,
+             * because -moz-user-select by default is not
+             * inherited by absolutely positioned elements, see:
+             * https://developer.mozilla.org/en-US/docs/Web/CSS/user-select
+             */
+            div, img, audio, video, svg, .text-input-705357537593286848 {
+                box-sizing: inherit;
+                font-family: inherit;
+                font-size: inherit;
+                font-style: inherit;
+                font-weight: inherit;
+                line-height: inherit;
                 color: inherit;
-                text-decoration: underline;
+                min-width: 0;
+                min-height: 0;
+                -webkit-user-select: inherit;
+                -moz-user-select: inherit;
+                -ms-user-select: inherit;
+                user-select: inherit;
             }
-            /* set display to "block" to avoid line-height being applied in layout */
-            img, audio, video, svg {
+            /* Set display to "block" to avoid line-height being applied in layout. */
+            .img-705357537593286848,
+            .audio-705357537593286848,
+            .video-705357537593286848,
+            .svg-705357537593286848,
+            .text-input-705357537593286848 {
                 display: block;
             }
             body > * {
