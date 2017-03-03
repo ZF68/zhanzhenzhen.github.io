@@ -32,7 +32,6 @@ export: {
                     font-size: 0.9rem;
                 }
                 img.emoji {
-                    display: inline;
                     height: 1.6em;
                 }
                 a {
