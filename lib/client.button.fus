@@ -5,6 +5,6 @@ client: import "site/client"
 ui: client.ui
 
 Button'export: class from ui.Button
-    static DEFAULT_BORDER: ui.Border{width: "0.0933333em", paint: "rgb(224,224,224)"}
-    static DEFAULT_ACTIVE_STYLES: {backgroundPaint: "rgba(224,224,224,0.4)"}
-    static DEFAULT_HOVER_STYLES: {backgroundPaint: "rgba(224,224,224,0.2)"}
+    static DEFAULT_BORDER: ui.Border{width: "0.0933333em", paint: "rgb(50,50,50)"}
+    static DEFAULT_ACTIVE_STYLES: {backgroundPaint: "rgb(208,208,208)"}
+    static DEFAULT_HOVER_STYLES: {backgroundPaint: "rgb(232,232,232)"}

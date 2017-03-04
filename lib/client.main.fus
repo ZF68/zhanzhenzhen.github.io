@@ -149,7 +149,7 @@ ui.root
     "Helvetica Neue", Helvetica, Arial, "Lucida Grande", "Lucida Sans Unicode", \
     "PingFang SC", "Microsoft YaHei UI", "Microsoft YaHei", SimHei, sans-serif
 ")
-.setPaint("rgb(224,224,224)")
+.setPaint("rgb(50,50,50)")
 .setBackgroundPaint("rgb(255,255,255)")
 .setPointerDefaultEnabled(client.browser.deviceType = "computer")
 firstScene: ui.Board(
@@ -179,13 +179,14 @@ secondScene: ui.Board({backgroundPaint: "rgb(248,232,210)", paint: "rgb(50,50,50
     )
     ui.Text("向下滚动")
 ) as secondSceneContent)
-mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
+mainScene: ui.Board({backgroundPaint: "rgb(248,232,210)"}, ui.Stack(
     {
         width: "auto"
         height: 1
         aspectRatio: 1.33333
         horizontal: true
-        backgroundPaint: "rgb(51,51,51)"
+        backgroundPaint: "rgb(255,255,255)"
+        paint: "rgb(102,89,92)"
     }
     ui.Stack(
         {
@@ -201,10 +202,10 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
             }
             ui.Text("序幕", {
                 padding: ui.Padding("0.5rem")
-                backgroundPaint: "rgb(96,96,96)"
+                backgroundPaint: "rgb(224,224,224)"
                 pointer: "link"
-                hoverStyles: {backgroundPaint: "rgba(224,224,224,0.32)"}
-                activeStyles: {backgroundPaint: "rgba(224,224,224,0.4)"}
+                hoverStyles: {backgroundPaint: "rgb(216,216,216)"}
+                activeStyles: {backgroundPaint: "rgb(208,208,208)"}
                 click: <>
                     client.localData.homeLoaded: false
                     client.saveLocalData()
@@ -216,10 +217,10 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
             })
             ui.Text("主页", {
                 padding: ui.Padding("0.5rem")
-                backgroundPaint: "rgb(96,96,96)"
+                backgroundPaint: "rgb(224,224,224)"
                 pointer: "link"
-                hoverStyles: {backgroundPaint: "rgba(224,224,224,0.32)"}
-                activeStyles: {backgroundPaint: "rgba(224,224,224,0.4)"}
+                hoverStyles: {backgroundPaint: "rgb(216,216,216)"}
+                activeStyles: {backgroundPaint: "rgb(208,208,208)"}
                 click: <>
                     $toc.compactToggle() if inCompactMode
                     client.setUri("/")
@@ -235,7 +236,7 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
             ui.TextBox{
                 grow: 1
                 shrink: 1
-                border: {width: "0.0933333em", paint: "rgb(224,224,224)"}
+                border: {width: "0.0933333em", paint: "rgb(50,50,50)"}
                 commitTextInput: <> startSearch()
             } as searchBox
             $button.Button("搜索", {click: <> startSearch()})
@@ -334,7 +335,7 @@ blogGroup.1..sortDescending(m -> m.time).forEach(blog ->
             width: 1
             height: "4rem"
             padding: ui.Padding("0.5rem")
-            backgroundPaint: "rgb(96,96,96)"
+            backgroundPaint: "rgb(224,224,224)"
             pointer: "link"
             click: <> client.setUri("/" + blog.id)
         }
