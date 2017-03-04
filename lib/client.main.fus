@@ -150,7 +150,7 @@ ui.root
     "Helvetica Neue", Helvetica, Arial, "Lucida Grande", "Lucida Sans Unicode", \
     "PingFang SC", "Microsoft YaHei UI", "Microsoft YaHei", SimHei, sans-serif
 ")
-.setPaint("rgb(50,50,50)")
+.setPaint("rgb(0,0,0)")
 .setBackgroundPaint("rgb(255,255,255)")
 .setPointerDefaultEnabled(client.browser.deviceType = "computer")
 firstScene: ui.Board(
@@ -180,14 +180,14 @@ secondScene: ui.Board({backgroundPaint: "rgb(248,232,210)", paint: "rgb(50,50,50
     )
     ui.Text("向下滚动")
 ) as secondSceneContent)
-mainScene: ui.Board({backgroundPaint: "rgb(248,232,210)"}, ui.Stack(
+mainScene: ui.Board({backgroundPaint: COLORS.outerBackground}, ui.Stack(
     {
         width: "auto"
         height: 1
         aspectRatio: 1.33333
         horizontal: true
-        backgroundPaint: "rgb(250,246,236)"
-        paint: "rgb(102,89,92)"
+        backgroundPaint: COLORS.innerBackground
+        paint: COLORS.text
     }
     ui.Stack(
         {
@@ -237,7 +237,7 @@ mainScene: ui.Board({backgroundPaint: "rgb(248,232,210)"}, ui.Stack(
             ui.TextBox{
                 grow: 1
                 shrink: 1
-                border: {width: "0.0933333em", paint: "rgb(50,50,50)"}
+                border: {width: "0.0933333em", paint: COLORS.text}
                 commitTextInput: <> startSearch()
             } as searchBox
             $button.Button("搜索", {click: <> startSearch()})
