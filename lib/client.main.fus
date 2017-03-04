@@ -235,6 +235,7 @@ mainScene: ui.Board({backgroundPaint: COLORS.outerBackground}, ui.Stack(
                 childSpacing: "0.3rem"
             }
             ui.TextBox{
+                width: 0.8 # Ideally there's no need to set it, but IE11 will render wrong if it's unset.
                 grow: 1
                 shrink: 1
                 border: {width: "0.0933333em", paint: COLORS.text}
