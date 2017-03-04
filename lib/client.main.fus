@@ -199,7 +199,7 @@ mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
                 width: 1
                 childSpacing: "0.3rem"
             }
-            ui.Text("重新载入", {
+            ui.Text("序幕", {
                 padding: ui.Padding("0.5rem")
                 backgroundPaint: "rgb(96,96,96)"
                 pointer: "link"
