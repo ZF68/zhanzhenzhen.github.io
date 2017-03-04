@@ -15,10 +15,10 @@ fillBlogs'export: blogs ->
                 width: 1
                 height: "3rem"
                 padding: ui.Padding("0.5rem")
-                backgroundPaint: "rgb(224,224,224)"
+                backgroundPaint: main.COLOR_LEFT_ITEM_BACKGROUND
                 pointer: "link"
-                hoverStyles: {backgroundPaint: "rgb(216,216,216)"}
-                activeStyles: {backgroundPaint: "rgb(208,208,208)"}
+                hoverStyles: {backgroundPaint: main.COLOR_LEFT_ITEM_HOVER_BACKGROUND}
+                activeStyles: {backgroundPaint: main.COLOR_LEFT_ITEM_ACTIVE_BACKGROUND}
                 click: <>
                     compactToggle() if main.inCompactMode
                     client.setUri("/" + blog.id)
