@@ -178,7 +178,7 @@ secondScene: ui.Board({backgroundPaint: "rgb(248,232,210)", paint: "rgb(50,50,50
         "
     )
     ui.Text("向下滚动")
-))
+) as secondSceneContent)
 mainScene: ui.Board({backgroundPaint: "rgb(70,70,70)"}, ui.Stack(
     {
         width: "auto"
@@ -483,12 +483,19 @@ ui.root.onWheelStart(e ->
                             duration: 400
                             timingFunction: "ease-in"
                         }.then(<>
+                            secondSceneContent.setTranslate(0, 0)
                             sceneBox.showScene(secondScene, ui.transition.dissolve, 600)
                         )
                     secondScene
                         client.localData.homeLoaded: true
                         client.saveLocalData()
-                        sceneBox.showScene(mainScene, ui.transition.dissolve, 600)
+                        secondSceneContent.animate{
+                            to: {translate: [0, ui.RemLength(-ui.getSize().y * 1)]}
+                            duration: 400
+                            timingFunction: "ease-in"
+                        }.then(<>
+                            sceneBox.showScene(mainScene, ui.transition.dissolve, 600)
+                        )
                     mainScene
                         if ui.root.getWheelTarget() = null
                             ui.root.setWheelTarget(scrollElement)
