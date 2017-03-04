@@ -3,9 +3,9 @@ import "./shared.manifest" all
 
 innerBackground'export: "rgb(250,245,236)"
 outerBackground'export: "rgb(248,232,210)"
-leftItemBackground'export: "rgb(246,224,192)"
-leftItemHoverBackground'export: "rgb(238,216,184)"
-leftItemActiveBackground'export: "rgb(230,208,176)"
+leftItemBackground'export: "rgb(234,228,218)"
+leftItemHoverBackground'export: "rgb(226,220,210)"
+leftItemActiveBackground'export: "rgb(218,212,202)"
 buttonBackground'export: "rgb(250,245,236)"
 buttonHoverBackground'export: "rgb(242,238,228)"
 buttonActiveBackground'export: "rgb(234,230,220)"
