@@ -157,12 +157,12 @@ firstScene: ui.Board(
     ui.Text({fontSize: 3.5, y: 0.4}, "詹臻臻的博客") as firstSceneTitle
     ui.Text("向下滚动", {y: 0.6}) as firstSceneHint
 )
-secondScene: ui.Board({backgroundPaint: "rgb(240,220,192)", paint: "rgb(50,50,50)"}, ui.Stack(
+secondScene: ui.Board({backgroundPaint: "rgb(248,232,210)", paint: "rgb(50,50,50)"}, ui.Stack(
     {childAlignment: "center", width: 0.5, childSpacing: "2rem"}
     ui.Image(
         {
             width: 1
-            border: {width: "0.2rem", paint: "rgb(96,128,96)"}
+            border: {width: "0.2rem", paint: "rgb(96,128,112)"}
             borderRadius: "2rem"
         }
         "/childhood-computer.jpg"
