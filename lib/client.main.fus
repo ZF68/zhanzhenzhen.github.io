@@ -143,6 +143,7 @@ contentElement: ui.Element(
     }
 )
 contentDom: contentElement.raw
+contentDom.id: "content"
 ui.root
 .setFontFamily("
     "Helvetica Neue", Helvetica, Arial, "Lucida Grande", "Lucida Sans Unicode", \

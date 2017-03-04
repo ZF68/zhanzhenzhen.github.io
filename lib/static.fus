@@ -10,15 +10,15 @@ export: {
         afterScript: "
             <link rel="stylesheet" href="/highlight-custom.css" type="text/css" />
             <style type="text/css"><![CDATA[
-                h1:first-child {
+                #content h1:first-child {
                     margin-top: 0;
                     margin-bottom: 0.9em;
                     line-height: 1;
                 }
-                pre, code {
+                #content pre, #content code {
                     font-family: "Source Code Pro", Menlo, Consolas, monospace;
                 }
-                pre {
+                #content pre {
                     white-space: pre-wrap;
                     word-wrap: break-word;
                     background-color: rgb(30,30,30);
@@ -26,16 +26,16 @@ export: {
                     padding: 0.5em 1em;
                     font-size: 0.93rem;
                 }
-                p code, li code {
+                #content p code, #content li code {
                     border: 0.2em solid rgb(70,70,70);
                     padding: 0.1em 0.2em;
                     border-radius: 0.4em;
                     font-size: 0.9rem;
                 }
-                img.emoji {
+                #content img.emoji {
                     height: 1.6em;
                 }
-                a {
+                #content a {
                     color: inherit;
                     text-decoration: underline;
                 }
