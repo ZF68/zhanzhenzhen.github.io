@@ -3,8 +3,9 @@ import "./shared.manifest" all
 
 client: import "site/client"
 ui: client.ui
+COLORS: import "./client.colors" all
 
 Button'export: class from ui.Button
-    static DEFAULT_BORDER: ui.Border{width: "0.0933333em", paint: "rgb(50,50,50)"}
+    static DEFAULT_BORDER: ui.Border{width: "0.0933333em", paint: COLORS.text}
     static DEFAULT_ACTIVE_STYLES: {backgroundPaint: "rgb(208,208,208)"}
     static DEFAULT_HOVER_STYLES: {backgroundPaint: "rgb(232,232,232)"}

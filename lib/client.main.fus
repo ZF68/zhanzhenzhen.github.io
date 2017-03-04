@@ -6,13 +6,6 @@ import "./shared.manifest" all
 username: "zhanzhenzhen"
 repo: "zhanzhenzhen.github.io"
 
-COLOR_INNER_BACKGROUND'export: "rgb(250,246,236)"
-COLOR_OUTER_BACKGROUND'export: "rgb(248,232,210)"
-COLOR_LEFT_ITEM_BACKGROUND'export: "rgb(246,224,192)"
-COLOR_LEFT_ITEM_HOVER_BACKGROUND'export: "rgb(238,216,184)"
-COLOR_LEFT_ITEM_ACTIVE_BACKGROUND'export: "rgb(230,208,176)"
-COLOR_TEXT'export: "rgb(102,89,92)"
-
 shared: import "site/shared"
 #import "./shared.main"
 client: import "site/client"
@@ -26,6 +19,7 @@ ui: client.ui
 
 $toc: import "./client.toc" all
 $button: import "./client.button" all
+COLORS: import "./client.colors" all
 search: import "./client.search"
 
 apiBase: "https://api.github.com"
@@ -209,10 +203,10 @@ mainScene: ui.Board({backgroundPaint: "rgb(248,232,210)"}, ui.Stack(
             }
             ui.Text("序幕", {
                 padding: ui.Padding("0.5rem")
-                backgroundPaint: COLOR_LEFT_ITEM_BACKGROUND
+                backgroundPaint: COLORS.leftItemBackground
                 pointer: "link"
-                hoverStyles: {backgroundPaint: COLOR_LEFT_ITEM_HOVER_BACKGROUND}
-                activeStyles: {backgroundPaint: COLOR_LEFT_ITEM_ACTIVE_BACKGROUND}
+                hoverStyles: {backgroundPaint: COLORS.leftItemHoverBackground}
+                activeStyles: {backgroundPaint: COLORS.leftItemActiveBackground}
                 click: <>
                     client.localData.homeLoaded: false
                     client.saveLocalData()
@@ -224,10 +218,10 @@ mainScene: ui.Board({backgroundPaint: "rgb(248,232,210)"}, ui.Stack(
             })
             ui.Text("主页", {
                 padding: ui.Padding("0.5rem")
-                backgroundPaint: COLOR_LEFT_ITEM_BACKGROUND
+                backgroundPaint: COLORS.leftItemBackground
                 pointer: "link"
-                hoverStyles: {backgroundPaint: COLOR_LEFT_ITEM_HOVER_BACKGROUND}
-                activeStyles: {backgroundPaint: COLOR_LEFT_ITEM_ACTIVE_BACKGROUND}
+                hoverStyles: {backgroundPaint: COLORS.leftItemHoverBackground}
+                activeStyles: {backgroundPaint: COLORS.leftItemActiveBackground}
                 click: <>
                     $toc.compactToggle() if inCompactMode
                     client.setUri("/")

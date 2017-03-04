@@ -4,6 +4,7 @@ import "./shared.manifest" all
 client: import "site/client"
 ui: client.ui
 main: import "./client.main" all
+COLORS: import "./client.colors" all
 
 compactSwitch'export: false
 
@@ -15,10 +16,10 @@ fillBlogs'export: blogs ->
                 width: 1
                 height: "3rem"
                 padding: ui.Padding("0.5rem")
-                backgroundPaint: main.COLOR_LEFT_ITEM_BACKGROUND
+                backgroundPaint: COLORS.leftItemBackground
                 pointer: "link"
-                hoverStyles: {backgroundPaint: main.COLOR_LEFT_ITEM_HOVER_BACKGROUND}
-                activeStyles: {backgroundPaint: main.COLOR_LEFT_ITEM_ACTIVE_BACKGROUND}
+                hoverStyles: {backgroundPaint: COLORS.leftItemHoverBackground}
+                activeStyles: {backgroundPaint: COLORS.leftItemActiveBackground}
                 click: <>
                     compactToggle() if main.inCompactMode
                     client.setUri("/" + blog.id)

@@ -1,0 +1,9 @@
+fus 2.3.0
+import "./shared.manifest" all
+
+innerBackground'export: "rgb(250,246,236)"
+outerBackground'export: "rgb(248,232,210)"
+leftItemBackground'export: "rgb(246,224,192)"
+leftItemHoverBackground'export: "rgb(238,216,184)"
+leftItemActiveBackground'export: "rgb(230,208,176)"
+text'export: "rgb(102,89,92)"
