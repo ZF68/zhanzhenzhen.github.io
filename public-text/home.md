@@ -40,9 +40,9 @@
 我的贡献
 ------------
 
-我开发了一门语言，叫做FutureScript。
+我开发了一门语言，叫做[FutureScript](https://futurescript.org/)。
 
-我开发了一个全栈框架，叫做 Site Engine。
+我开发了一个全栈框架，叫做 [Site Engine](http://zizisoft.com/site)。
 
 声明
 -------
