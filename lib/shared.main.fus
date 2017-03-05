@@ -1,0 +1,16 @@
+fus 2.3.0
+import "./shared.manifest" all
+
+shared: require("site/shared")
+shared.lits: [
+    {
+        $languages: ["en"]
+        wheelHint: "Scroll Down"
+        firstSceneTitle: "Zhenzhen Zhan's Blog"
+    }
+    {
+        $languages: ["zh"]
+        wheelHint: "向下滚动"
+        firstSceneTitle: "詹臻臻的博客"
+    }
+]

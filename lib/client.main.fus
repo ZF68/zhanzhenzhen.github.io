@@ -16,6 +16,7 @@ twemoji: import "twemoji"
 hljs: import "highlight.js"
 #manuals: require("./client.manuals.coffee")
 ui: client.ui
+lit: client.lit
 
 $toc: import "./client.toc" all
 $button: import "./client.button" all
@@ -155,8 +156,8 @@ ui.root
 .setPointerDefaultEnabled(client.browser.deviceType = "computer")
 firstScene: ui.Board(
     {backgroundPaint: "rgb(255,255,255)", paint: "rgb(255,255,255)"}
-    ui.Text({fontSize: 3.5, y: 0.4}, "詹臻臻的博客") as firstSceneTitle
-    ui.Text("向下滚动", {y: 0.6}) as firstSceneHint
+    ui.Text({fontSize: 3.5, y: 0.4}, lit.firstSceneTitle) as firstSceneTitle
+    ui.Text(lit.wheelHint, {y: 0.6}) as firstSceneHint
 )
 secondScene: ui.Board({backgroundPaint: "rgb(248,232,210)", paint: "rgb(50,50,50)"}, ui.Stack(
     {childAlignment: "center", width: 0.5, childSpacing: "2rem"}
