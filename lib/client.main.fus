@@ -389,8 +389,21 @@ uriUpdateHandler: <>
             if client.browser.deviceType ≠ "computer"
                 Array.from(contentDom.getElementsByTagName("a")).forEach(hyperlink ->
                     client.dom.initElementEvents(hyperlink)
-                    hyperlink.addEventListener(client.dom.getCustomEventName("click"), <>
-                        client.openLink(hyperlink.href)
+                    href: hyperlink.getAttribute("href")
+                    hyperlink.addEventListener(client.dom.getCustomEventName("click"), e ->
+                        if href.search(r"^(//|http:|https:)") ≠ -1
+                            client.openLink(href)
+                        else
+                            client.setUri(href)
+                    )
+                )
+            else
+                Array.from(contentDom.getElementsByTagName("a")).forEach(hyperlink ->
+                    href: hyperlink.getAttribute("href")
+                    hyperlink.addEventListener("click", e ->
+                        if href.search(r"^(//|http:|https:)") = -1
+                            e.preventDefault()
+                            client.setUri(href)
                     )
                 )
         else
