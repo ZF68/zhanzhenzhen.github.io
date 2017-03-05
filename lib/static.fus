@@ -36,8 +36,11 @@ export: {
                     height: 1.6em;
                 }
                 #content a {
-                    color: inherit;
-                    text-decoration: underline;
+                    color: rgb(80,100,150);
+                    text-decoration: none;
+                }
+                #content a:hover {
+                    color: rgb(240,50,50);
                 }
             ]]></style>
             <script><![CDATA[
