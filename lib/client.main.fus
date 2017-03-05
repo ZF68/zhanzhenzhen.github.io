@@ -306,11 +306,22 @@ mainScene: ui.Board({backgroundPaint: COLORS.outerBackground}, ui.Stack(
             click: <>
                 client.openLink("https://github.com/\(username)/\(repo)/issues/new", true)
         })
-        $button.Button("All Issues", {
-            fontSize: 0.9
-            click: <>
-                client.openLink("https://github.com/\(username)/\(repo)/issues", true)
-        })
+        ui.Stack(
+            {
+                horizontal: true
+                childSpacing: "1rem"
+            }
+            $button.Button("GitHub", {
+                fontSize: 0.9
+                click: <>
+                    client.openLink("https://github.com/\(username)/\(repo)", true)
+            })
+            $button.Button("All Issues", {
+                fontSize: 0.9
+                click: <>
+                    client.openLink("https://github.com/\(username)/\(repo)/issues", true)
+            })
+        )
 
         # This can't be replaced with a bottom-padding in the container, because bottom-padding
         # will be ignored by some browsers. Also, we must set a non-zero width, otherwise Firefox
