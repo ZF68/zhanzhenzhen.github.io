@@ -326,14 +326,16 @@ mainScene: ui.Board({backgroundPaint: COLORS.outerBackground}, ui.Stack(
                 click: <>
                     client.localMeta.language: "en"
                     client.saveLocalMeta()
-                    location.reload()
+                    forcesUiRefresh: true
+                    uriUpdateHandler()
             })
             $button.Button("中文", {
                 fontSize: 0.9
                 click: <>
                     client.localMeta.language: "zh"
                     client.saveLocalMeta()
-                    location.reload()
+                    forcesUiRefresh: true
+                    uriUpdateHandler()
             })
         )
 
@@ -390,9 +392,10 @@ refreshHeader: (changesTime: true) ->
         header.show()
 
 oldPath: null
+forcesUiRefresh: false
 uriUpdateHandler: <>
     path: decodeURI(location.pathname)
-    if path ≠ oldPath
+    if path ≠ oldPath or forcesUiRefresh
 
         contentElement.empty()
         commentsElement.empty()
@@ -471,6 +474,7 @@ uriUpdateHandler: <>
         )
 
         oldPath: path
+    forcesUiRefresh: false
 
 client.onUriChange(uriUpdateHandler)
 
