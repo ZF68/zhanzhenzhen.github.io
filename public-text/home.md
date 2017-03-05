@@ -1,4 +1,4 @@
-主页 [GitHub Page](https://github.com/zhanzhenzhen/zhanzhenzhen.github.io)
+主页
 ========
 
 程序员一般喜欢猫，然而我喜欢狗。
@@ -9,7 +9,7 @@
 
 程序员一般喜欢装牛，然而我喜欢装呆、卖萌，因为觉得自己被自己笑死太好玩了。
 
-我手好看。
+[我手好看](/hand)。
 
 我现在比较怕用打车软件。
 
