@@ -389,7 +389,7 @@ uriUpdateHandler: <>
             if client.browser.deviceType ≠ "computer"
                 Array.from(contentDom.getElementsByTagName("a")).forEach(hyperlink ->
                     client.dom.initElementEvents(hyperlink)
-                    href: hyperlink.getAttribute("href")
+                    href: hyperlink.getAttribute("href") # can't use `hyperlink.href` for it's not raw
                     hyperlink.addEventListener(client.dom.getCustomEventName("click"), e ->
                         if href.search(r"^(//|http:|https:)") ≠ -1
                             client.openLink(href)
@@ -399,7 +399,7 @@ uriUpdateHandler: <>
                 )
             else
                 Array.from(contentDom.getElementsByTagName("a")).forEach(hyperlink ->
-                    href: hyperlink.getAttribute("href")
+                    href: hyperlink.getAttribute("href") # can't use `hyperlink.href` for it's not raw
                     hyperlink.addEventListener("click", e ->
                         if href.search(r"^(//|http:|https:)") = -1
                             e.preventDefault()
