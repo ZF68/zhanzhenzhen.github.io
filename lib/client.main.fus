@@ -309,7 +309,7 @@ mainScene: ui.Board({backgroundPaint: COLORS.outerBackground}, ui.Stack(
         ui.Stack(
             {
                 horizontal: true
-                childSpacing: "1rem"
+                childSpacing: "0.5rem"
             }
             $button.Button("GitHub", {
                 fontSize: 0.9
@@ -320,6 +320,20 @@ mainScene: ui.Board({backgroundPaint: COLORS.outerBackground}, ui.Stack(
                 fontSize: 0.9
                 click: <>
                     client.openLink("https://github.com/\(username)/\(repo)/issues", true)
+            })
+            $button.Button("English", {
+                fontSize: 0.9
+                click: <>
+                    client.localMeta.language: "en"
+                    client.saveLocalMeta()
+                    location.reload()
+            })
+            $button.Button("中文", {
+                fontSize: 0.9
+                click: <>
+                    client.localMeta.language: "zh"
+                    client.saveLocalMeta()
+                    location.reload()
             })
         )
 
