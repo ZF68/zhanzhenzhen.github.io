@@ -7,9 +7,10 @@ shared.lits: [
     {
         $languages: ["en"]
         wheelHint: "Scroll Down"
-        firstSceneTitle: "Zhenzhen Zhan's Blog"
+        firstSceneTitle: "ZZZ's Blog"
         secondSceneText: "
-            I was born in 1982. In 1989 I had my first computer - an Apple-II compatible \
+            My name is Zhenzhen Zhan. I was born in 1982. In 1989 I had my first computer - \
+            an Apple-II compatible \
             computer. From then on I had been in love with programming. This picture shows \
             how I played with this computer. No monitor. A mono-color TV displaying some BASIC code. \
             A 5-inch driver.
