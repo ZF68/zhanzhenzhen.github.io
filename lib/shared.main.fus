@@ -19,6 +19,8 @@ shared.lits: [
         addCommentHint: "For the Title field in the new window, please type "
         noComment: "No comment."
         commentReplyCountSuffix: " Replies"
+        commentsLoadError: "Comments load error. Please try again after 1 minute. If you browse \
+        10+ different pages within 1 minute, then GitHub rate limit will be exceeded."
     }
     {
         $languages: ["zh"]
@@ -43,5 +45,7 @@ shared.lits: [
         addCommentHint: "在新窗口的Title栏内，请输入"
         noComment: "无评论。"
         commentReplyCountSuffix: "回复"
+        commentsLoadError: "评论加载错误，请在1分钟后再试试。如果您在1分钟之内浏览不同页面超过10次，\
+        将超出GitHub的配额，导致评论无法加载。"
     }
 ]
