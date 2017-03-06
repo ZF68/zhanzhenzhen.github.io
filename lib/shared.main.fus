@@ -17,6 +17,8 @@ shared.lits: [
         comments: "Comments"
         addComment: "Add Comment"
         addCommentHint: "For the Title field in the new window, please type "
+        noComment: "No comment."
+        commentReplyCountSuffix: " Replies"
     }
     {
         $languages: ["zh"]
@@ -39,5 +41,7 @@ shared.lits: [
         commentsDisclaimer: "以下是网友评论。不代表本人支持其中的观点。请勿发表不良内容，如发现请向本人举报。"
         addComment: "添加评论"
         addCommentHint: "在新窗口的Title栏内，请输入"
+        noComment: "无评论。"
+        commentReplyCountSuffix: "回复"
     }
 ]

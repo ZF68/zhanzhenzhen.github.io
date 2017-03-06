@@ -449,7 +449,7 @@ uriUpdateHandler: <>
             issues: response.body.items
             if issues..isEmpty()
                 commentsElement.add(
-                    ui.Text("无评论。")
+                    ui.Text(lit.noComment)
                 )
             else
                 issues.forEach issue ->
@@ -462,7 +462,7 @@ uriUpdateHandler: <>
                         }
                         ui.Text(issue.user.login + ":")
                         ui.Text(issue.body, {wrapping: "wrap", width: 1, lineHeight: 1.35})
-                        $button.Button("\(issue.comments)回复", {
+                        $button.Button(issue.comments + lit.commentReplyCountSuffix, {
                             fontSize: 0.8
                             click: <>
                                 client.openLink(issue.html_url, true)
