@@ -7,7 +7,7 @@ username: "zhanzhenzhen"
 repo: "zhanzhenzhen.github.io"
 
 shared: import "site/shared"
-#import "./shared.main"
+import "./shared.main"
 client: import "site/client"
 
 markdownIt: import "markdown-it"
