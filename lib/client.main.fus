@@ -303,6 +303,7 @@ mainScene: ui.Board({backgroundPaint: COLORS.outerBackground}, ui.Stack(
             })
             ui.Text() as addCommentHint
         )
+        ui.Element{height: "1rem"}
         ui.Stack(
             {
                 horizontal: true
