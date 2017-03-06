@@ -470,8 +470,7 @@ uriUpdateHandler: <>
                     ))
         ).catch(<>
             commentsElement.add(
-                ui.Text("评论加载错误，请在1分钟后再试试。如果您在1分钟之内浏览不同页面超过10次，\
-                将超出GitHub的配额，导致评论无法加载。", {wrapping: "wrap", width: 1, lineHeight: 1.35})
+                ui.Text(lit.commentsLoadError, {wrapping: "wrap", width: 1, lineHeight: 1.35})
             )
         )
 
