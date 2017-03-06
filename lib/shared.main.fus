@@ -2,6 +2,7 @@ fus 2.3.0
 import "./shared.manifest" all
 
 shared: require("site/shared")
+shared.defaultLanguage: "zh"
 shared.lits: [
     {
         $languages: ["en"]
