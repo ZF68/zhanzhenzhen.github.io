@@ -116,9 +116,13 @@ Deploy
 Advanced
 ===========
 
+If you want to block a certain comment, simply add a label named `blocked` to the issue.
+
 You may want to deeply customize the layout or the logic of your GitHub Pages. To do this, you'll need to learn [FutureScript](https://futurescript.org/) and [Site Engine](http://zizisoft.com/site).
 
 高级
 ======
+
+如果您想要屏蔽某条评论，只需为该issue添加一个label，名为`blocked`即可。
 
 您可能想深度定制您的 GitHub Pages 的版式和代码逻辑。要达到此目的，您需要学习[FutureScript](https://futurescript.org/)和 [Site Engine](http://zizisoft.com/site)。
