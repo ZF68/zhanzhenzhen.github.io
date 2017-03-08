@@ -156,7 +156,11 @@ ui.root
 .setPointerDefaultEnabled(client.browser.deviceType = "computer")
 firstScene: ui.Board(
     {backgroundPaint: "rgb(255,255,255)", paint: "rgb(255,255,255)"}
-    ui.Text({fontSize: 3.5, y: 0.4}, lit.firstSceneTitle) as firstSceneTitle
+    ui.Stack(
+        {y: 0.4}
+        ui.Text({fontSize: 1, opacity: 0.2}, lit.firstSceneTitleAnnotation)
+        ui.Text({fontSize: 3.5}, lit.firstSceneTitle)
+    ) as firstSceneTitle
     ui.Text(lit.wheelHint, {y: 0.6}) as firstSceneHint
 )
 secondScene: ui.Board({backgroundPaint: "rgb(248,232,210)", paint: "rgb(50,50,50)"}, ui.Stack(
