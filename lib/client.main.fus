@@ -522,12 +522,12 @@ ui.root.onWheelStart(e ->
                 match sceneBox.getCurrentScene()
                     firstScene
                         firstSceneTitle.animate{
-                            to: {translate: [0, ui.RemLength(-ui.getSize().y * 0.5)]}
+                            to: {translate: [0, ui.RemLength(-ui.getSize().y * 0.55)]}
                             duration: 400
                             timingFunction: "ease-in"
                         }
                         firstSceneHint.animate{
-                            to: {translate: [0, ui.RemLength(-ui.getSize().y * 0.7)]}
+                            to: {translate: [0, ui.RemLength(-ui.getSize().y * 0.75)]}
                             delay: 200
                             duration: 400
                             timingFunction: "ease-in"
