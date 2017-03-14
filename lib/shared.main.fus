@@ -35,7 +35,7 @@ shared.lits: [
         $languages: ["zh"]
         wheelHint: "向下滚动"
         firstSceneTitle: "詹臻臻的博客"
-        firstSceneTitleAnnotation: "伪娘程序员"
+        firstSceneTitleAnnotation: "非典型程序员"
         secondSceneText: "
             我生于1982年，89年读小学1年级时，\
             家里有了一台叫做“中华学习机”的电脑，从此接触并爱上编程。\
