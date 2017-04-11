@@ -14,7 +14,7 @@ do <>
     }, {
         headerFields: {
             "Authorization":
-                (githubCredential.username + ":" + githubCredential.password)..toBytes().toBase64()
+                (githubCredential.username + ":" + githubCredential.password)..toBytes()..toBase64()
         }
     })'wait.body
     fs.writeFileSync("public-text/\(issue.id..pad(4)).md", "")
