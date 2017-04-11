@@ -16,7 +16,7 @@ do <>
             "Authorization":
                 "Basic "
                 + (githubCredential.username + ":" + githubCredential.password)..toBytes()..toBase64()
-            "If-Modified-Since": "Thu, 05 Jul 2012 15:31:30 GMT" # disable cache
+            "If-Modified-Since": "Sat, 01 Jan 2000 00:00:00 GMT" # disable cache
             "User-Agent": "zzz"
         }
     })'wait.body
