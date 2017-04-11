@@ -22,6 +22,12 @@ validateName: name ->
 
 validateIssueNumber: x -> assert(Number.isInteger(x) and 0 ≤ x ≤ 999999)
 
+generateDocUri: (issueNumber, name) ->
+    if githubInfo.repo.endsWith(".github.io")
+        "https://\(githubInfo.repo)/\(issueNumber)-\(name)"
+    else
+        "https://\(githubInfo.owner).github.io/\(githubInfo.repo)/\(issueNumber)-\(name)"
+
 add'export: (name: "no-title") ->
     validateName(name)
     issue: web.jsonPost(
@@ -42,10 +48,14 @@ rename'export: (issueNumber, name) ->
         .match(r"^(.*)\.md$").1
     validateName(oldName)
     fs.renameSync("public-text/\(oldName).md", "public-text/\(issueNumber)-\(name).md")
+    docUri: generateDocUri(issueNumber, name)
     web.request{
         method: "PATCH"
         uri: "\(apiBase)/repos/\(githubInfo.owner)/\(githubInfo.repo)/issues/\(issueNumber)"
         headerFields: Object..absorb({"Content-Type": "application/json"}, headerFields)
-        body: JSON.stringify{title: name}
+        body: JSON.stringify{
+            title: name
+            body: "[\(docUri)](\(docUri))"
+        }
         responseBodyType: "json"
     }
