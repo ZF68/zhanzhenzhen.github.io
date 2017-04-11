@@ -29,7 +29,9 @@ add'export: (name: "no-title") ->
         {title: name}
         {headerFields: headerFields}
     )'wait.body
-    fs.writeFileSync("public-text/\(issue.number)-\(name).md", "")
+    path: "public-text/\(issue.number)-\(name).md"
+    fs.writeFileSync(path, "")
+    console.log("New file: \(path)")
 
 rename'export: (issueNumber, name) ->
     validateIssueNumber(issueNumber)
