@@ -1,0 +1,7 @@
+fus 2.4.1
+import "babel-polyfill"
+import "./shared.manifest" all
+
+common: import "./bin.common" all
+
+common.rename(parseInt(process.argv.2), process.argv.3)

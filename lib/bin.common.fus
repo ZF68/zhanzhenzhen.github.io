@@ -16,8 +16,11 @@ headerFields: {
 }
 
 validateName: name ->
+    assert(name is String and 1 ≤ name.length ≤ 100)
     assert(name.search(r"^[^'\"\\/:|*?]+$") ≠ -1)
     assert(name.search(r"^[^\x00-\x1f\x7f]+$") ≠ -1)
+
+validateIssueNumber: x -> assert(Number.isInteger(x) and 0 ≤ x ≤ 999999)
 
 add'export: (name: "no-title") ->
     validateName(name)
@@ -27,3 +30,17 @@ add'export: (name: "no-title") ->
         {headerFields: headerFields}
     )'wait.body
     fs.writeFileSync("public-text/\(issue.number)-\(name).md", "")
+
+rename'export: (issueNumber, name) ->
+    validateIssueNumber(issueNumber)
+    validateName(name)
+    filename: fs.readdirSync("public-text")..first(m -> m.startsWith("\(issueNumber)-") and m.endsWith(".md"))
+    validateName(filename)
+    fs.renameSync("public-text/\(filename)", "public-text/\(issueNumber)-\(name).md")
+    web.request{
+        method: "PATCH"
+        uri: "\(apiBase)/repos/\(githubInfo.owner)/\(githubInfo.repo)/issues/\(issueNumber)"
+        headerFields: Object..absorb({"Content-Type": "application/json"}, headerFields)
+        body: JSON.stringify{title: name}
+        responseBodyType: "json"
+    }
