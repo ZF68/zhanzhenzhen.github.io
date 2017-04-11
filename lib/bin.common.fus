@@ -36,9 +36,12 @@ add'export: (name: "no-title") ->
 rename'export: (issueNumber, name) ->
     validateIssueNumber(issueNumber)
     validateName(name)
-    filename: fs.readdirSync("public-text")..first(m -> m.startsWith("\(issueNumber)-") and m.endsWith(".md"))
-    validateName(filename)
-    fs.renameSync("public-text/\(filename)", "public-text/\(issueNumber)-\(name).md")
+    oldName:
+        fs.readdirSync("public-text")
+        ..first(m -> m.startsWith("\(issueNumber)-") and m.endsWith(".md"))
+        .match(r"^(.*)\.md$").1
+    validateName(oldName)
+    fs.renameSync("public-text/\(oldName).md", "public-text/\(issueNumber)-\(name).md")
     web.request{
         method: "PATCH"
         uri: "\(apiBase)/repos/\(githubInfo.owner)/\(githubInfo.repo)/issues/\(issueNumber)"

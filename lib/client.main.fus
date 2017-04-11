@@ -107,9 +107,7 @@ ui.setRem ui.GmRem(client.browser.deviceType = "handheld" ? 0.032 | 0.016)
 
 docs: client.text
 .filter(doc ->
-    not doc.filename.startsWith(".") and (
-        doc.filename.endsWith(".md") or doc.filename.endsWith(".markdown")
-    )
+    not doc.filename.startsWith(".") and doc.filename.endsWith(".md")
 ).map(doc ->
     head: doc.content.substr(0, 80).trim()
     head: head.match(r"^(?:#* )?([^\r\n]*)").1
