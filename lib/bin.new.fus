@@ -4,7 +4,7 @@ import "./shared.manifest" all
 
 fs: import "fs"
 githubInfo: import "./client.github-info"
-githubCredential: require("./github-credential")
+githubCredential: require("../github-credential")
 
 apiBase: "https://api.github.com"
 
