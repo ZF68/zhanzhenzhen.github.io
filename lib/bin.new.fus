@@ -20,4 +20,4 @@ do <>
             "User-Agent": "zzz"
         }
     })'wait.body
-    fs.writeFileSync("public-text/\(issue.number..pad(4)).md", "")
+    fs.writeFileSync("public-text/\(issue.number)-no-title.md", "")
