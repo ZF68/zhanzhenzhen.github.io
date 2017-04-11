@@ -1,0 +1,24 @@
+fus 2.4.1
+import "./shared.manifest" all
+
+fs: import "fs"
+githubInfo: import "./client.github-info"
+githubCredential: require("../github-credential")
+
+apiBase: "https://api.github.com"
+
+headerFields: {
+    "Authorization":
+        "Basic "
+        + (githubCredential.username + ":" + githubCredential.password)..toBytes()..toBase64()
+    "If-Modified-Since": "Sat, 01 Jan 2000 00:00:00 GMT" # disable cache
+    "User-Agent": "none" # this can be anything, we use "none"
+}
+
+add'export: (title: "no-title") ->
+    issue: web.jsonPost(
+        "\(apiBase)/repos/\(githubInfo.owner)/\(githubInfo.repo)/issues"
+        {title: title}
+        {headerFields: headerFields}
+    )'wait.body
+    fs.writeFileSync("public-text/\(issue.number)-\(title).md", "")
