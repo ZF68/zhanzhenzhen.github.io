@@ -10,7 +10,7 @@ apiBase: "https://api.github.com"
 
 do <>
     issue: web.jsonPost("\(apiBase)/repos/\(githubInfo.owner)/\(githubInfo.repo)/issues", {
-        title: "article"
+        title: "No Title"
     }, {
         headerFields: {
             "Authorization":
