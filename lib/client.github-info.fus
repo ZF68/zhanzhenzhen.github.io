@@ -1,0 +1,7 @@
+fus 2.3.0
+import "./shared.manifest" all
+
+export: {
+    owner: "zhanzhenzhen"
+    repo: "zhanzhenzhen.github.io"
+}

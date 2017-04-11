@@ -1,0 +1,20 @@
+fus 2.3.0
+import "babel-polyfill"
+import "./shared.manifest" all
+
+fs: import "fs"
+githubInfo: import "./client.github-info"
+githubCredential: require("./github-credential")
+
+apiBase: "https://api.github.com"
+
+do <>
+    issue: web.jsonPost("\(apiBase)/repos/\(githubInfo.owner)/\(githubInfo.repo)/issues", {
+        title: "article"
+    }, {
+        headerFields: {
+            "Authorization":
+                (githubCredential.username + ":" + githubCredential.password).toBytes().toBase64()
+        }
+    })'wait.body
+    fs.writeFileSync("public-text/\(issue.id..pad(4)).md", "")

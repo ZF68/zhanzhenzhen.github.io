@@ -27,3 +27,5 @@ node_modules
 
 /ip.txt
 /password.txt
+
+/github-credential.json

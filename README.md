@@ -67,6 +67,7 @@ Only for Me
 ```bash
 ln -s ../common-private/lan-ip-credential.p12 credential.p12
 ln -s ../common-private/cookie-password.txt password.txt
+ln -s ../common-private/github-credential.json github-credential.json
 ln -s ../common-public/lan-ip.txt ip.txt
 ```
 
