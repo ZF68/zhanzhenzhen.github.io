@@ -16,7 +16,7 @@ headerFields: {
 }
 
 validateName: name ->
-    assert(name is String and 1 ≤ name.length ≤ 100)
+    assert(name is String and 1 ≤ name.length ≤ 100 and name ≠ "." and name ≠ "..")
     assert(name.search(r"^[^'\"\\/:|*?]+$") ≠ -1)
     assert(name.search(r"^[^\x00-\x1f\x7f]+$") ≠ -1)
 
