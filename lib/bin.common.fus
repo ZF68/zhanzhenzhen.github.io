@@ -15,7 +15,12 @@ headerFields: {
     "User-Agent": "none" # this can be anything, we use "none"
 }
 
+validateName: name ->
+    assert(name.search(r"^[^'\"\\/:|*?]+$") ≠ -1)
+    assert(name.search(r"^[^\x00-\x1f\x7f]+$") ≠ -1)
+
 add'export: (name: "no-title") ->
+    validateName(name)
     issue: web.jsonPost(
         "\(apiBase)/repos/\(githubInfo.owner)/\(githubInfo.repo)/issues"
         {title: name}
