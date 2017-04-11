@@ -15,10 +15,10 @@ headerFields: {
     "User-Agent": "none" # this can be anything, we use "none"
 }
 
-add'export: (title: "no-title") ->
+add'export: (name: "no-title") ->
     issue: web.jsonPost(
         "\(apiBase)/repos/\(githubInfo.owner)/\(githubInfo.repo)/issues"
-        {title: title}
+        {title: name}
         {headerFields: headerFields}
     )'wait.body
-    fs.writeFileSync("public-text/\(issue.number)-\(title).md", "")
+    fs.writeFileSync("public-text/\(issue.number)-\(name).md", "")
