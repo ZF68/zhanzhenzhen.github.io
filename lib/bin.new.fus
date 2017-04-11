@@ -14,9 +14,10 @@ do <>
     }, {
         headerFields: {
             "Authorization":
-                (githubCredential.username + ":" + githubCredential.password)..toBytes()..toBase64()
+                "Basic "
+                + (githubCredential.username + ":" + githubCredential.password)..toBytes()..toBase64()
             "If-Modified-Since": "Thu, 05 Jul 2012 15:31:30 GMT" # disable cache
             "User-Agent": "zzz"
         }
     })'wait.body
-    fs.writeFileSync("public-text/\(issue.id..pad(4)).md", "")
+    fs.writeFileSync("public-text/\(issue.number..pad(4)).md", "")
