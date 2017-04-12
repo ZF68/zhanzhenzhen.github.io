@@ -28,6 +28,19 @@ generateDocUri: (issueNumber, name) ->
     else
         "https://\(githubInfo.owner).github.io/\(githubInfo.repo)/\(issueNumber)-\(name)"
 
+updateIssue: (issueNumber, name) ->
+    docUri: generateDocUri(issueNumber, name)
+    web.request{
+        method: "PATCH"
+        uri: "\(apiBase)/repos/\(githubInfo.owner)/\(githubInfo.repo)/issues/\(issueNumber)"
+        headerFields: Object..absorb({"Content-Type": "application/json"}, headerFields)
+        body: JSON.stringify{
+            title: name
+            body: "[\(docUri)](\(docUri))"
+        }
+        responseBodyType: "json"
+    }
+
 add'export: (name: "no-title") ->
     validateName(name)
     issue: web.jsonPost(
@@ -35,6 +48,7 @@ add'export: (name: "no-title") ->
         {title: name}
         {headerFields: headerFields}
     )'wait.body
+    updateIssue(issue.number, name)'wait
     path: "public-text/\(issue.number)-\(name).md"
     fs.writeFileSync(path, "")
     console.log("New file: \(path)")
@@ -48,14 +62,4 @@ rename'export: (issueNumber, name) ->
         .match(r"^(.*)\.md$").1
     validateName(oldName)
     fs.renameSync("public-text/\(oldName).md", "public-text/\(issueNumber)-\(name).md")
-    docUri: generateDocUri(issueNumber, name)
-    web.request{
-        method: "PATCH"
-        uri: "\(apiBase)/repos/\(githubInfo.owner)/\(githubInfo.repo)/issues/\(issueNumber)"
-        headerFields: Object..absorb({"Content-Type": "application/json"}, headerFields)
-        body: JSON.stringify{
-            title: name
-            body: "[\(docUri)](\(docUri))"
-        }
-        responseBodyType: "json"
-    }
+    updateIssue(issueNumber, name)
