@@ -116,6 +116,7 @@ docs: client.text
     name: filenameMatches.3
     if name = "home"
         category: "home"
+        idInPath: ""
     else
         matched: name.match(r"^(\d\d\d\d)-(\d\d)-(\d\d)($|-)")
         if matched'ok
@@ -123,6 +124,7 @@ docs: client.text
             time: "\(matched.1)-\(matched.2)-\(matched.3)"
         else
             category: "article"
+        idInPath: id
     {
         id: id
         name: name
@@ -131,6 +133,7 @@ docs: client.text
         htmlTitle: renderedHead
         time: time
         content: doc.content
+        idInPath: idInPath
         filename: doc.filename
         githubIssueNumber: githubIssueNumber
     }
@@ -352,7 +355,7 @@ sceneBox: ui.SceneBox(firstScene, secondScene, mainScene)
 ui.root.add sceneBox
 
 docs.forEach doc ->
-    docsObj.(doc.id): doc
+    docsObj.(doc.idInPath): doc
 
 blogs: docs.filter(m -> m.category = "blog")..sortDescending(m -> m.time)
 searchResults: blogs
