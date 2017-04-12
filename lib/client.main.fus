@@ -446,8 +446,14 @@ uriUpdateHandler: <>
 
         refreshHeader()
 
-        web.jsonGet("\(apiBase)/repos/\(gh.owner)/\(gh.repo)/issues/\(doc.githubIssueNumber)/comments")
-        .then(response ->
+        web.jsonGet(
+            "\(apiBase)/repos/\(gh.owner)/\(gh.repo)/issues/\(doc.githubIssueNumber)/comments"
+            {
+                headerFields: {
+                    "If-Modified-Since": "Sat, 01 Jan 2000 00:00:00 GMT" # disable cache
+                }
+            }
+        ).then(response ->
             comments: response.body
             if comments..isEmpty()
                 commentsElement.add(
