@@ -7,11 +7,11 @@ HTTPS取代HTTP已经成为一股潮流。
 
 首先访问qq.com。
 
-<img src="/http-weakness-1.png" alt="" style="width: 80%;" />
+<img src="/40-1.png" alt="" style="width: 80%;" />
 
 您看到了什么？右下方“辉煌甲子，追梦百年”的广告，明显排版有问题，看上去不像QQ网站上的广告。于是，我查看了该页面的HTML元素：
 
-<img src="/http-weakness-2.png" alt="" style="width: 80%;" />
+<img src="/40-2.png" alt="" style="width: 80%;" />
 
 忽然见到里面有个`<iframe>`，这不正常！
 
