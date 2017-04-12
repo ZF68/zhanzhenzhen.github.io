@@ -51,7 +51,8 @@ add'export: (name: "no-title") ->
     updateIssue(issue.number, name)'wait
     path: "public-text/\(issue.number)-\(name).md"
     fs.writeFileSync(path, "")
-    console.log("New file: \(path)")
+    console.log("New file added:")
+    console.log(path)
 
 rename'export: (issueNumber, name) ->
     validateIssueNumber(issueNumber)
