@@ -23,10 +23,17 @@ validateName: name ->
 validateIssueNumber: x -> assert(Number.isInteger(x) and 0 ≤ x ≤ 999999)
 
 generateDocUri: (issueNumber, name) ->
-    if githubInfo.repo.endsWith(".github.io")
-        "https://\(githubInfo.repo)/\(issueNumber)-\(name)"
-    else
-        "https://\(githubInfo.owner).github.io/\(githubInfo.repo)/\(issueNumber)-\(name)"
+    before:
+        if githubInfo.repo.endsWith(".github.io")
+            "https://\(githubInfo.repo)"
+        else
+            "https://\(githubInfo.owner).github.io"
+    after:
+        if name = "home"
+            "/"
+        else
+            "/\(issueNumber)-\(name)"
+    before + after
 
 updateIssue: (issueNumber, name) ->
     docUri: generateDocUri(issueNumber, name)
