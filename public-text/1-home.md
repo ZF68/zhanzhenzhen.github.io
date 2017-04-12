@@ -27,7 +27,7 @@
 
 我开发了一门语言，叫做[FutureScript](https://futurescript.org/)。
 
-我开发了一个全栈框架，叫做 [Site Engine](http://zizisoft.com/site)。
+我正在参与开发一个全栈框架，叫做 [Site Engine](http://zizisoft.com/site)（工程量很大，还未完工，所以本站界面仍然比较烂）。
 
 兴趣爱好
 ---------
