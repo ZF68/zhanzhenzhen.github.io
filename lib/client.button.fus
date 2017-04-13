@@ -7,6 +7,9 @@ COLORS: import "./client.colors" all
 
 Button'export: class from ui.Button
     static DEFAULT_BACKGROUND_PAINT: COLORS.buttonBackground
-    static DEFAULT_BORDER: ui.Border{width: "0.0933333em", paint: COLORS.text}
+    static DEFAULT_PAINT: COLORS.buttonPaint
+    static DEFAULT_BORDER: ui.Border{width: "0em"}
+    static DEFAULT_BORDER_RADIUS: "1em"
+    static DEFAULT_PADDING: ui.Padding("1em", "0.5em")
     static DEFAULT_ACTIVE_STYLES: {backgroundPaint: COLORS.buttonActiveBackground}
     static DEFAULT_HOVER_STYLES: {backgroundPaint: COLORS.buttonHoverBackground}

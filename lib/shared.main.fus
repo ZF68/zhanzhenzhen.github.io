@@ -25,7 +25,7 @@ shared.lits: [
         comments: "Comments"
         addComment: "Add Comment"
         commentsDisclaimer: "Below are comments by visitors. Please do not abuse. If you found any please report to me."
-        addCommentHint: "For the Title field in the new window, please type "
+        addCommentHint: "Comments in GitHub will be reflected to this site."
         noComment: "No comment."
         commentReplyCountSuffix: " Replies"
         commentsLoadError: "Comments load error. Please try again after 1 minute. If you browse \
@@ -52,7 +52,7 @@ shared.lits: [
         comments: "评论"
         commentsDisclaimer: "以下是网友评论。不代表本人支持其中的观点。请勿发表不良内容，如发现请向本人举报。"
         addComment: "添加评论"
-        addCommentHint: "让GitHub评论映射到网站中，这是贼的创新"
+        addCommentHint: "在GitHub的评论会自动映射到网站中"
         noComment: "无评论。"
         commentReplyCountSuffix: "回复"
         commentsLoadError: "评论加载错误，请在1分钟后再试试。如果您在1分钟之内浏览不同页面超过10次，\
