@@ -1,5 +1,13 @@
 Copyright (c) 2016 Zhenzhen Zhan
 
+This document needs update. For now, please don't use it!
+====
+
+这个文档需要更新。暂时请不要使用它！
+====
+
+===================================================================
+
 Blog files are under `public-text` directory.
 
 博客文件在`public-text`目录中。
