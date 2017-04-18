@@ -50,7 +50,7 @@ shared.lits: [
         searchNext: "后"
         toc: "目录"
         comments: "评论"
-        commentsDisclaimer: "以下是网友评论。不代表本人支持其中的观点。请勿发表不良内容，如发现请向本人举报。"
+        commentsDisclaimer: "以下是网友评论（不代表本人支持其中的观点）。"
         addComment: "添加评论"
         addCommentHint: "在GitHub的评论会自动映射到网站中"
         noComment: "无评论。"
