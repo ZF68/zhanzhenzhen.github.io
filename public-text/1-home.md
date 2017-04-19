@@ -21,7 +21,7 @@
 第一部分：HTTP与HTTPS
 
 - [HTTP网站的弱点](/40-http的弱点)
-- [HTTPS为什么安全](/https为什么安全)
+- [HTTPS为什么安全](/42-https为什么安全)
 - [浏览器打开本地HTML文件](/41-浏览器打开本地html文件)
 - [网站本地测试时该用HTTP还是HTTPS](/35-网站本地测试时该用http还是https)
 
