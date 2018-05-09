@@ -7,7 +7,7 @@ Copyright (c) 2016 Zhenzhen Zhan
 sudo npm install site -g --unsafe-perm
 ```
 
-Clone这个repo，然后设置 `git remote` 到您的 GitHub Pages 的地址。
+Clone这个repo，然后设置 `git remote` 到您的 GitHub Pages 的地址。注意，有两个branch，默认的branch是source，而master是自动生成的、用来储存发布的版本的。确认当前的branch是source。
 
 ```bash
 npm install
@@ -64,7 +64,7 @@ npm install
 ./add home
 ```
 
-它会生成`public-text/<number>-home.md`文件，其中`<number>`是数字，同时在您的GitHub上自动添加一条issue，issue号就是该`<number>`。
+它会生成`public-text/<number>-home.md`文件，其中`<number>`是数字，同时它会自动在您的GitHub上添加一条issue，issue号就是该`<number>`。
 
 您以后还可以添加其他文件。如要添加博客（日志），那么使用`./add yyyy-mm-dd`的格式。如要添加文章，那么使用别的名称。
 
@@ -85,6 +85,8 @@ site debug
 =======
 
 `site deploy`
+
+它会自动提交一个commit到master branch，然后自动切换回source branch。
 
 高级
 ======
