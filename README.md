@@ -1,133 +1,90 @@
 Copyright (c) 2016 Zhenzhen Zhan
 
-This document needs update. For now, please don't use it!
-====
-
-这个文档需要更新。暂时请不要使用它！
-====
-
-===================================================================
-
-Blog files are under `public-text` directory.
-
-博客文件在`public-text`目录中。
-
-Steps to Write Your Own Blog
-===============================
-
-1. `npm install -g site`
-1. Clone this repo, and set `git remote` to your GitHub Pages address.
-1. `npm install`
-1. Empty the `public` and `public-text` directory.
-1. Add a `public-text/home.md` file.
-1. Edit `lib/shared.main.fus` file. Possibly remove unnecessary `lit` element if you don't want to support multiple languages.
-1. In `lib/client.main.fus` replace `username` and `repo` to yours.
-1. In `lib/client.main.fus` there's a string `"/childhood-computer.jpg"`. Please add your own "prelude" image to `public` directory and modify this string.
-1. When you write a blog, the Markdown file must be in `public-text` directory. The file name must start with `YYYY_MM_DD`. Other files such as images must be in `public` directory.
-
-撰写您自己的博客的步骤
-=======================
-
-1. `npm install -g site`
-1. Clone这个repo，然后设置 `git remote` 到您的 GitHub Pages 的地址。
-1. `npm install`
-1. 清空`public`和`public-text`目录。
-1. 添加`public-text/home.md`文件。
-1. 编辑`lib/shared.main.fus`文件。如果您不想支持多语言，可以清除不必要的`lit`元素。
-1. 在`lib/client.main.fus`中将`username`和`repo`替换为您自己的。
-1. 在`lib/client.main.fus`中有一个字符串`"/childhood-computer.jpg"`。请添加您自己的“序幕”图片到`public`目录，并修改该字符串。
-1. 撰写博客时，Markdown文件必须放在`public-text`目录中，且文件名必须以`YYYY_MM_DD`开头。其他文件，例如图片，必须放在`public`目录中。
-
-Debug
-========
-
-After configuring, use `site debug` command to run it on your computer. There are two ways of configuring:
-
-Quick Way
-----------
-
-Use this way if you don't want to configure HTTPS while testing.
-
-Add a file `ip.txt` in the project's directory. The file should contain a line with the following text:
-
-```
-127.0.0.1
-```
-
-Then remove some lines in `lib/server.main.fus` as mentioned in the comments in this file.
-
-Standard Way
--------------
-
-Create 3 files in the project's directory:
-
-- `credential.p12`
-- `password.txt`
-- `ip.txt`
-
-`credential.p12` should contain a self-signed certificate. `password.txt` should contain a line of a password. `ip.txt` should contain a line of desired IP address.
-
-When browsing for the first time, you should type the password (see details in Site Engine's manual).
-
-Only for Me
---------------
+初始化
+===========
 
 ```bash
-ln -s ../common-private/lan-ip-credential.p12 credential.p12
-ln -s ../common-private/cookie-password.txt password.txt
-ln -s ../common-private/github-credential.json github-credential.json
-ln -s ../common-public/lan-ip.txt ip.txt
+sudo npm install site -g --unsafe-perm
 ```
 
-For other developers please don't run these commands unless your directory structure is the same as mine.
+Clone这个repo，然后设置 `git remote` 到您的 GitHub Pages 的地址。
 
-调试
-======
+```bash
+npm install
+```
 
-配置后，使用 `site debug` 命令来在您的电脑上运行它。有两种配置方法：
+添加一个文件`github-credential.json`，该文件含有您GitHub的username和personal access token，格式如下：
+
+```json
+{
+    "username": "<username>",
+    "password": "<token>"
+}
+```
+
+把`<username>`替换为用户名，`<token>`替换为personal access token（注意最好不要用密码，以防密码泄漏，要用personal access token）。
+
+添加一个文件`ip.txt`，该文件含有一个IP地址。
+
+然后，以下两种方案任选一种：
 
 快速方法
 ----------
 
 如果您不想在测试时配置HTTPS，则使用此方法。
 
-在项目的目录中添加一个文件`ip.txt`。该文件应包含一行文本，如下：
-
-```
-127.0.0.1
-```
-
-然后删除`lib/server.main.fus`一些段落。请遵照该文件注释中的提示来删除。
+删除`lib/server.main.fus`一些段落。请遵照该文件注释中的提示来删除。
 
 标准方法
 -------------
 
-在项目的目录中添加3个文件：
+这是我使用的方法，您可参照此方法来进行安全的调试（即使是局域网内的电脑也不能偷窥您的正在调试的网站）。当然，如果IP是`127.0.0.1`，那不需要采用此方法。但如果IP是`10.0.0.2`之类的局域网地址的话（例如您要使手机可以访问该地址来测试），又不想让局域网的其他电脑可以访问，那最好采用此方法，此方法使用HTTPS和密码来保护网站。
 
-- `credential.p12`
-- `password.txt`
-- `ip.txt`
+添加一个文件`credential.p12`，该文件含有一个颁发自ZZZ Root CA的关于此IP的证书以及对应的私钥。
 
-`credential.p12`应包含自签名证书，`password.txt`应包含一行密码，`ip.txt`应包含一行您希望的IP地址。
+添加一个文件`password.txt`，该文件含有一个密码。
 
-初次浏览时，您需要输入密码（详情请见 Site Engine 的手册）。
 
-Deploy
-=========
+添加文件、改名
+===============
 
-`site deploy`
+先输入`site build debug`来生成一些工具模块。
+
+我自己的文章都在`public-text`目录中，您可看一下它们的结构做一些简单的了解。
+
+清空`public`和`public-text`目录。
+
+编辑`lib/shared.main.fus`文件。如果您不想支持多语言，可以清除不必要的`lit`元素。
+
+在`lib/client.main.fus`中有一个字符串`"/childhood-computer.jpg"`。请添加您自己的“序幕”图片到`public`目录，并修改该字符串。
+
+使用这个命令添加主页文件：
+
+```bash
+./add home
+```
+
+它会生成`public-text/<number>-home.md`文件，其中`<number>`是数字，同时在您的GitHub上自动添加一条issue，issue号就是该`<number>`。
+
+您以后还可以添加其他文件。如要添加博客（日志），那么使用`./add yyyy-mm-dd`的格式。如要添加文章，那么使用别的名称。
+
+您以后还可以更改名称，使用`./rename <number> <new-name>`，把`<number>`替换成文章对应的issue号，把`<new-name>`替换成新名称。
+
+您用到的其他文件，例如图片，必须放在`public`目录中。
+
+调试
+======
+
+```bash
+site debug
+```
+
+然后在浏览器中打开网站。如果是用快速方法，那么端口是50000；如果是用标准方法，那么使用HTTPS，端口是50001。使用标准方法的话，当进入主页，会跳转到输入密码的页面，只要输入正确，重新访问主页即可。
 
 发布
 =======
 
 `site deploy`
-
-Advanced
-===========
-
-If you want to block a certain comment, simply add a label named `blocked` to the issue.
-
-You may want to deeply customize the layout or the logic of your GitHub Pages. To do this, you'll need to learn [FutureScript](https://futurescript.org/) and [Site Engine](http://zizisoft.com/site).
 
 高级
 ======

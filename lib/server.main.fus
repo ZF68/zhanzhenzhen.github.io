@@ -23,8 +23,8 @@ server.host:
         fsMod.readFileSync("ip.txt", "utf8").trim()
     else
         void
-server.httpPort: 50003
-server.httpsPort: 50004
+server.httpPort: 50000
+server.httpsPort: 50001
 
 # Remove these lines if you don't want to configure HTTPS for testing.
 #--------------------------------------------------------------------------------
