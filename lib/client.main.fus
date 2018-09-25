@@ -402,6 +402,7 @@ uriUpdateHandler: <>
     path: decodeURI(location.pathname)
     if path ≠ oldPath
 
+        scrollElement.raw.scrollTop: 0
         contentElement.empty()
         commentsElement.empty()
 
